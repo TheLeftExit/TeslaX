@@ -12,7 +12,6 @@ namespace TeslaX
         public static void Main()
         {
             Application.EnableVisualStyles();
-
             Application.Run(new MainForm());
         }
     }
