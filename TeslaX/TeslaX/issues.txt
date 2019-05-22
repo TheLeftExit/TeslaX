@@ -1,0 +1,3 @@
+﻿001
+If Growtopia is windowed, WindowPos misses it by a small offset.
+Should not limit functionality, but is nasty and ought to be fixed at some point.

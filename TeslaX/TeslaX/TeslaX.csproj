@@ -37,16 +37,19 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Worker\Worker.Init.cs" />
+    <Compile Include="Worker\Worker.Predicates.cs" />
+    <Compile Include="Worker\Worker.SlaveForm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Worker.cs" />
+    <Compile Include="MainForm.cs" />
+    <Compile Include="Worker\Worker.Global.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="concept.txt" />
+    <Content Include="issues.txt" />
+    <Content Include="predicates.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -65,5 +68,6 @@
       <Name>WindowScrape</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

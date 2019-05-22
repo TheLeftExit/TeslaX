@@ -10,32 +10,17 @@ using HwndObject = WindowScrape.Types.HwndObject;
 
 namespace TeslaX
 {
-    public class Worker
+    public partial class Worker
     {
-        /// <summary>
-        /// Stores Growtopia window handle.
-        /// </summary>
-        public static HwndObject Window;
-
-        /// <summary>
-        /// Window location and size.
-        /// </summary>
-        public static Rectangle WindowPos;
-
-        /// <summary>
-        /// Starting seeking area, relative to window.
-        /// </summary>
-        public static Rectangle SeekArea;
-
         /// <summary>
         /// Form used to set SeekArea based on user input.
         /// </summary>
-        class SlaveForm: Form
+        class SlaveForm : Form
         {
             PictureBox pictureBox;
 
             Bitmap shot;
-            bool isMouseDown;
+            // bool isMouseDown;
 
             private void onLoad(object Sender, EventArgs e)
             {
@@ -50,16 +35,17 @@ namespace TeslaX
                 //pictureBox.MouseMove += onMouseMove;
                 this.Controls.Add(pictureBox);
                 this.FormBorderStyle = FormBorderStyle.None;
-                isMouseDown = false;
+                // isMouseDown = false;
             }
 
             private void onMouseDown(object Sender, MouseEventArgs e)
             {
                 SeekArea.X = Cursor.Position.X - WindowPos.X;
                 SeekArea.Y = Cursor.Position.Y - WindowPos.Y;
-                isMouseDown = true;
+                // isMouseDown = true;
             }
             /*
+			// Doesn't seem to work.
             private void onMouseMove(object Sender, MouseEventArgs e)
             {
                 if (isMouseDown)
@@ -75,8 +61,8 @@ namespace TeslaX
             */
             private void onMouseUp(object Sender, MouseEventArgs e)
             {
-                SeekArea.Width = Cursor.Position.X - SeekArea.X;
-                SeekArea.Height = Cursor.Position.Y - SeekArea.Y;
+                SeekArea.Width = Cursor.Position.X - SeekArea.X - WindowPos.X;
+                SeekArea.Height = Cursor.Position.Y - SeekArea.Y - WindowPos.Y;
                 this.Close();
             }
 
@@ -84,34 +70,6 @@ namespace TeslaX
             {
                 this.Load += onLoad;
             }
-        }
-
-        /// <summary>
-        /// Returns a Bitmap of part of the screen. Resource costly.
-        /// </summary>
-        public static Bitmap Screenshot(int x, int y, int w, int l)
-        {
-            Bitmap res = new Bitmap(w, l);
-            using(Graphics g = Graphics.FromImage(res))
-            {
-                g.CopyFromScreen(x, y, 0, 0, res.Size);
-            }
-            return res;
-        }
-
-        public static void Init()
-        {
-            Window = HwndObject.GetWindowByTitle("Growtopia");
-            WindowPos = new Rectangle(Window.Location, Window.Size);
-            SlaveForm slaveForm = new SlaveForm();
-            slaveForm.ShowDialog();
-            MessageBox.Show(SeekArea.Location.ToString()+' '+SeekArea.Size.ToString());
-            // at this point SeekArea exists, allowing to seek for LK with screenshots
-            // we need predicates though
-            /*
-             * Known bug: if Growtopia is windowed, WindowPos misses it by a small offset.
-             * Should not limit functionality, but is nasty and ought to be fixed at some point.
-             */
         }
     }
 }

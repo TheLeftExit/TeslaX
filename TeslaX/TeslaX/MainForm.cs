@@ -7,6 +7,8 @@ using System.Windows.Forms;
 
 namespace TeslaX
 {
+    // Otherwise dysfunctional form designer opens isntead
+    [System.ComponentModel.DesignerCategory("")]
     class MainForm: Form
     {
         private GroupBox groupBox1;
