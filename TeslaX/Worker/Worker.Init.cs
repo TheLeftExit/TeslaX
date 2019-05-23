@@ -21,7 +21,10 @@ namespace TeslaX
                 MessageBox.Show("Window handle is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
-            WindowPos = new Rectangle(Window.Location, Window.Size);
+            if (Windowed)
+                WindowPos = new Rectangle(Window.Location.X + 8, Window.Location.Y + 31, Window.Size.Width, Window.Size.Height);
+            else
+                WindowPos = new Rectangle(Window.Location, Window.Size);
 
             // Getting SeekArea
             SlaveForm slaveForm = new SlaveForm();

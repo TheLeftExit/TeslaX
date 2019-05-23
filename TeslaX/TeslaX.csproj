@@ -36,37 +36,28 @@
     <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
+    <Compile Include="WindowScrape\Constants\WM.cs" />
+    <Compile Include="WindowScrape\Static\HwndInterface.cs" />
+    <Compile Include="WindowScrape\Types\HwndObject.cs" />
+    <Compile Include="WindowScrape\Types\RECT.cs" />
     <Compile Include="Worker\Worker.Init.cs" />
     <Compile Include="Worker\Worker.Predicates.cs" />
     <Compile Include="Worker\Worker.SlaveForm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainForm.cs" />
+    <Compile Include="Main\MainForm.cs" />
     <Compile Include="Worker\Worker.Global.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Main\Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="concept.txt" />
-    <Content Include="issues.txt" />
     <Content Include="predicates.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WindowScrape\WindowScrape.csproj">
-      <Project>{9ee32ba3-7b86-44b3-9f85-9edb0eacf710}</Project>
-      <Name>WindowScrape</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

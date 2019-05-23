@@ -13,8 +13,10 @@ procedure:
    if [note gray]
     - move to the right until (x+1,y) and (x+2,y) are [note black]
  - offset: (x+1,y-26) mod 32
+ ~~~ IMPLEMENTED with some changes. ~~~
 
 2. player predicate 1
+item: barky's mask
 bitmap: seekarea from slaveform
 colors in use:
  ~ [nose black] (27,27,27)

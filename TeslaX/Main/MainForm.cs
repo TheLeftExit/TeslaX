@@ -7,7 +7,9 @@ using System.Windows.Forms;
 
 namespace TeslaX
 {
-    // Otherwise dysfunctional form designer opens isntead
+    // Otherwise dysfunctional form designer opens instead.
+    // Inheriting from Form prompted the designer at first, but none of the changes showed up in runtime;
+    // so I added a then unused InitializeComponent to MainForm.Load, which fixed the real form but broke the designer.
     [System.ComponentModel.DesignerCategory("")]
     class MainForm: Form
     {
@@ -16,6 +18,7 @@ namespace TeslaX
         private RadioButton radioButton3;
         private RadioButton radioButton4;
         private Button button1;
+        private CheckBox checkbox1;
         private RadioButton radioButton1;
 
         public MainForm()
@@ -31,6 +34,7 @@ namespace TeslaX
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
+            this.checkbox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +97,7 @@ namespace TeslaX
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 89);
+            this.button1.Location = new System.Drawing.Point(12, 89+22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(88, 23);
             this.button1.TabIndex = 1;
@@ -101,10 +105,19 @@ namespace TeslaX
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // checkbox1
+            // 
+            this.checkbox1.Location = new System.Drawing.Point(20, 85);
+            this.checkbox1.Name = "checkbox1";
+            this.checkbox1.TabIndex = 2;
+            this.checkbox1.Text = "Windowed";
+            this.checkbox1.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(113, 121);
+            this.ClientSize = new System.Drawing.Size(113, 121+22);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.checkbox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
@@ -117,6 +130,7 @@ namespace TeslaX
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            Worker.Windowed = checkbox1.Checked;
             Worker.Init();
         }
     }

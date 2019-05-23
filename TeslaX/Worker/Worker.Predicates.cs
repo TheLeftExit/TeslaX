@@ -41,7 +41,7 @@ namespace TeslaX
                     return InvalidPoint;
             }
 
-            return now.Add(-6,-26);
+            return now.Add(0,-26);
         }
     }
 }

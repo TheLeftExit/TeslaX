@@ -16,10 +16,16 @@ namespace TeslaX
         /// Predicate output in case of error.
         /// </summary>
         public static readonly Point InvalidPoint = new Point(-1, -1);
+
         /// <summary>
         /// Stores Growtopia window handle.
         /// </summary>
         public static HwndObject Window;
+
+        /// <summary>
+        /// Determines whether Growtopia is windowed. Affects window offset.
+        /// </summary>
+        public static bool Windowed;
 
         /// <summary>
         /// Window location and size, relative to SCREEN.
