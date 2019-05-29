@@ -7,12 +7,14 @@ using System.Windows.Forms;
 
 namespace TeslaX.Main
 {
-    public class Program
+    public class ProgramTest
     {
         public static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.Run(new MainForm());
+            StringBuilder sb = new StringBuilder();
+            foreach (int x in Worker.EligibleBetween(100, 200, 0))
+                sb.AppendLine(x.ToString());
+            MessageBox.Show(sb.ToString());
         }
     }
 }

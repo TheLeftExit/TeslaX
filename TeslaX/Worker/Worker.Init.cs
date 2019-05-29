@@ -31,8 +31,8 @@ namespace TeslaX
             slaveForm.ShowDialog();
 
             // Getting offset.
-            Bitmap tmpshot = Screenshot(SeekArea.X + WindowPos.X, SeekArea.Y + WindowPos.Y, SeekArea.Width, SeekArea.Height);
-            Offset = GetOffset(tmpshot);
+            Bitmap firstshot = Screenshot(SeekArea.X + WindowPos.X, SeekArea.Y + WindowPos.Y, SeekArea.Width, SeekArea.Height);
+            Offset = GetOffset(firstshot);
             if (Offset.Equals(InvalidPoint))
             {
                 MessageBox.Show("InvalidPoint");
@@ -40,8 +40,11 @@ namespace TeslaX
             }
             Offset = Offset.Add(SeekArea.X, SeekArea.Y).Mod(32);
             MessageBox.Show(Offset.ToString());
-            return;
 
+            // Getting LK
+            LastKnown = GetPlayer(firstshot);
+            MessageBox.Show(LastKnown.ToString());
+            return;
         }
     }
 }

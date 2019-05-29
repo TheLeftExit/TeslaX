@@ -131,6 +131,8 @@ namespace TeslaX
         private void Button1_Click(object sender, EventArgs e)
         {
             Worker.Windowed = checkbox1.Checked;
+            Worker.Right = radioButton2.Checked || radioButton4.Checked;
+            Worker.Down = radioButton3.Checked || radioButton4.Checked;
             Worker.Init();
         }
     }

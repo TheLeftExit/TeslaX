@@ -33,9 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>TeslaX.Program</StartupObject>
+    <StartupObject>TeslaX.Main.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Main\ProgramTest.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
