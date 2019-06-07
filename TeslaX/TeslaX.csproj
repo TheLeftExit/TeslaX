@@ -44,6 +44,7 @@
     <Compile Include="WindowScrape\Types\RECT.cs" />
     <Compile Include="Worker\Worker.Init.cs" />
     <Compile Include="Worker\Worker.Predicates.cs" />
+    <Compile Include="Worker\Worker.RowLoop.cs" />
     <Compile Include="Worker\Worker.SlaveForm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,5 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

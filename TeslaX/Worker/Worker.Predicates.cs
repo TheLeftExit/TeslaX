@@ -14,35 +14,27 @@ namespace TeslaX
     {
         public static Point GetOffset(Bitmap bitmap)
         {
-            // Identifying Sheet Music: Repeat Begin behind Wooden Platform, assuming it's ALWAYS and ONLY behind platforms.
-            // Also assuming the bottom gray line isn't blocked by hat items or nickname.
+            Color PlatformDark = Color.FromArgb(112, 71, 28);
+            // Since we're starting from a side edge, we're making sure that we don't run into area without platforms.
+            // Assuming that the farm is platformed everywhere except at most several blocks on edges.
+            bool startfromleft = (SeekArea.X + SeekArea.Width / 2) > WindowPos.Width;
 
-            Color NoteBlack = Color.FromArgb(54, 54, 54);
-            Color NoteGray = Color.FromArgb(187, 187, 187); // also 186
+            Point now = new Point(startfromleft ? 0 : bitmap.Width - 1, bitmap.Height - 1);
 
-            Point now = new Point(3, 0); // (0,0) makes it difficult to handle offsets where X is close to 0.
-
-            while (!NoteGray.IsColorAt(now, bitmap))
-            {
-                now.Y += 1;
-                if (now.Y >= bitmap.Size.Height)
+            while (!(PlatformDark.IsColorAt(now, bitmap) && PlatformDark.IsColorAt(now.Add(0, -8), bitmap))){
+                if (now.Y < 8)
                     return InvalidPoint;
-                while (NoteBlack.IsColorAt(now, bitmap) || NoteBlack.IsColorAt(now.Add(-3, 0), bitmap))
-                {
-                    now.X += 1;
-                    if (now.X >= bitmap.Size.Width)
-                        return InvalidPoint;
-                }
+                now.Y -= 1;
             }
 
-            while (NoteGray.IsColorAt(now, bitmap))
+            while (!(PlatformDark.IsColorAt(now.Add(0, 1), bitmap) && PlatformDark.IsColorAt(now.Add(startfromleft ? 7 : -7, 1), bitmap)))
             {
-                now.X += 1;
-                if (now.X >= bitmap.Size.Height)
+                if ((startfromleft && now.X > bitmap.Width - 8) || (!startfromleft && now.X < 7))
                     return InvalidPoint;
+                now.X += startfromleft ? 1 : -1;
             }
 
-            return now.Add(0,-26);
+            return now.Add(startfromleft ? 20 : 13, -8);
         }
 
         public static Point GetPlayer(Bitmap bitmap)

@@ -33,12 +33,12 @@ namespace TeslaX
         public static Rectangle WindowPos;
 
         /// <summary>
-        /// Starting seeking area, relative to WINDOW.
+        /// Area to screenshot, relative to WINDOW.
         /// </summary>
         public static Rectangle SeekArea;
 
         /// <summary>
-        /// Blocks' topleft pixel offset, relative to WINDOW.
+        /// Location of the fully rendered block closest to top left, relative to WINDOW.
         /// </summary>
         public static Point Offset;
 
@@ -48,14 +48,15 @@ namespace TeslaX
         public static Point LastKnown;
 
         /// <summary>
-        /// Farming direction.
+        /// Last taken Screenshot.
         /// </summary>
+        public static Bitmap CurrentShot;
+
+        // Farming direction.
         public static bool Right;
         public static bool Down;
 
-        /// <summary>
-        /// Returns a Bitmap of part of the screen. Resource costly.
-        /// </summary>
+        // Returns a Bitmap of part of the screen. Resource costly.
         public static Bitmap Screenshot(int x, int y, int w, int l)
         {
             Bitmap res = new Bitmap(w, l);
@@ -66,10 +67,14 @@ namespace TeslaX
             return res;
         }
 
-        /// <summary>
-        /// Checks if a point of Bitmap matches a color.
-        /// Accounts for possible color distortion.
-        /// </summary>
+        // Takes a screenshot of currently selected SeekArea and stores it in CurrentShot.
+        public static void Screenshot()
+        {
+            CurrentShot = Screenshot(SeekArea.X + WindowPos.X, SeekArea.Y + WindowPos.Y, SeekArea.Width, SeekArea.Height);
+        }
+
+        // Checks if a point of Bitmap matches a color.
+        // Accounts for possible color distortion.
         public static bool IsColorAt(this Color color, Point point, Bitmap bitmap)
         {
             Color source = bitmap.GetPixel(point.X, point.Y);
@@ -82,22 +87,51 @@ namespace TeslaX
             return true;
         }
 
-        /// <summary>
-        /// Checks if a point of Bitmap matches a color.
-        /// </summary>
+        // Checks if a point of Bitmap is a shade of gray, which explosions are drawn with.
+        // Accounts for possible color distortion.
+        public static bool ExplosionIsAt(Point point, Bitmap bitmap)
+        {
+            Color source = bitmap.GetPixel(point.X, point.Y);
+            if (Math.Abs(source.R - source.G) > 2)
+                return false;
+            if (Math.Abs(source.G - source.B) > 2)
+                return false;
+            if (Math.Abs(source.B - source.R) > 2)
+                return false;
+            return true;
+        }
+
         public static bool IsColorAt(this Color color, int x, int y, Bitmap bitmap)
         {
             return color.IsColorAt(new Point(x, y), bitmap);
         }
 
+        public static bool ExplosionIsAt(int x, int y, Bitmap bitmap)
+        {
+            return ExplosionIsAt(new Point(x, y), bitmap);
+        }
+
+        /// <summary>
+        /// Add (x, y) to a point. Handy!
+        /// </summary>
         public static Point Add(this Point point, int x, int y)
         {
             return new Point(point.X + x, point.Y + y);
         }
 
+        /// <summary>
+        /// Find modulo of a point. Handy!
+        /// </summary>
         public static Point Mod(this Point point, int mod)
         {
             return new Point(point.X % mod, point.Y % mod);
+        }
+
+        // Offset-ify the offset. Get it?
+        // Found myself using *.Add().Mod() in multiple places and decided to generalize it.
+        public static Point ify(this Point point)
+        {
+            return point.Add(SeekArea.X, SeekArea.Y).Mod(32);
         }
 
         /// <summary>

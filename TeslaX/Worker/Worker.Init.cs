@@ -38,7 +38,7 @@ namespace TeslaX
                 MessageBox.Show("InvalidPoint");
                 return;
             }
-            Offset = Offset.Add(SeekArea.X, SeekArea.Y).Mod(32);
+            Offset = Offset.ify();
             MessageBox.Show(Offset.ToString());
 
             // Getting LK

@@ -36,8 +36,8 @@ namespace TeslaX
             {
                 SeekArea.X = Cursor.Position.X - WindowPos.X - 32;
                 SeekArea.Width = 64;
-                SeekArea.Y = Cursor.Position.Y - WindowPos.Y - 32;
-                SeekArea.Height = 64;
+                SeekArea.Y = Cursor.Position.Y - WindowPos.Y - 48;
+                SeekArea.Height = 96;
                 this.Close();
             }
 
