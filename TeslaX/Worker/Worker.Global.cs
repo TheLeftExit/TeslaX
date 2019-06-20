@@ -117,11 +117,6 @@ namespace TeslaX
             return color.IsColorAt(new Point(x, y), bitmap);
         }
 
-        public static bool ExplosionIsAt(int x, int y, Bitmap bitmap)
-        {
-            return ExplosionIsAt(new Point(x, y), bitmap);
-        }
-
         /// <summary>
         /// Add (x, y) to a point. Handy!
         /// </summary>
