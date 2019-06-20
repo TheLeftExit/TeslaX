@@ -87,11 +87,22 @@ namespace TeslaX
             return true;
         }
 
-        // Checks if a point of Bitmap is a shade of gray, which explosions are drawn with.
-        // Accounts for possible color distortion.
-        public static bool ExplosionIsAt(Point point, Bitmap bitmap)
+        // Above, for standalone color.
+        public static bool Is(this Color source, Color color)
         {
-            Color source = bitmap.GetPixel(point.X, point.Y);
+            if (Math.Abs(color.R - source.R) > 2)
+                return false;
+            if (Math.Abs(color.G - source.G) > 2)
+                return false;
+            if (Math.Abs(color.B - source.B) > 2)
+                return false;
+            return true;
+        }
+
+        // Checks if the color is a shade of gray, which explosions are drawn with.
+        // Accounts for possible color distortion.
+        public static bool IsGrayScale(this Color source)
+        {
             if (Math.Abs(source.R - source.G) > 2)
                 return false;
             if (Math.Abs(source.G - source.B) > 2)
