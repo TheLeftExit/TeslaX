@@ -18,9 +18,10 @@ namespace TeslaX
         private RadioButton radioButton2;
         private RadioButton radioButton3;
         private RadioButton radioButton4;
-        private Button button1;
         private CheckBox checkbox1;
         private RadioButton radioButton1;
+
+        public Button button1;
 
         public MainForm()
         {
@@ -139,7 +140,7 @@ namespace TeslaX
             if (!Worker.Busy)
             {
                 WorkThread.Start();
-                button1.Text = "Working";
+                button1.Text = "Select area";
             }
             else
             {

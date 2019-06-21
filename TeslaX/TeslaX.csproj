@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TeslaX</RootNamespace>
     <AssemblyName>TeslaX</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,10 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>TeslaX.Main.Program</StartupObject>
+    <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main\ProgramTest.cs" />
+    <Compile Include="Drawing\Extensions.cs" />
+    <Compile Include="Drawing\Fist.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Block.cs" />
+    <Compile Include="Drawing\Ignorable.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
@@ -53,16 +62,25 @@
     <Compile Include="Main\Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="concept.txt" />
-    <Content Include="predicates.txt" />
+    <Content Include="Drawing\Raw\crack.png" />
+    <Content Include="Drawing\Raw\dust.png" />
+    <Content Include="Drawing\Raw\gems.png" />
+    <None Include="Drawing\Raw\lasergrid.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

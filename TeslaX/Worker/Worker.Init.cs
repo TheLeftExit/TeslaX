@@ -14,41 +14,46 @@ namespace TeslaX
     {
         public static void Init()
         {
-            // Toggle the flag.
             Busy = true;
-            // Getting window handle and window position
+
             Window = HwndObject.GetWindowByTitle("Growtopia");
             if(Window.Hwnd == IntPtr.Zero)
             {
                 MessageBox.Show("Window handle is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
+
             if (Windowed)
                 WindowPos = new Rectangle(Window.Location.X + 8, Window.Location.Y + 31, Window.Size.Width, Window.Size.Height);
             else
                 WindowPos = new Rectangle(Window.Location, Window.Size);
 
-            // Getting SeekArea
             SlaveForm slaveForm = new SlaveForm();
-            slaveForm.ShowDialog();
+            slaveForm.ShowDialog(); // Sets SeekArea.
 
-            // Getting offset.
             Bitmap firstshot = Screenshot(SeekArea.X + WindowPos.X, SeekArea.Y + WindowPos.Y, SeekArea.Width, SeekArea.Height);
+
             Offset = GetOffset(firstshot);
-            if (Offset.Equals(InvalidPoint))
+            if (Offset == InvalidPoint)
             {
-                MessageBox.Show("InvalidPoint");
+                MessageBox.Show("Failed to find offset in selected area.");
+                Restore();
                 return;
             }
             Offset = Offset.ify();
-            //MessageBox.Show(Offset.ToString());
 
-            // Getting LK
             LastKnown = GetPlayer(firstshot);
-            //MessageBox.Show(LastKnown.ToString());
-            //return;
+            if(LastKnown == InvalidPoint)
+            {
+                MessageBox.Show("Failed to find player in selected area.");
+                Restore();
+                return;
+            }
 
-            // Moment of truth...
+            // To be appended.
+            Ignorable.Load();
+            Block.Load();
+            ToWorking();
             RowLoop();
         }
     }

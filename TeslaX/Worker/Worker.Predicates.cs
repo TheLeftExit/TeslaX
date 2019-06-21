@@ -15,9 +15,6 @@ namespace TeslaX
         public static Point GetOffset(Bitmap bitmap)
         {
             Color PlatformDark = Color.FromArgb(112, 71, 28);
-            // Since we're starting from a side edge, we're making sure that we don't run into area without platforms.
-            // Assuming that the farm is platformed everywhere except at most several blocks on edges.
-            // REQUIREMENT: Bitmap has platforms all the way to the left/right.
             bool startfromleft = (SeekArea.X + SeekArea.Width / 2) > WindowPos.Width;
 
             Point now = new Point(startfromleft ? 0 : bitmap.Width - 1, bitmap.Height - 2);
@@ -38,32 +35,30 @@ namespace TeslaX
             return now.Add(startfromleft ? 20 : 13, -8);
         }
 
-        /// <summary>
-        /// Finds player's topleft pixel on the shot.<br/>
-        /// Automatically adds SeekArea position, so result is relative to window.
-        /// </summary>
+        // Automatically adds SeekArea position, so result is relative to window.
         public static Point GetPlayer(Bitmap bitmap)
         {
-            // Identifying player's location based on Barky's Mask.
-            // Y: 7
+            // Using Barky's Mask.
+            Color EarBrown1 = Color.FromArgb(144, 121, 88);
+            Color EarBrown2 = Color.FromArgb(155, 130, 96);
+            Color EarBrown3 = Color.FromArgb(166, 138, 99);
 
-            Color NoseGray = Color.FromArgb(27, 27, 27); // 27 27 28
-            Color NoseWhite = Color.FromArgb(254, 254, 254); // or 253
-
-            List<int> EligibleY = EligibleBetween(SeekArea.Y, SeekArea.Y + SeekArea.Height - 1, 7 + Offset.Y).AddInt(-SeekArea.Y);
+            List<int> EligibleY = EligibleBetween(SeekArea.Y, SeekArea.Y + SeekArea.Height - 1, 10 + Offset.Y).AddInt(-SeekArea.Y);
             foreach(int y in EligibleY)
             {
                 for(int x = 0 + 1; x < bitmap.Width - 1; x++)
                 {
-                    if (NoseWhite.IsColorAt(x, y, bitmap) && NoseGray.IsColorAt(x - 1, y, bitmap) && NoseGray.IsColorAt(x + 1, y, bitmap))
-                        return new Point(x, y).Add(Right ? -29 : -2, -7).Add(SeekArea.X, SeekArea.Y);
+                    if (EarBrown1.IsColorAt(x + (Right ? -1 : 1), y, bitmap) && EarBrown2.IsColorAt(x , y, bitmap) && EarBrown3.IsColorAt(x + (Right ? 1: -1), y, bitmap))
+                        return new Point(x, y).Add(Right ? -4 : -27, -10).Add(SeekArea.X, SeekArea.Y);
                 }
             }
 
             return InvalidPoint;
         }
 
-        // The rest is the block predicate.
+        // The rest is the block predicate. DEPRECATED, to be removed once alternative is working.
+
+        /*
 
         // Since there are three possible outcomes, we're using this fake enumerable.
         // Uncertain returns when all possible checks return explosion colors.
@@ -71,12 +66,6 @@ namespace TeslaX
         public static readonly int Air = 1;
         public static readonly int Uncertain = 2;
 
-        /* Laser Grids are a real pain to work with here.
-         * Most of their sprite is in grey scale, so I can't use it because that's how I check for explosions.
-         * That leaves me with two 3x3 squares of random green pixels, toplefting at (1,28) and (28,28).
-         * If that's not enough, Laser Grids can be placed in two directions, so both cases have to be checked.
-         * In the end, we're checking 18 pixels, for 2 possibilities in each (except square centers which are the same).
-         */
 
         // Green square 1, if seen on the left side.
         public static readonly Color[,] GS1 = new Color[,]
@@ -102,14 +91,14 @@ namespace TeslaX
                 {
                     // Take both colors at once, mirroring the right square.
                     // Screenshot height of 32 pixels matching the offset is a requirement.
-                    // First, check for out-of-bounds cases and ignore them [swap in gray scale].
+                    // First, check for out-of-bounds cases and ignore them [swap in gray scale]. | (29,28) and (29,29) are failible
                     Color lcolor;
                     if (((off + 1) + x >= 0) && ((off + 1) + x < bitmap.Width))
                         lcolor = bitmap.GetPixel((off + 1) + x, (28) + y);
                     else
                         lcolor = Color.FromArgb(0, 0, 0);
                     Color rcolor;
-                    if (((off + 30) - x >= 0) && ((off + 30) - x < bitmap.Width))
+                    if (((off + 30) - x >= 0) && ((off + 30) - x < bitmap.Width) && (x, y) != (2, 1) && (x, y) != (2, 2))
                         rcolor = bitmap.GetPixel((off + 30) - x, (28) + y);
                     else
                         rcolor = Color.FromArgb(0, 0, 0);
@@ -126,5 +115,7 @@ namespace TeslaX
             // Will probably treat this as block anyway, but oh well.
             return Uncertain;
         }
+
+        */
     }
 }
