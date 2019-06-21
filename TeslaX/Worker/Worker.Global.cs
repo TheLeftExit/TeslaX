@@ -13,6 +13,16 @@ namespace TeslaX
     public static partial class Worker
     {
         /// <summary>
+        /// Main form, declared here to be accessible from working threads.
+        /// </summary>
+        public static MainForm mainForm;
+
+        /// <summary>
+        /// Determines button behavior and interrupts worker thread.
+        /// </summary>
+        public static bool Busy;
+
+        /// <summary>
         /// Predicate output in case of error.
         /// </summary>
         public static readonly Point InvalidPoint = new Point(-1, -1);

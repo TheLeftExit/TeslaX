@@ -14,6 +14,8 @@ namespace TeslaX
     {
         public static void Init()
         {
+            // Toggle the flag.
+            Busy = true;
             // Getting window handle and window position
             Window = HwndObject.GetWindowByTitle("Growtopia");
             if(Window.Hwnd == IntPtr.Zero)
@@ -39,12 +41,15 @@ namespace TeslaX
                 return;
             }
             Offset = Offset.ify();
-            MessageBox.Show(Offset.ToString());
+            //MessageBox.Show(Offset.ToString());
 
             // Getting LK
             LastKnown = GetPlayer(firstshot);
-            MessageBox.Show(LastKnown.ToString());
-            return;
+            //MessageBox.Show(LastKnown.ToString());
+            //return;
+
+            // Moment of truth...
+            RowLoop();
         }
     }
 }

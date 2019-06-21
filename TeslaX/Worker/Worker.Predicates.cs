@@ -23,7 +23,7 @@ namespace TeslaX
             Point now = new Point(startfromleft ? 0 : bitmap.Width - 1, bitmap.Height - 2);
 
             while (!(PlatformDark.IsColorAt(now, bitmap) && PlatformDark.IsColorAt(now.Add(0, -8), bitmap))){
-                if (now.Y < 8)
+                if (now.Y <= 8)
                     return InvalidPoint;
                 now.Y -= 1;
             }
@@ -50,7 +50,7 @@ namespace TeslaX
             Color NoseGray = Color.FromArgb(27, 27, 27); // 27 27 28
             Color NoseWhite = Color.FromArgb(254, 254, 254); // or 253
 
-            List<int> EligibleY = EligibleBetween(SeekArea.Y, SeekArea.Y + SeekArea.Height, 7 + Offset.Y).AddInt(-SeekArea.Y);
+            List<int> EligibleY = EligibleBetween(SeekArea.Y, SeekArea.Y + SeekArea.Height - 1, 7 + Offset.Y).AddInt(-SeekArea.Y);
             foreach(int y in EligibleY)
             {
                 for(int x = 0 + 1; x < bitmap.Width - 1; x++)
@@ -102,18 +102,28 @@ namespace TeslaX
                 {
                     // Take both colors at once, mirroring the right square.
                     // Screenshot height of 32 pixels matching the offset is a requirement.
-                    Color lcolor = bitmap.GetPixel((off + 1) + x, (28) + y);
-                    Color rcolor = bitmap.GetPixel((off + 30) - x, (28) + y);
-                    // If explosion, ignore.
-                    if (lcolor.IsGrayScale() || rcolor.IsGrayScale())
-                        continue;
+                    // First, check for out-of-bounds cases and ignore them [swap in gray scale].
+                    Color lcolor;
+                    if (((off + 1) + x >= 0) && ((off + 1) + x < bitmap.Width))
+                        lcolor = bitmap.GetPixel((off + 1) + x, (28) + y);
+                    else
+                        lcolor = Color.FromArgb(0, 0, 0);
+                    Color rcolor;
+                    if (((off + 30) - x >= 0) && ((off + 30) - x < bitmap.Width))
+                        rcolor = bitmap.GetPixel((off + 30) - x, (28) + y);
+                    else
+                        rcolor = Color.FromArgb(0, 0, 0);
                     // If matches, good.
                     if (lcolor.Is(GS1[x, y]) || lcolor.Is(GS2[x, y]) || rcolor.Is(GS1[x, y]) || rcolor.Is(GS2[x, y]))
                         return Block;
+                    // If explosion, ignore.
+                    if (lcolor.IsGrayScale() && rcolor.IsGrayScale())
+                        continue;
                     // If neither, good.
                     return Air;
                 }
             // If always explosion, to hell with it.
+            // Will probably treat this as block anyway, but oh well.
             return Uncertain;
         }
     }

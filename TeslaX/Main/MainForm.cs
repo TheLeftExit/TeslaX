@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace TeslaX
@@ -11,7 +12,7 @@ namespace TeslaX
     // Inheriting from Form prompted the designer at first, but none of the changes showed up in runtime;
     // so I added a then unused InitializeComponent to MainForm.Load, which fixed the real form but broke the designer.
     [System.ComponentModel.DesignerCategory("")]
-    class MainForm: Form
+    public class MainForm: Form
     {
         private GroupBox groupBox1;
         private RadioButton radioButton2;
@@ -122,6 +123,7 @@ namespace TeslaX
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainForm";
             this.Text = "TeslaX";
+            this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -133,7 +135,23 @@ namespace TeslaX
             Worker.Windowed = checkbox1.Checked;
             Worker.Right = radioButton2.Checked || radioButton4.Checked;
             Worker.Down = radioButton3.Checked || radioButton4.Checked;
-            Worker.Init();
+            Task WorkThread = new Task(Worker.Init);
+            if (!Worker.Busy)
+            {
+                WorkThread.Start();
+                button1.Text = "Working";
+            }
+            else
+            {
+                Worker.Busy = false;
+            }
+        }
+
+        // Don't know how else to do this.
+        public void Restore()
+        {
+            button1.Text = "Start";
+            this.Text = "TeslaX";
         }
     }
 }

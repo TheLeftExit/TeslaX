@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace TeslaX.Main
 {
@@ -12,7 +13,13 @@ namespace TeslaX.Main
         public static void Main()
         {
             Application.EnableVisualStyles();
-            Application.Run(new MainForm());
+            Worker.mainForm = new MainForm();
+            Application.Run(Worker.mainForm);
+            //var bitmap = new Bitmap(@"C:\Users\nikit\Desktop\TeslaX\output.png");
+            //Worker.SeekArea = new Rectangle(new Point(0,0),bitmap.Size);
+            //Worker.Right = true;
+            //var q = Worker.GetPlayer(bitmap);
+            //;
         }
     }
 }

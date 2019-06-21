@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>TeslaX.Main.ProgramTest</StartupObject>
+    <StartupObject>TeslaX.Main.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main\ProgramTest.cs" />
