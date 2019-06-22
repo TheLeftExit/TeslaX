@@ -16,8 +16,22 @@ namespace TeslaX
         public static void RowLoop()
         {
             Point tmpoint;
+
             int Distance = -1;
             int NewDistance;
+
+            // Spike handling mechanism.
+            Stopwatch SpikeWatch = new Stopwatch();
+            bool spike = false;
+            // Spike height.
+            int sh = 24;
+            // Spike length.
+            int sl = 150;
+
+            // Input smoothing mechanism.
+            Stopwatch InputWatch = new Stopwatch();
+            bool KeyDown = false;
+
             while (Busy)
             {
                 SeekArea = new Rectangle(LastKnown.X + (Right ? 0 : -96), LastKnown.Y, 96, 128);
@@ -46,7 +60,7 @@ namespace TeslaX
                 NewDistance = -1;
                 if (Right)
                 {
-                    ToCheck = EligibleBetween(LastKnown.X, SeekArea.X + 128, Offset.X).AddInt(-SeekArea.X);
+                    ToCheck = EligibleBetween(LastKnown.X + 32, SeekArea.X + 128, Offset.X).AddInt(-SeekArea.X);
                     for (int x = 0; x < ToCheck.Count; x++)
                         if (CurrentShot.HasBlock(ToCheck[x], 0) != BlockState.Air)
                         {
@@ -56,7 +70,7 @@ namespace TeslaX
                 }
                 else
                 {
-                    ToCheck = EligibleBetween(SeekArea.X - 32, LastKnown.X + 32, Offset.X).AddInt(-SeekArea.X);
+                    ToCheck = EligibleBetween(SeekArea.X - 32, LastKnown.X, Offset.X).AddInt(-SeekArea.X);
                     for(int x = ToCheck.Count - 1; x>=0; x--)
                         if(CurrentShot.HasBlock(ToCheck[x], 0) != BlockState.Air)
                         {
@@ -70,14 +84,39 @@ namespace TeslaX
                     continue;
                 }
 
-                if (Distance - NewDistance > 24) {
-                    Log("Fast drop");
-                    continue;
+                if (spike)
+                {
+                    if (SpikeWatch.ElapsedMilliseconds > sl || Math.Abs(NewDistance - Distance) <= sh)
+                    {
+                        Distance = NewDistance;
+                        SpikeWatch.Stop();
+                        spike = false;
+                    }
+                }
+                else
+                if (Math.Abs(NewDistance - Distance) > sh)
+                {
+                    SpikeWatch.Restart();
+                    spike = true;
                 }
                 else
                     Distance = NewDistance;
 
-                Log(Distance.ToString());
+                bool NewKeyDown = Distance > 38;//(Right ? 38 : 0);
+
+                if (InputWatch.ElapsedMilliseconds > 150 && NewKeyDown != KeyDown)
+                {
+                    InputWatch.Restart();
+                    KeyDown = NewKeyDown;
+                    Window.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
+                    
+                }
+
+                // First iteration only.
+                if (!InputWatch.IsRunning)
+                    InputWatch.Start();
+
+                Log((KeyDown ? "+" : "-") + Distance.ToString() + (spike ? "S" : ""));
             }
 
             Restore();

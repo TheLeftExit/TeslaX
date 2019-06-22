@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace TeslaX
 {
@@ -46,7 +47,7 @@ namespace TeslaX
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12+4, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(88, 71);
             this.groupBox1.TabIndex = 0;
@@ -99,7 +100,7 @@ namespace TeslaX
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 89+22);
+            this.button1.Location = new System.Drawing.Point(12+4, 89+22);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(88, 23);
             this.button1.TabIndex = 1;
@@ -109,7 +110,7 @@ namespace TeslaX
             // 
             // checkbox1
             // 
-            this.checkbox1.Location = new System.Drawing.Point(20, 85);
+            this.checkbox1.Location = new System.Drawing.Point(20+4, 85);
             this.checkbox1.Name = "checkbox1";
             this.checkbox1.TabIndex = 2;
             this.checkbox1.Text = "Windowed";
@@ -121,10 +122,14 @@ namespace TeslaX
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkbox1);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "TeslaX";
             this.TopMost = true;
+            this.Icon = Properties.Resources.pickaxe;
+            this.ShowIcon = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

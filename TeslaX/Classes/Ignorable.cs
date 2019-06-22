@@ -49,8 +49,21 @@ namespace TeslaX
                     }
             }
 
+            // dust.png
+            using (Bitmap seed = Properties.Resources.seed)
+            {
+                Color color;
+                for (int x = 0; x < seed.Width; x++)
+                    for (int y = 0; y < seed.Height; y++)
+                    {
+                        color = seed.GetPixel(x, y);
+                        if (color.A == 255 && !Colors.Contains(color))
+                            Colors.Add(color);
+                    }
+            }
+
             // gems.png
-            using(Bitmap gems = Properties.Resources.gems)
+            using (Bitmap gems = Properties.Resources.gems)
             {
                 Color color;
                 int k = 3; // Kinds of gems to consider, 0~5.

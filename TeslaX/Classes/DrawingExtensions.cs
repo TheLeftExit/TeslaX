@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using HwndObject = WindowScrape.Types.HwndObject;
 
 namespace TeslaX
 {
-    public static class Extensions
+    public static class DrawingExtensions
     {
         public static Color GetPixel(this Bitmap bitmap, Point point)
         {
@@ -26,7 +27,7 @@ namespace TeslaX
 
         public static bool Is(this Color source, Color color)
         {
-            int d = 2; // Distortion value.
+            int d = 3; // Distortion value.
             if (Math.Abs(color.R - source.R) > d)
                 return false;
             if (Math.Abs(color.G - source.G) > d)
@@ -72,18 +73,6 @@ namespace TeslaX
         public static Point Flip(this Point point)
         {
             return new Point(31 - point.X, point.Y);
-        }
-
-        // Deprecated.
-        public static bool IsGrayScale(this Color source)
-        {
-            if (Math.Abs(source.R - source.G) > 2)
-                return false;
-            if (Math.Abs(source.G - source.B) > 2)
-                return false;
-            if (Math.Abs(source.B - source.R) > 2)
-                return false;
-            return true;
         }
     }
 }

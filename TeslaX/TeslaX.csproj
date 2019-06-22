@@ -37,35 +37,38 @@
     <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Extensions.cs" />
-    <Compile Include="Drawing\Fist.cs" />
+    <Compile Include="Classes\DrawingExtensions.cs" />
+    <Compile Include="Classes\Fist.cs" />
+    <Compile Include="Classes\Predicates.cs" />
+    <Compile Include="Classes\SendKeys.cs" />
+    <Compile Include="Classes\Block.cs" />
+    <Compile Include="Classes\Ignorable.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Drawing\Block.cs" />
-    <Compile Include="Drawing\Ignorable.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
     <Compile Include="WindowScrape\Types\HwndObject.cs" />
     <Compile Include="WindowScrape\Types\RECT.cs" />
-    <Compile Include="Worker\Worker.Init.cs" />
-    <Compile Include="Worker\Worker.Predicates.cs" />
-    <Compile Include="Worker\Worker.RowLoop.cs" />
-    <Compile Include="Worker\Worker.SlaveForm.cs" />
+    <Compile Include="Classes\Worker\Worker.Init.cs" />
+    <Compile Include="Classes\Worker\Worker.RowLoop.cs" />
+    <Compile Include="Classes\Worker\Worker.SlaveForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main\MainForm.cs" />
-    <Compile Include="Worker\Worker.Global.cs" />
+    <Compile Include="Classes\Worker\Worker.Global.cs" />
     <Compile Include="Main\Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Drawing\Raw\crack.png" />
-    <Content Include="Drawing\Raw\dust.png" />
-    <Content Include="Drawing\Raw\gems.png" />
-    <None Include="Drawing\Raw\lasergrid.png" />
+    <Content Include="Images\crack.png" />
+    <Content Include="Images\dust.png" />
+    <Content Include="Images\gems.png" />
+    <Content Include="Images\pickaxe.ico" />
+    <None Include="Images\seed.png" />
+    <None Include="Images\lasergrid.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -78,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
