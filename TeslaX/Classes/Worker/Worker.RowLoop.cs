@@ -71,7 +71,7 @@ namespace TeslaX
                 NewDistance = -1;
                 if (Right)
                 {
-                    ToCheck = EligibleBetween(LastKnown.X + 32, LastKnown.X + shot.Width - 32, Offset.X).AddInt(-shot.X);
+                    ToCheck = EligibleBetween(LastKnown.X + 32, LastKnown.X + 32 + range * 32, Offset.X).AddInt(-shot.X);
                     for (int x = 0; x < ToCheck.Count; x++)
                         if (shot.HasBlock(ToCheck[x], 0) != BlockState.Air)
                         {
@@ -81,7 +81,7 @@ namespace TeslaX
                 }
                 else
                 {
-                    ToCheck = EligibleBetween(shot.X - 32, LastKnown.X - 32, Offset.X).AddInt(-shot.X);
+                    ToCheck = EligibleBetween(LastKnown.X - 32 - range * 32, LastKnown.X - 32, Offset.X).AddInt(-shot.X);
                     for(int x = ToCheck.Count - 1; x>=0; x--)
                         if(shot.HasBlock(ToCheck[x], 0) != BlockState.Air)
                         {
@@ -120,7 +120,6 @@ namespace TeslaX
                     InputWatch.Restart();
                     KeyDown = NewKeyDown;
                     //Key.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
-                    
                 }
 
                 // First iteration only.

@@ -24,7 +24,7 @@ namespace TeslaX
 
             Screenshot firstshot = new Screenshot(0, 0, Window.Width, Window.Height);
 
-            Offset = firstshot.GetOffset(true);
+            Offset = firstshot.GetOffset(true).Mod(32);
             if (Offset == InvalidPoint)
             {
                 MessageBox.Show("Failed to find offset. Make sure you're in a fully platformed world.");

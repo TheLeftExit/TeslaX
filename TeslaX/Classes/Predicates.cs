@@ -39,7 +39,7 @@ namespace TeslaX
             foreach (int y in ValidY)
                 for (int x = 0; x < shot.Width - 32; x++)
                     if (PlatformDark.IsColorAt(x + 13, y + 12, shot) && PlatformDark.IsColorAt(x + 18, y + 12, shot))
-                        return new Point(x, y).Mod(32);
+                        return new Point(x, y).Add(shot.Location).Mod(32);
 
             return InvalidPoint;
         }
