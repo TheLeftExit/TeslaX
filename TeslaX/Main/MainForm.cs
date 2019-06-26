@@ -20,19 +20,24 @@ namespace TeslaX
         private void Button1_Click(object sender, EventArgs e)
         {
             
-            Task WorkThread = new Task(Worker.Init);
             if (!Worker.Busy)
             {
                 Window.Windowed = checkBox1.Checked;
                 Worker.Right = radioButton2.Checked || radioButton4.Checked;
                 Worker.Down = radioButton3.Checked || radioButton4.Checked;
-                WorkThread.Start();
-                button1.Text = "Select area";
+                if(Worker.Init())
+                    button1.Text = "Working";
             }
             else
             {
                 Worker.Busy = false;
+                button1.Text = "Start";
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Worker.Busy = false;
         }
     }
 }

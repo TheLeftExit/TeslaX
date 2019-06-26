@@ -26,32 +26,5 @@ namespace TeslaX
 
         public static bool Right;
         public static bool Down;
-
-        // Dirty form management.
-
-        public static void Log(string s)
-        {
-            mainForm.Invoke((MethodInvoker)delegate
-            {
-                mainForm.Log(s);
-            });
-        }
-
-        public static void ToWorking()
-        {
-            mainForm.Invoke((MethodInvoker)delegate
-            {
-                mainForm.Restore(1);
-            });
-        }
-
-        public static void Restore()
-        {
-            mainForm.Invoke((MethodInvoker)delegate
-            {
-                mainForm.Restore(0);
-            });
-        }
-
     }
 }

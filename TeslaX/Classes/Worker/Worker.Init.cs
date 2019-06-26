@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading;
 using WindowScrape;
 using HwndObject = WindowScrape.Types.HwndObject;
 
@@ -12,14 +13,13 @@ namespace TeslaX
 {
     public partial class Worker
     {
-        public static void Init()
+        public static bool Init()
         {
-            Busy = true;
             if (!Window.Load())
             {
-                MessageBox.Show("Failed to find window.");
-                Restore();
-                return;
+                MessageBox.Show("Failed to find window. Make sure you've launched Growtopia.");
+                //Restore();
+                return false;
             }
 
             Screenshot firstshot = new Screenshot(0, 0, Window.Width, Window.Height);
@@ -28,23 +28,18 @@ namespace TeslaX
             if (Offset == InvalidPoint)
             {
                 MessageBox.Show("Failed to find offset. Make sure you're in a fully platformed world.");
-                Restore();
-                return;
+                return false;
             }
 
             LastKnown = firstshot.GetPlayer(Right, Offset.Y);
             if(LastKnown == InvalidPoint)
             {
-                MessageBox.Show("Failed to find player in selected area.");
-                Restore();
-                return;
+                MessageBox.Show("Failed to find player. Make sure you're wearing an unobstructed Barky's Mask.");
+                return false;
             }
 
-            // To be appended.
-            Ignorable.Load();
-            Block.Load();
-            ToWorking();
-            RowLoop();
+            new Thread(RowLoop).Start();
+            return true;
         }
     }
 }

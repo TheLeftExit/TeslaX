@@ -29,6 +29,9 @@ namespace TeslaX
             }
         }
 
+        // Screenshot is a solution-wide replacement for Bitmap, because you can't inherit from it.
+        // The rest is "compatibility layer".
+
         public static implicit operator Bitmap(Screenshot s)
         {
             return s.Image;

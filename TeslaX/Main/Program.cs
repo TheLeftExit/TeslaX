@@ -12,6 +12,9 @@ namespace TeslaX
     {
         public static void Main()
         {
+            Ignorable.Load();
+            Block.Load();
+
             Application.EnableVisualStyles();
             Worker.mainForm = new MainForm();
             Application.Run(Worker.mainForm);

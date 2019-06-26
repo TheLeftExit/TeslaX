@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
 using WindowScrape;
@@ -31,7 +31,7 @@ namespace TeslaX
             int NewDistance;
 
             // Blocks in front of character to check.
-            int range = 4;
+            int range = Settings.BlocksAhead;
 
             // Spike handling mechanism.
             Stopwatch SpikeWatch = new Stopwatch();
@@ -45,27 +45,56 @@ namespace TeslaX
             Stopwatch InputWatch = new Stopwatch();
             bool KeyDown = false;
 
+            // Debug info.
+            DebugForm debugForm = new DebugForm();
+            StringBuilder debugInfo = new StringBuilder();
+            if (Settings.Debug)
+            {
+                new Thread(() =>
+                {
+                    debugForm.ShowDialog();
+                }).Start();
+            }
+
+            Busy = true;
             while (Busy)
             {
-                shot = new Screenshot(LastKnown.X + (Right ? 0 : -range*32), LastKnown.Y, (range+1)*32, 64);
+                shot = new Screenshot(LastKnown.X + (Right ? 0 : -range * 32), LastKnown.Y, (range + 1) * 32, 64);
+
+                if (Settings.Debug)
+                {
+                    debugInfo.Clear();
+                }
 
                 tmpoint = shot.GetOffset();
                 if (tmpoint != InvalidPoint)
                     Offset = tmpoint;
                 else
                 {
-                    Log("Offset?");
+                    if (Settings.Debug)
+                    {
+                        debugInfo.AppendLine("Offset:   N/A");
+                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                    }
                     continue;
                 }
+                if (Settings.Debug)
+                    debugInfo.AppendLine("Offset: " + Offset.ToString());
 
                 tmpoint = shot.GetPlayer(Right);
                 if (tmpoint != InvalidPoint)
                     LastKnown = tmpoint;
                 else
                 {
-                    Log("Player?");
+                    if (Settings.Debug)
+                    {
+                        debugInfo.AppendLine("Player: N/A");
+                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                    }
                     continue;
                 }
+                if (Settings.Debug)
+                    debugInfo.AppendLine("Player: " + LastKnown.ToString());
 
                 List<int> ToCheck;
                 NewDistance = -1;
@@ -73,25 +102,37 @@ namespace TeslaX
                 {
                     ToCheck = EligibleBetween(LastKnown.X + 32, LastKnown.X + 32 + range * 32, Offset.X).AddInt(-shot.X);
                     for (int x = 0; x < ToCheck.Count; x++)
-                        if (shot.HasBlock(ToCheck[x], 0) != BlockState.Air)
+                    {
+                        BlockState next = shot.HasBlock(ToCheck[x], 0);
+                        if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
                         {
                             NewDistance = (ToCheck[x] + shot.X) - LastKnown.X - 32;
                             break;
                         }
+                    }
                 }
                 else
                 {
                     ToCheck = EligibleBetween(LastKnown.X - 32 - range * 32, LastKnown.X - 32, Offset.X).AddInt(-shot.X);
-                    for(int x = ToCheck.Count - 1; x>=0; x--)
-                        if(shot.HasBlock(ToCheck[x], 0) != BlockState.Air)
+                    for (int x = ToCheck.Count - 1; x >= 0; x--)
+                    {
+                        BlockState next = shot.HasBlock(ToCheck[x], 0);
+                        if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
                         {
                             NewDistance = LastKnown.X - (ToCheck[x] + shot.X) - 32;
                             break;
                         }
+                    }
                 }
 
                 if (NewDistance == -1) {
-                    Log("It's -1");
+                    if (Settings.Debug)
+                    {
+                        debugInfo.AppendLine("NewDistance: N/A");
+                        debugInfo.AppendLine("Distance: " + Distance.ToString());
+                        debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
+                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                    }
                     continue;
                 }
 
@@ -115,21 +156,30 @@ namespace TeslaX
 
                 bool NewKeyDown = Distance > 26; //(Right ? 38 : 0);
 
+                if (Settings.Debug)
+                {
+                    debugInfo.AppendLine("NewDistance: " + NewDistance.ToString());
+                    debugInfo.AppendLine("Distance: " + Distance.ToString());
+                    debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
+                }
+
                 if (InputWatch.ElapsedMilliseconds > 150 && NewKeyDown != KeyDown)
                 {
                     InputWatch.Restart();
                     KeyDown = NewKeyDown;
-                    //Key.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
+                    if(Settings.SimulateInput)
+                        Key.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
                 }
 
                 // First iteration only.
                 if (!InputWatch.IsRunning)
                     InputWatch.Start();
 
-                Log((KeyDown ? "+" : "-") + Distance.ToString() + (spike ? "S" : ""));
+                if (Settings.Debug)
+                {
+                    debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                }
             }
-
-            Restore();
         }
     }
 }
