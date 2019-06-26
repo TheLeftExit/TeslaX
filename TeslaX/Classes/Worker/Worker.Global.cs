@@ -85,7 +85,7 @@ namespace TeslaX
         {
             mainForm.Invoke((MethodInvoker)delegate
             {
-                mainForm.Text = s;
+                mainForm.Log(s);
             });
         }
 
@@ -93,7 +93,7 @@ namespace TeslaX
         {
             mainForm.Invoke((MethodInvoker)delegate
             {
-                mainForm.button1.Text = "Working";
+                mainForm.Restore(1);
             });
         }
 
@@ -102,7 +102,7 @@ namespace TeslaX
         {
             mainForm.Invoke((MethodInvoker)delegate
             {
-                mainForm.Restore();
+                mainForm.Restore(0);
             });
         }
 

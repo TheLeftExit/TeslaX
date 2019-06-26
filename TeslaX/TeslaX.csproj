@@ -43,6 +43,15 @@
     <Compile Include="Classes\SendKeys.cs" />
     <Compile Include="Classes\Block.cs" />
     <Compile Include="Classes\Ignorable.cs" />
+    <Compile Include="Main\MainFormF7.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -58,7 +67,6 @@
     <Compile Include="Classes\Worker\Worker.SlaveForm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main\MainForm.cs" />
     <Compile Include="Classes\Worker\Worker.Global.cs" />
     <Compile Include="Main\Program.cs" />
   </ItemGroup>
@@ -67,19 +75,25 @@
     <Content Include="Images\dust.png" />
     <Content Include="Images\gems.png" />
     <Content Include="Images\pickaxe.ico" />
+    <Compile Include="Classes\Worker\Worker.Predicates.cs" />
     <None Include="Images\seed.png" />
     <None Include="Images\lasergrid.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Main\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

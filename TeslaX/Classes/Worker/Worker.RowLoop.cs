@@ -102,7 +102,7 @@ namespace TeslaX
                 else
                     Distance = NewDistance;
 
-                bool NewKeyDown = Distance > 38;//(Right ? 38 : 0);
+                bool NewKeyDown = Distance > 26; //(Right ? 38 : 0);
 
                 if (InputWatch.ElapsedMilliseconds > 150 && NewKeyDown != KeyDown)
                 {

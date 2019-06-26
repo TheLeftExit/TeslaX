@@ -11,10 +11,10 @@ namespace TeslaX
     public static class Ignorable
     {
         // List of point on a 32x32 grid to be ignored by Block Predicate.
-        public static List<Point> Points; // Count: 236
+        public static List<Point> Points; // Expect 200-300 points.
 
         // REALLY long list of colors to be considered Uncertain by Block Predicate.
-        public static List<Color> Colors; // Count: 863
+        public static List<Color> Colors; // Expect 800-900 colors.
         // Benchmark: checking 100 different colors against each of those: 5-8 ms. That'll work.
 
         public static void Load()
@@ -49,7 +49,7 @@ namespace TeslaX
                     }
             }
 
-            // dust.png
+            // seed.png
             using (Bitmap seed = Properties.Resources.seed)
             {
                 Color color;

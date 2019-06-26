@@ -12,9 +12,8 @@ namespace TeslaX
 {
     public partial class Worker
     {
-        /// <summary>
-        /// Form used to set SeekArea based on user input.
-        /// </summary>
+        // Form used to set SeekArea based on user input.
+        // To be deprecated in favor of initial full window search.
         class SlaveForm : Form
         {
             PictureBox pictureBox;
