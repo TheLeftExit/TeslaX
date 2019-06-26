@@ -44,8 +44,9 @@ namespace TeslaX
             return InvalidPoint;
         }
 
-        public static Point GetPlayer(this Screenshot shot, bool r, params int[] o)
+        public static (Point Point, bool Right) GetPlayer(this Screenshot shot, params int[] o)
         {
+            Color NoseBlack = Color.FromArgb(1, 1, 1);
             Color NoseGray = Color.FromArgb(27, 27, 27);
             Color NoseWhite = Color.FromArgb(254, 254, 254);
 
@@ -60,14 +61,17 @@ namespace TeslaX
 
             foreach (int y in EligibleY)
             {
-                for (int x = 0 + 1; x < shot.Width - 1; x++)
+                for (int x = 0 + 2; x < shot.Width - 1; x++)
                 {
                     if (NoseWhite.IsColorAt(x, y, shot) && NoseGray.IsColorAt(x - 1, y, shot) && NoseGray.IsColorAt(x + 1, y, shot))
-                        return new Point(x, y).Add(r ? -29 : -2, -7).Add(shot.Location);
+                    {
+                        bool r = NoseBlack.IsColorAt(x - 2, y, shot);
+                        return (new Point(x, y).Add(r ? -29 : -2, -7).Add(shot.Location), r);
+                    }
                 }
             }
 
-            return InvalidPoint;
+            return (InvalidPoint, false);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace TeslaX
         {
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
-            this.Size = new Size(Settings.BlocksAhead * 32 + 32, 60);
+            this.Size = new Size(Settings.BlocksAhead * 32 + 32, 80);
 
             DebugLabel = new Label();
             DebugLabel.Dock = DockStyle.Fill;

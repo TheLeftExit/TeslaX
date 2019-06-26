@@ -23,8 +23,8 @@ namespace TeslaX
             if (!Worker.Busy)
             {
                 Window.Windowed = checkBox1.Checked;
-                Worker.Right = radioButton2.Checked || radioButton4.Checked;
-                Worker.Down = radioButton3.Checked || radioButton4.Checked;
+                //Worker.Right = radioButton2.Checked || radioButton4.Checked;
+                //Worker.Down = radioButton3.Checked || radioButton4.Checked;
                 if(Worker.Init())
                     button1.Text = "Working";
             }

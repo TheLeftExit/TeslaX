@@ -31,7 +31,9 @@ namespace TeslaX
                 return false;
             }
 
-            LastKnown = firstshot.GetPlayer(Right, Offset.Y);
+            var tmptuple = firstshot.GetPlayer(Offset.Y);
+            LastKnown = tmptuple.Point;
+            Right = tmptuple.Right;
             if(LastKnown == InvalidPoint)
             {
                 MessageBox.Show("Failed to find player. Make sure you're wearing an unobstructed Barky's Mask.");

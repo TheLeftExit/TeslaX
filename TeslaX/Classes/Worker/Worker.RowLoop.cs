@@ -24,7 +24,6 @@ namespace TeslaX
 
         public static void RowLoop()
         {
-            Point tmpoint;
             Screenshot shot;
 
             int Distance = -1;
@@ -66,7 +65,7 @@ namespace TeslaX
                     debugInfo.Clear();
                 }
 
-                tmpoint = shot.GetOffset();
+                var tmpoint = shot.GetOffset();
                 if (tmpoint != InvalidPoint)
                     Offset = tmpoint;
                 else
@@ -81,9 +80,12 @@ namespace TeslaX
                 if (Settings.Debug)
                     debugInfo.AppendLine("Offset: " + Offset.ToString());
 
-                tmpoint = shot.GetPlayer(Right);
-                if (tmpoint != InvalidPoint)
-                    LastKnown = tmpoint;
+                var tmptuple = shot.GetPlayer();
+                if (tmptuple.Point != InvalidPoint)
+                {
+                    LastKnown = tmptuple.Point;
+                    Right = tmptuple.Right;
+                }
                 else
                 {
                     if (Settings.Debug)
@@ -94,7 +96,10 @@ namespace TeslaX
                     continue;
                 }
                 if (Settings.Debug)
+                {
                     debugInfo.AppendLine("Player: " + LastKnown.ToString());
+                    debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
+                }
 
                 List<int> ToCheck;
                 NewDistance = -1;
