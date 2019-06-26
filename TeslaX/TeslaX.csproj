@@ -37,7 +37,10 @@
     <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\DrawingExtensions.cs" />
+    <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\Window.cs" />
+    <Compile Include="Classes\Screenshot.cs" />
+    <Compile Include="Classes\Cracks.cs" />
     <Compile Include="Classes\Fist.cs" />
     <Compile Include="Classes\Predicates.cs" />
     <Compile Include="Classes\SendKeys.cs" />
@@ -64,7 +67,6 @@
     <Compile Include="WindowScrape\Types\RECT.cs" />
     <Compile Include="Classes\Worker\Worker.Init.cs" />
     <Compile Include="Classes\Worker\Worker.RowLoop.cs" />
-    <Compile Include="Classes\Worker\Worker.SlaveForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Worker\Worker.Global.cs" />
@@ -75,7 +77,6 @@
     <Content Include="Images\dust.png" />
     <Content Include="Images\gems.png" />
     <Content Include="Images\pickaxe.ico" />
-    <Compile Include="Classes\Worker\Worker.Predicates.cs" />
     <None Include="Images\seed.png" />
     <None Include="Images\lasergrid.png" />
   </ItemGroup>

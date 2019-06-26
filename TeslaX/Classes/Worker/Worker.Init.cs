@@ -15,34 +15,24 @@ namespace TeslaX
         public static void Init()
         {
             Busy = true;
-
-            Window = HwndObject.GetWindowByTitle("Growtopia");
-            if(Window.Hwnd == IntPtr.Zero)
+            if (!Window.Load())
             {
-                MessageBox.Show("Window handle is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                return;
-            }
-
-            if (Windowed)
-                WindowPos = new Rectangle(Window.Location.X + 8, Window.Location.Y + 31, Window.Size.Width, Window.Size.Height);
-            else
-                WindowPos = new Rectangle(Window.Location, Window.Size);
-
-            SlaveForm slaveForm = new SlaveForm();
-            slaveForm.ShowDialog(); // Sets SeekArea.
-
-            Bitmap firstshot = Screenshot(SeekArea.X + WindowPos.X, SeekArea.Y + WindowPos.Y, SeekArea.Width, SeekArea.Height);
-
-            Offset = GetOffset(firstshot);
-            if (Offset == InvalidPoint)
-            {
-                MessageBox.Show("Failed to find offset in selected area.");
+                MessageBox.Show("Failed to find window.");
                 Restore();
                 return;
             }
-            Offset = Offset.ify();
 
-            LastKnown = GetPlayer(firstshot);
+            Screenshot firstshot = new Screenshot(0, 0, Window.Width, Window.Height);
+
+            Offset = firstshot.GetOffset(true);
+            if (Offset == InvalidPoint)
+            {
+                MessageBox.Show("Failed to find offset. Make sure you're in a fully platformed world.");
+                Restore();
+                return;
+            }
+
+            LastKnown = firstshot.GetPlayer(Right, Offset.Y);
             if(LastKnown == InvalidPoint)
             {
                 MessageBox.Show("Failed to find player in selected area.");

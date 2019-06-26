@@ -18,9 +18,9 @@ namespace TeslaX
 
     public static class Key
     {
-        public static void Send(this HwndObject hwnd, KeyCode k, bool down)
+        public static void Send(KeyCode k, bool down)
         {
-            hwnd.SendMessage(down ? WM.KEYDOWN : WM.KEYUP, (uint)k, 0);
+            Window.HwndObject.SendMessage(down ? WM.KEYDOWN : WM.KEYUP, (uint)k, 0);
         }
 
         public static bool Down(KeyCode k)

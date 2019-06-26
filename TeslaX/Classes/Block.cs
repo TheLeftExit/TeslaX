@@ -61,21 +61,24 @@ namespace TeslaX
                                     Points.Add(point);
                             }
                         }
-                        
                     }
+            }
+            using(Bitmap cracks = Properties.Resources.crack)
+            {
+
             }
         }
 
         // Bruteforcing the result. Expect drops in performance with more opaque blocks (like Sorcerer Stone).
-        public static BlockState HasBlock(this Bitmap bitmap, int x, int y)
+        public static BlockState HasBlock(this Screenshot shot, int x, int y)
         {
             foreach(var p in Sprite)
-                if (bitmap.Contains(p.Point.Add(x,y)))
-                    if (p.Color.IsColorAt(p.Point.Add(x,y), bitmap))
+                if (shot.Contains(p.Point.Add(x,y)))
+                    if (p.Color.IsColorAt(p.Point.Add(x,y), shot))
                         return BlockState.Block;
             foreach (var p in Points)
-                if (bitmap.Contains(p.Add(x,y)))
-                    if (!bitmap.GetPixel(p.Add(x,y)).IsIgnored())
+                if (shot.Contains(p.Add(x,y)))
+                    if (!shot.GetPixel(p.Add(x,y)).IsIgnored())
                         return BlockState.Air;
             return BlockState.Uncertain;
         }

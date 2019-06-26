@@ -8,7 +8,7 @@ using HwndObject = WindowScrape.Types.HwndObject;
 
 namespace TeslaX
 {
-    public static class DrawingExtensions
+    public static class Extensions
     {
         public static Color GetPixel(this Bitmap bitmap, Point point)
         {
@@ -65,6 +65,11 @@ namespace TeslaX
             return new Point(point.X + x, point.Y + y);
         }
 
+        public static Point Add(this Point point, Point dpoint)
+        {
+            return point.Add(dpoint.X, dpoint.Y);
+        }
+
         public static Point Mod(this Point point, int mod)
         {
             return new Point(point.X % mod, point.Y % mod);
@@ -73,6 +78,19 @@ namespace TeslaX
         public static Point Flip(this Point point)
         {
             return new Point(31 - point.X, point.Y);
+        }
+
+        public static Screenshot Screenshot(this Rectangle source)
+        {
+            return new Screenshot(source.X, source.Y, source.Width, source.Height);
+        }
+
+        public static List<int> AddInt(this List<int> list, int a)
+        {
+            List<int> res = new List<int>(list.Count);
+            foreach (int x in list)
+                res.Add(x + a);
+            return res;
         }
     }
 }

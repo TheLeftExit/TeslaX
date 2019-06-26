@@ -13,12 +13,25 @@ namespace TeslaX
 {
     public static partial class Worker
     {
+        public static List<int> EligibleBetween(int a, int b, int off)
+        {
+            List<int> result = new List<int>();
+            int start = (a / 32) * 32 + off + (a % 32 < off ? 0 : 32);
+            for (int i = start; i <= b; i += 32)
+                result.Add(i);
+            return result;
+        }
+
         public static void RowLoop()
         {
             Point tmpoint;
+            Screenshot shot;
 
             int Distance = -1;
             int NewDistance;
+
+            // Blocks in front of character to check.
+            int range = 4;
 
             // Spike handling mechanism.
             Stopwatch SpikeWatch = new Stopwatch();
@@ -34,10 +47,9 @@ namespace TeslaX
 
             while (Busy)
             {
-                SeekArea = new Rectangle(LastKnown.X + (Right ? 0 : -96), LastKnown.Y, 96, 128);
-                Screenshot();
-                // II. Find offset.
-                tmpoint = GetOffset(CurrentShot).ify();
+                shot = new Screenshot(LastKnown.X + (Right ? 0 : -range*32), LastKnown.Y, (range+1)*32, 64);
+
+                tmpoint = shot.GetOffset();
                 if (tmpoint != InvalidPoint)
                     Offset = tmpoint;
                 else
@@ -45,9 +57,8 @@ namespace TeslaX
                     Log("Offset?");
                     continue;
                 }
-                //MessageBox.Show(Offset.ToString());
 
-                tmpoint = GetPlayer(CurrentShot);
+                tmpoint = shot.GetPlayer(Right);
                 if (tmpoint != InvalidPoint)
                     LastKnown = tmpoint;
                 else
@@ -60,21 +71,21 @@ namespace TeslaX
                 NewDistance = -1;
                 if (Right)
                 {
-                    ToCheck = EligibleBetween(LastKnown.X + 32, SeekArea.X + 128, Offset.X).AddInt(-SeekArea.X);
+                    ToCheck = EligibleBetween(LastKnown.X + 32, LastKnown.X + shot.Width - 32, Offset.X).AddInt(-shot.X);
                     for (int x = 0; x < ToCheck.Count; x++)
-                        if (CurrentShot.HasBlock(ToCheck[x], 0) != BlockState.Air)
+                        if (shot.HasBlock(ToCheck[x], 0) != BlockState.Air)
                         {
-                            NewDistance = (ToCheck[x] + SeekArea.X) - LastKnown.X - 32;
+                            NewDistance = (ToCheck[x] + shot.X) - LastKnown.X - 32;
                             break;
                         }
                 }
                 else
                 {
-                    ToCheck = EligibleBetween(SeekArea.X - 32, LastKnown.X, Offset.X).AddInt(-SeekArea.X);
+                    ToCheck = EligibleBetween(shot.X - 32, LastKnown.X - 32, Offset.X).AddInt(-shot.X);
                     for(int x = ToCheck.Count - 1; x>=0; x--)
-                        if(CurrentShot.HasBlock(ToCheck[x], 0) != BlockState.Air)
+                        if(shot.HasBlock(ToCheck[x], 0) != BlockState.Air)
                         {
-                            NewDistance = LastKnown.X - (ToCheck[x] + SeekArea.X) - 32;
+                            NewDistance = LastKnown.X - (ToCheck[x] + shot.X) - 32;
                             break;
                         }
                 }
@@ -108,7 +119,7 @@ namespace TeslaX
                 {
                     InputWatch.Restart();
                     KeyDown = NewKeyDown;
-                    Window.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
+                    //Key.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
                     
                 }
 
