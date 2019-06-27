@@ -19,7 +19,7 @@ namespace TeslaX
         public static int SkinColor = 3;
 
         // Whether "Uncertain" block should be functionally treated as Block or Air.
-        public static bool UncertainIsBlock = true;
+        public static bool UncertainIsBlock = false;
 
         // Largest gem to be considered. Might affect performance, not sure.
         // 0 - no gems

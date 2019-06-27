@@ -26,19 +26,11 @@ namespace TeslaX
         {
             Screenshot shot;
 
-            int Distance = -1;
+            Smooth<int> Distance = new Smooth<int>(150, ((ov, nv) => Math.Abs(ov - nv) > 24));
             int NewDistance;
 
             // Blocks in front of character to check.
             int range = Settings.BlocksAhead;
-
-            // Spike handling mechanism.
-            Stopwatch SpikeWatch = new Stopwatch();
-            bool spike = false;
-            // Spike height.
-            int sh = 24;
-            // Spike length.
-            int sl = 150;
 
             // Input smoothing mechanism.
             Stopwatch InputWatch = new Stopwatch();
@@ -86,15 +78,6 @@ namespace TeslaX
                     LastKnown = tmptuple.Point;
                     Right = tmptuple.Right;
                 }
-                /*else
-                {
-                    if (Settings.Debug)
-                    {
-                        debugInfo.AppendLine("Player: N/A");
-                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
-                    }
-                    continue;
-                }*/
                 if (Settings.Debug)
                 {
                     debugInfo.AppendLine("Player: " + LastKnown.ToString() + (tmptuple.Point != InvalidPoint ? "" : "[?]"));
@@ -134,37 +117,23 @@ namespace TeslaX
                     if (Settings.Debug)
                     {
                         debugInfo.AppendLine("NewDistance: N/A");
-                        debugInfo.AppendLine("Distance: " + Distance.ToString());
+                        debugInfo.AppendLine("Distance: " + Distance.Value.ToString());
                         debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
                         debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
                     }
                     continue;
                 }
 
-                if (spike)
-                {
-                    if (SpikeWatch.ElapsedMilliseconds > sl || Math.Abs(NewDistance - Distance) <= sh)
-                    {
-                        Distance = NewDistance;
-                        SpikeWatch.Stop();
-                        spike = false;
-                    }
-                }
-                else
-                if (Math.Abs(NewDistance - Distance) > sh)
-                {
-                    SpikeWatch.Restart();
-                    spike = true;
-                }
-                else
-                    Distance = NewDistance;
+                Distance.Value = NewDistance;
 
-                bool NewKeyDown = Distance > 26; //(Right ? 38 : 0);
+                // If facing left, maximum distance to reach the block is 58.
+                // If right, 38.
+                bool NewKeyDown = Distance.Value > (Right ? 38 : 58);
 
                 if (Settings.Debug)
                 {
                     debugInfo.AppendLine("NewDistance: " + NewDistance.ToString());
-                    debugInfo.AppendLine("Distance: " + Distance.ToString());
+                    debugInfo.AppendLine("Distance: " + Distance.Value.ToString());
                     debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
                 }
 
