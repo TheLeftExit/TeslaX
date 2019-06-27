@@ -25,6 +25,5 @@ namespace TeslaX
         public static Point LastKnown;
 
         public static bool Right;
-        public static bool Down;
     }
 }

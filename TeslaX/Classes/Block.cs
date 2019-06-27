@@ -69,7 +69,6 @@ namespace TeslaX
             }
         }
 
-        // Bruteforcing the result. Expect drops in performance with more opaque blocks (like Sorcerer Stone).
         public static BlockState HasBlock(this Screenshot shot, int x, int y)
         {
             foreach(var p in Sprite)

@@ -14,6 +14,7 @@ namespace TeslaX
         {
             Ignorable.Load();
             Block.Load();
+            Player.Load();
 
             Application.EnableVisualStyles();
             Worker.mainForm = new MainForm();

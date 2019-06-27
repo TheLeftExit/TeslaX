@@ -53,10 +53,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Window.cs" />
     <Compile Include="Classes\Screenshot.cs" />
     <Compile Include="Classes\Cracks.cs" />
-    <Compile Include="Classes\Fist.cs" />
     <Compile Include="Classes\Predicates.cs" />
     <Compile Include="Classes\SendKeys.cs" />
     <Compile Include="Classes\Block.cs" />
@@ -88,11 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\crack.png" />
-    <Content Include="Images\dust.png" />
-    <Content Include="Images\gems.png" />
+    <Content Include="Images\Ignorable\dust.png" />
+    <Content Include="Images\Ignorable\gems.png" />
+    <Content Include="Images\head.png" />
     <Content Include="Images\pickaxe.ico" />
-    <None Include="Images\seed.png" />
-    <None Include="Images\lasergrid.png" />
+    <None Include="Images\Ignorable\seed.png" />
+    <None Include="Images\Block\lasergrid.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -125,5 +126,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

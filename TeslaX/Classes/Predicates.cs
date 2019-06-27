@@ -46,30 +46,21 @@ namespace TeslaX
 
         public static (Point Point, bool Right) GetPlayer(this Screenshot shot, params int[] o)
         {
-            Color NoseBlack = Color.FromArgb(1, 1, 1);
-            Color NoseGray = Color.FromArgb(27, 27, 27);
-            Color NoseWhite = Color.FromArgb(254, 254, 254);
-
             List<int> EligibleY;
             if (o.Length == 1)
             {
                 int LocalOffsetY = o[0];
-                EligibleY = EligibleBetween(0, shot.Height, 7 + LocalOffsetY).AddInt(-shot.Y);
+                EligibleY = EligibleBetween(0, shot.Height - 32, LocalOffsetY).AddInt(-shot.Y);
             }
             else
-                EligibleY = new List<int> { 7 };
+                EligibleY = new List<int> { 0 };
 
             foreach (int y in EligibleY)
-            {
-                for (int x = 0 + 2; x < shot.Width - 1; x++)
-                {
-                    if (NoseWhite.IsColorAt(x, y, shot) && NoseGray.IsColorAt(x - 1, y, shot) && NoseGray.IsColorAt(x + 1, y, shot))
-                    {
-                        bool r = NoseBlack.IsColorAt(x - 2, y, shot);
-                        return (new Point(x, y).Add(r ? -29 : -2, -7).Add(shot.Location), r);
-                    }
+                for (int x = 0 - 5; x < shot.Width - 26; x++) {
+                    int res = shot.HasPlayer(x, y);
+                    if (res != 0)
+                        return (new Point(x, y).Add(shot.Location), res == 2);
                 }
-            }
 
             return (InvalidPoint, false);
         }

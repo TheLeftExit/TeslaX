@@ -16,6 +16,8 @@ namespace TeslaX
 
         public static int BlocksAhead = 3;
 
+        public static int SkinColor = 3;
+
         // Whether "Uncertain" block should be functionally treated as Block or Air.
         public static bool UncertainIsBlock = true;
 

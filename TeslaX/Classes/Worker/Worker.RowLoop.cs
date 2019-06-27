@@ -86,7 +86,7 @@ namespace TeslaX
                     LastKnown = tmptuple.Point;
                     Right = tmptuple.Right;
                 }
-                else
+                /*else
                 {
                     if (Settings.Debug)
                     {
@@ -94,10 +94,10 @@ namespace TeslaX
                         debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
                     }
                     continue;
-                }
+                }*/
                 if (Settings.Debug)
                 {
-                    debugInfo.AppendLine("Player: " + LastKnown.ToString());
+                    debugInfo.AppendLine("Player: " + LastKnown.ToString() + (tmptuple.Point != InvalidPoint ? "" : "[?]"));
                     debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
                 }
 

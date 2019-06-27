@@ -77,7 +77,7 @@ namespace TeslaX
             }
 
             // Fist
-            Colors.AddRange(Fist.FistColors(4));
+            Colors.AddRange(Player.FistColors());
         }
 
         public static bool IsIgnored(this Color color)
