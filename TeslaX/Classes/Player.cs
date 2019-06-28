@@ -49,7 +49,10 @@ namespace TeslaX
                     }
         }
 
-        /// <summary>0: None, 1: Left, 2: Right</summary>
+        /// <summary>
+        /// Checks a location for player. Considers both directions.<br/>
+        /// Returns: 0 for none, 1 for left, 2 for right.
+        /// </summary>
         public static int HasPlayer(this Screenshot shot, int x, int y)
         {
             Color PlayerDark = Head.GetPixel(5, 1);
@@ -73,6 +76,27 @@ namespace TeslaX
             return 0;
         }
 
+        /// <summary>
+        /// Checks a location for player. Considers only one direction.
+        /// </summary>
+        public static bool HasPlayer(this Screenshot shot, int x, int y, bool r)
+        {
+            Color PlayerDark = Head.GetPixel(5, 1);
+            Color PlayerLight = Head.GetPixel(6, 1);
+            for (int ya = 1; ya <= 14; ya++)
+                if (PlayerDark.IsColorAt(x + (r ? 5 : 26), y + ya, shot))
+                {
+                    for (int yb = 1; yb <= 14; yb++)
+                        if (PlayerLight.IsColorAt(x + (r ? 6 : 25), y + yb, shot))
+                            return true;
+                    break;
+                }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks a horizontal line of locations for player. Considers both directions.
+        /// </summary>
         public static (int x, bool Right) SeekPlayer(this Screenshot shot, int x1, int x2, int y)
         {
             for (int x = x1; x <= x2; x++)

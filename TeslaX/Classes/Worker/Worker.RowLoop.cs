@@ -24,19 +24,31 @@ namespace TeslaX
 
         public static bool SetPlayer(this Screenshot shot)
         {
-            var res = shot.SeekPlayer(LastKnown.Value.X - shot.X - Settings.Radius, LastKnown.Value.X - shot.X + Settings.Radius, 0);
-            if (res.x == -1)
-                return false;
-            LastKnown.Value = new Point(shot.X + res.x, LastKnown.Value.Y);
-            Right = res.Right;
-            return true;
+            foreach(var cmd in Settings.Order)
+            {
+                bool tRight = Right ^ !cmd.SameDirection;
+                // All this trouble to check a range from x1 to x2 in their respective order.
+                int inc = (cmd.x1 < cmd.x2 ? 1 : -1);
+                for (int x = cmd.x1; x != cmd.x2 + inc; x += inc)
+                {
+                    if (shot.HasPlayer(LastKnown.Value.X + (Right ? x : -x) - shot.X, 0, tRight))
+                    {
+                        LastKnown.Value = new Point(LastKnown.Value.X + (Right ? x : -x), shot.Y);
+                        Right = tRight;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
+
+        public static Smooth<int> Distance;
+        public static Screenshot shot;
 
         public static void RowLoop()
         {
-            Screenshot shot;
 
-            Smooth<int> Distance = new Smooth<int>(150, ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1));
+            Distance = new Smooth<int>(150, ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1));
             int NewDistance;
 
             Smooth<bool> KeyDown = new Smooth<bool>(150, (ov, nv) => ov != nv);
@@ -127,6 +139,10 @@ namespace TeslaX
                 // If facing left, maximum distance to reach the block is 58.
                 // If right, 38.
                 KeyDown.Value = Distance.Value > (Right ? 38 : 58) && Distance != -1;
+
+                // I realized I removed input completely while restructuring.
+                // When trying to reimplement, also realized that managing input is a problem of itself.
+                // Will take care of it later.
 
                 #region [Debug] Appending NewDistance, Distance, Keydown and updating.
                 if (Settings.Debug)
