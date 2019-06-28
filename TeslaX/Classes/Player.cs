@@ -72,5 +72,16 @@ namespace TeslaX
             }
             return 0;
         }
+
+        public static (int x, bool Right) SeekPlayer(this Screenshot shot, int x1, int x2, int y)
+        {
+            for (int x = x1; x <= x2; x++)
+            {
+                int res = shot.HasPlayer(x, y);
+                if (res != 0)
+                    return (x, res == 2);
+            }
+            return (-1, false);
+        }
     }
 }

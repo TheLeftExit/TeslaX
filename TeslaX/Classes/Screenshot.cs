@@ -9,7 +9,7 @@ namespace TeslaX
 {
     public class Screenshot
     {
-        public Bitmap Image;
+        private Bitmap Image;
         public Point Location;
         public int X { get { return Location.X; } }
         public int Y { get { return Location.Y; } }
@@ -29,8 +29,10 @@ namespace TeslaX
             }
         }
 
+        public Screenshot() : this(0, 0, Window.Width, Window.Height) { }
+
         // Screenshot is a solution-wide replacement for Bitmap, because you can't inherit from it.
-        // The rest is "compatibility layer".
+        // The rest is "compatibility layer", extensive enough to allow Image to be private.
 
         public static implicit operator Bitmap(Screenshot s)
         {

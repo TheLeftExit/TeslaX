@@ -12,18 +12,12 @@ namespace TeslaX
 {
     public static partial class Worker
     {
-        public static MainForm mainForm;
 
+        public static MainForm mainForm;
         public static bool Busy;
 
-        public static readonly Point InvalidPoint = new Point(-1, -1);
-
-        // Relative to window.
         public static Point Offset;
-
-        // Relative to window.
-        public static Point LastKnown;
-
+        public static Smooth<Point> LastKnown;
         public static bool Right;
     }
 }

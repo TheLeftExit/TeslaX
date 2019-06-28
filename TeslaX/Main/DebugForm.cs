@@ -17,11 +17,13 @@ namespace TeslaX
         {
             this.FormBorderStyle = FormBorderStyle.None;
             this.TopMost = true;
-            this.Size = new Size(Settings.BlocksAhead * 32 + 32, 80);
+            this.Size = new Size((Settings.BlocksAhead + Settings.BlocksBehind + 1) * 32, 80);
 
-            DebugLabel = new Label();
-            DebugLabel.Dock = DockStyle.Fill;
-            DebugLabel.Font = new Font(FontFamily.GenericMonospace, 7);
+            DebugLabel = new Label
+            {
+                Dock = DockStyle.Fill,
+                Font = new Font(FontFamily.GenericMonospace, 7)
+            };
             this.Controls.Add(DebugLabel);
         }
 

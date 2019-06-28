@@ -57,6 +57,7 @@ namespace TeslaX
             swatch = new Stopwatch();
         }
 
+        // Old value goes first.
         private void Update(T nvalue)
         {
             if (!initialized)
@@ -67,7 +68,7 @@ namespace TeslaX
             }
             if (spike)
             {
-                if (swatch.ElapsedMilliseconds >= slength || !scondition(nvalue,svalue))
+                if (swatch.ElapsedMilliseconds >= slength || !scondition(svalue, nvalue))
                 {
                     svalue = nvalue;
                     spike = false;
@@ -77,7 +78,7 @@ namespace TeslaX
             }
             else
             {
-                if (scondition(nvalue, svalue))
+                if (scondition(svalue, nvalue))
                 {
                     spike = true;
                     swatch.Restart();

@@ -13,146 +13,130 @@ namespace TeslaX
 {
     public static partial class Worker
     {
-        public static List<int> EligibleBetween(int a, int b, int off)
+        public static bool SetOffset(this Screenshot shot)
         {
-            List<int> result = new List<int>();
-            int start = (a / 32) * 32 + off + (a % 32 < off ? 0 : 32);
-            for (int i = start; i <= b; i += 32)
-                result.Add(i);
-            return result;
+            Point res = shot.GetOffset();
+            if (res == Global.InvalidPoint)
+                return false;
+            Offset = res;
+            return true;
+        }
+
+        public static bool SetPlayer(this Screenshot shot)
+        {
+            var res = shot.SeekPlayer(LastKnown.Value.X - shot.X - Settings.Radius, LastKnown.Value.X - shot.X + Settings.Radius, 0);
+            if (res.x == -1)
+                return false;
+            LastKnown.Value = new Point(shot.X + res.x, LastKnown.Value.Y);
+            Right = res.Right;
+            return true;
         }
 
         public static void RowLoop()
         {
             Screenshot shot;
 
-            Smooth<int> Distance = new Smooth<int>(150, ((ov, nv) => Math.Abs(ov - nv) > 24));
+            Smooth<int> Distance = new Smooth<int>(150, ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1));
             int NewDistance;
 
-            // Blocks in front of character to check.
-            int range = Settings.BlocksAhead;
+            Smooth<bool> KeyDown = new Smooth<bool>(150, (ov, nv) => ov != nv);
 
-            // Input smoothing mechanism.
-            Stopwatch InputWatch = new Stopwatch();
-            bool KeyDown = false;
+            int ahead = Settings.BlocksAhead;
+            int behind = Settings.BlocksBehind;
 
-            // Debug info.
+            #region [Debug] Initializing.
             DebugForm debugForm = new DebugForm();
             StringBuilder debugInfo = new StringBuilder();
             if (Settings.Debug)
-            {
-                new Thread(() =>
-                {
-                    debugForm.ShowDialog();
-                }).Start();
-            }
+                new Thread(() => { debugForm.ShowDialog(); }).Start();
+            #endregion
 
             Busy = true;
             while (Busy)
             {
-                shot = new Screenshot(LastKnown.X + (Right ? 0 : -range * 32), LastKnown.Y, (range + 1) * 32, 64);
+                shot = new Screenshot(LastKnown.Value.X + (Right ? -behind * 32 : -ahead * 32), LastKnown.Value.Y, (ahead + behind + 1) * 32, 64);
 
+                #region [Debug] Clearing.
                 if (Settings.Debug)
                 {
                     debugInfo.Clear();
                 }
+                #endregion
 
-                var tmpoint = shot.GetOffset();
-                if (tmpoint != InvalidPoint)
-                    Offset = tmpoint;
-                else
+                if (!shot.SetOffset())
                 {
+                    #region [Debug] Appending Offset and updating.
                     if (Settings.Debug)
                     {
                         debugInfo.AppendLine("Offset:   N/A");
                         debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
                     }
+                    #endregion
                     continue;
                 }
-                if (Settings.Debug)
-                    debugInfo.AppendLine("Offset: " + Offset.ToString());
+                else
+                    #region [Debug] Appending Offset.
+                    if (Settings.Debug)
+                        debugInfo.AppendLine("Offset: " + Offset.ToString());
+                #endregion
 
-                var tmptuple = shot.GetPlayer();
-                if (tmptuple.Point != InvalidPoint)
-                {
-                    LastKnown = tmptuple.Point;
-                    Right = tmptuple.Right;
-                }
+                // Only recorded for debug purposes. Will put in real use or restructure, this is ugly.
+                bool pfound = shot.SetPlayer();
+
+                #region [Debug] Appending Player, Direction and updating.
                 if (Settings.Debug)
                 {
-                    debugInfo.AppendLine("Player: " + LastKnown.ToString() + (tmptuple.Point != InvalidPoint ? "" : "[?]"));
+                    debugInfo.AppendLine("Player: " + LastKnown.ToString() + (pfound ? "" : "[?]"));
                     debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
                 }
+                #endregion
 
                 List<int> ToCheck;
                 NewDistance = -1;
+                // This "if" feels a lot like spaghetti code.
+                // Might generalize it to a single case with a few more ternaries later.
                 if (Right)
                 {
-                    ToCheck = EligibleBetween(LastKnown.X + 32, LastKnown.X + 32 + range * 32, Offset.X).AddInt(-shot.X);
+                    ToCheck = Global.EligibleBetween(LastKnown.Value.X + 32, LastKnown.Value.X + 32 + ahead * 32, Offset.X).AddInt(-shot.X);
                     for (int x = 0; x < ToCheck.Count; x++)
                     {
                         BlockState next = shot.HasBlock(ToCheck[x], 0);
                         if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
                         {
-                            NewDistance = (ToCheck[x] + shot.X) - LastKnown.X - 32;
+                            NewDistance = (ToCheck[x] + shot.X) - LastKnown.Value.X - 32;
                             break;
                         }
                     }
                 }
                 else
                 {
-                    ToCheck = EligibleBetween(LastKnown.X - 32 - range * 32, LastKnown.X - 32, Offset.X).AddInt(-shot.X);
+                    ToCheck = Global.EligibleBetween(LastKnown.Value.X - 32 - ahead * 32, LastKnown.Value.X - 32, Offset.X).AddInt(-shot.X);
                     for (int x = ToCheck.Count - 1; x >= 0; x--)
                     {
                         BlockState next = shot.HasBlock(ToCheck[x], 0);
                         if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
                         {
-                            NewDistance = LastKnown.X - (ToCheck[x] + shot.X) - 32;
+                            NewDistance = LastKnown.Value.X - (ToCheck[x] + shot.X) - 32;
                             break;
                         }
                     }
-                }
-
-                if (NewDistance == -1) {
-                    if (Settings.Debug)
-                    {
-                        debugInfo.AppendLine("NewDistance: N/A");
-                        debugInfo.AppendLine("Distance: " + Distance.Value.ToString());
-                        debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
-                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
-                    }
-                    continue;
                 }
 
                 Distance.Value = NewDistance;
 
                 // If facing left, maximum distance to reach the block is 58.
                 // If right, 38.
-                bool NewKeyDown = Distance.Value > (Right ? 38 : 58);
+                KeyDown.Value = Distance.Value > (Right ? 38 : 58) && Distance != -1;
 
+                #region [Debug] Appending NewDistance, Distance, Keydown and updating.
                 if (Settings.Debug)
                 {
-                    debugInfo.AppendLine("NewDistance: " + NewDistance.ToString());
-                    debugInfo.AppendLine("Distance: " + Distance.Value.ToString());
+                    debugInfo.AppendLine("NewDistance: " + (NewDistance == -1 ? "N/A" : NewDistance.ToString()));
+                    debugInfo.AppendLine("Distance: " + (Distance == -1 ? "N/A" : Distance.ToString()));
                     debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
-                }
-
-                if (InputWatch.ElapsedMilliseconds > 150 && NewKeyDown != KeyDown)
-                {
-                    InputWatch.Restart();
-                    KeyDown = NewKeyDown;
-                    if(Settings.SimulateInput)
-                        Key.Send(Right ? KeyCode.Right : KeyCode.Left, KeyDown);
-                }
-
-                // First iteration only.
-                if (!InputWatch.IsRunning)
-                    InputWatch.Start();
-
-                if (Settings.Debug)
-                {
                     debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
                 }
+                #endregion
             }
         }
     }

@@ -7,24 +7,14 @@ using System.Drawing;
 
 namespace TeslaX
 {
+    // Might rename to Platform.
     public static class Predicates
     {
-        private static readonly Point InvalidPoint = new Point(-1, -1);
-
-        public static List<int> EligibleBetween(int a, int b, int off)
-        {
-            List<int> result = new List<int>();
-            int start = (a / 32) * 32 + off + (a % 32 < off ? 0 : 32);
-            for (int i = start; i <= b; i += 32)
-                result.Add(i);
-            return result;
-        }
-
-        public static Point GetOffset(this Screenshot shot, params bool[] fullscreen)
+        public static Point GetOffset(this Screenshot shot, bool fullscreen = false)
         {
             Color PlatformDark = Color.FromArgb(112, 71, 28);
             List<int> ValidY;
-            if (fullscreen.Length>0)
+            if (fullscreen)
             {
                 ValidY = new List<int>();
                 int step = shot.Width / 4;
@@ -41,28 +31,7 @@ namespace TeslaX
                     if (PlatformDark.IsColorAt(x + 13, y + 12, shot) && PlatformDark.IsColorAt(x + 18, y + 12, shot))
                         return new Point(x, y).Add(shot.Location).Mod(32);
 
-            return InvalidPoint;
-        }
-
-        public static (Point Point, bool Right) GetPlayer(this Screenshot shot, params int[] o)
-        {
-            List<int> EligibleY;
-            if (o.Length == 1)
-            {
-                int LocalOffsetY = o[0];
-                EligibleY = EligibleBetween(0, shot.Height - 32, LocalOffsetY).AddInt(-shot.Y);
-            }
-            else
-                EligibleY = new List<int> { 0 };
-
-            foreach (int y in EligibleY)
-                for (int x = 0 - 5; x < shot.Width - 26; x++) {
-                    int res = shot.HasPlayer(x, y);
-                    if (res != 0)
-                        return (new Point(x, y).Add(shot.Location), res == 2);
-                }
-
-            return (InvalidPoint, false);
+            return Global.InvalidPoint;
         }
     }
 }

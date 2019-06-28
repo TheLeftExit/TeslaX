@@ -63,6 +63,7 @@
     <Compile Include="Classes\Block.cs" />
     <Compile Include="Classes\Ignorable.cs" />
     <Compile Include="Main\DebugForm.cs" />
+    <Compile Include="Main\Global.cs" />
     <Compile Include="Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
