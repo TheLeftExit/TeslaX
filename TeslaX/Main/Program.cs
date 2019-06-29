@@ -14,6 +14,8 @@ namespace TeslaX
         {
             Ignorable.Load();
             Block.Load();
+            Cracks.Load();
+            ;
             Player.Load();
 
             Application.EnableVisualStyles();

@@ -19,12 +19,12 @@ namespace TeslaX
         // List of all points on a 32x32 grid that are fully opaque and don't share color with Ignorables.
         // If flippable, one point may have two colors.
         // Used to detect Block,
-        public static List<(Point Point, Color Color)> Sprite;
+        public static HashSet<(Point Point, Color Color)> Sprite;
 
         // List of all points.
         // If flippable, only points opaque on both rotations are listed.
         // Used to detect Air.
-        public static List<Point> Points;
+        public static HashSet<Point> Points;
 
         public static bool Flippable = true;
 
@@ -32,8 +32,8 @@ namespace TeslaX
         // To be run after Ignorable.Load.
         public static void Load()
         {
-            Sprite = new List<(Point Point, Color Color)>();
-            Points = new List<Point>();
+            Sprite = new HashSet<(Point Point, Color Color)>();
+            Points = new HashSet<Point>();
 
             using (Bitmap block = Properties.Resources.lasergrid)
             {
@@ -62,10 +62,6 @@ namespace TeslaX
                             }
                         }
                     }
-            }
-            using(Bitmap cracks = Properties.Resources.crack)
-            {
-
             }
         }
 

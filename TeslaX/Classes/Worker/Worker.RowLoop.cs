@@ -103,38 +103,47 @@ namespace TeslaX
                 }
                 #endregion
 
-                List<int> ToCheck;
                 NewDistance = -1;
-                // This "if" feels a lot like spaghetti code.
-                // Might generalize it to a single case with a few more ternaries later.
-                if (Right)
+
+                // New block finding mechanism.
+                // 1. Get list of all block locations.
+                List<int> ToCheck = Global.EligibleBetween(shot.X - 31, shot.X + shot.Width - 1, Offset.X);
+                List<int> Blocks = new List<int>();
+                foreach(int x in ToCheck)
                 {
-                    ToCheck = Global.EligibleBetween(LastKnown.Value.X + 32, LastKnown.Value.X + 32 + ahead * 32, Offset.X).AddInt(-shot.X);
-                    for (int x = 0; x < ToCheck.Count; x++)
-                    {
-                        BlockState next = shot.HasBlock(ToCheck[x], 0);
-                        if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
-                        {
-                            NewDistance = (ToCheck[x] + shot.X) - LastKnown.Value.X - 32;
-                            break;
-                        }
-                    }
+                    BlockState next = shot.HasBlock(x - shot.X, 0);
+                    if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
+                        Blocks.Add(x);
                 }
-                else
+                // 2. Go through them to find the first one in front of player.
+                int lDistance = 256; // Value from last iteration, used if facing left.
+                foreach(int x in Blocks)
                 {
-                    ToCheck = Global.EligibleBetween(LastKnown.Value.X - 32 - ahead * 32, LastKnown.Value.X - 32, Offset.X).AddInt(-shot.X);
-                    for (int x = ToCheck.Count - 1; x >= 0; x--)
+                    int tDistance = Right ? (x - LastKnown.Value.X - 32) : LastKnown.Value.X - x;
+                    // If facing right, all values before matching one should be negative.
+                    if(Right && tDistance > 0)
                     {
-                        BlockState next = shot.HasBlock(ToCheck[x], 0);
-                        if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
-                        {
-                            NewDistance = LastKnown.Value.X - (ToCheck[x] + shot.X) - 32;
-                            break;
-                        }
+                        NewDistance = tDistance;
+                        break;
                     }
+                    // If facing left, the first value after matching one should be negative.
+                    if(!Right && tDistance < 0)
+                    {
+                        NewDistance = lDistance;
+                        break;
+                    }
+                    lDistance = tDistance;
                 }
 
                 Distance.Value = NewDistance;
+
+                int CrackState = shot.HasCracks(Worker.LastKnown.Value.X + (Worker.Right ? 1 : -1) * (Worker.Distance.Value + 32) + Window.X - shot.X, 0);
+                #region [Debug] Appending CrackState.
+                if (Settings.Debug)
+                {
+                    debugInfo.AppendLine("CrackState: " + (CrackState == -1 ? "N/A" : CrackState.ToString()));
+                }
+                #endregion
 
                 // If facing left, maximum distance to reach the block is 58.
                 // If right, 38.

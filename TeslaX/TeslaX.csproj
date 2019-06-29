@@ -52,6 +52,7 @@
     <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\ConvertLocation.cs" />
     <Compile Include="Classes\Extensions.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Smooth.cs" />

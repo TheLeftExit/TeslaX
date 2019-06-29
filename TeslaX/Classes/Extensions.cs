@@ -19,10 +19,20 @@ namespace TeslaX
         {
             int Dim(int a, int b)
             {
-                return (int)Math.Round((double)a * b / 254);
-                // When predicting fist colors, MSD with 254 is a bit lower than with 255.
+                return (int)Math.Round((double)a * b / 255);
             }
             return Color.FromArgb(Dim(color.R, d), Dim(color.G, d), Dim(color.B, d));
+        }
+        
+        // Apparently, specific way in which pixels interact with crack sprite.
+        // a is r=g=b of the crack pixel (there are only ever 0 and 88).
+        public static Color UnderCrack(this Color ucolor, int a)
+        {
+            return Color.FromArgb(
+                Convert.ToInt32(ucolor.R * (0.5 + (double)a / 255)),
+                Convert.ToInt32(ucolor.G * (0.5 + (double)a / 255)),
+                Convert.ToInt32(ucolor.B * (0.5 + (double)a / 255))
+            );
         }
 
         public static bool Is(this Color source, Color color)
