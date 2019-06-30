@@ -71,94 +71,96 @@ namespace TeslaX
             Busy = true;
             while (Busy)
             {
-                shot = new Screenshot(LastKnown.Value.X + (Right ? -behind * 32 : -ahead * 32), LastKnown.Value.Y, (ahead + behind + 1) * 32, 64);
-
-                #region [Debug] Clearing.
-                if (Settings.Debug)
+                using (shot = new Screenshot(LastKnown.Value.X + (Right ? -behind * 32 : -ahead * 32), LastKnown.Value.Y, (ahead + behind + 1) * 32, 64))
                 {
-                    debugInfo.Clear();
-                }
-                #endregion
 
-                if (!shot.SetOffset())
-                {
-                    #region [Debug] Appending Offset and updating.
+                    #region [Debug] Clearing.
                     if (Settings.Debug)
                     {
-                        debugInfo.AppendLine("Offset:   N/A");
-                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                        debugInfo.Clear();
                     }
                     #endregion
-                    continue;
-                }
-                else
+
+                    if (!shot.SetOffset())
+                    {
+                        #region [Debug] Appending Offset and updating.
+                        if (Settings.Debug)
+                        {
+                            debugInfo.AppendLine("Offset:   N/A");
+                            debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                        }
+                        #endregion
+                        continue;
+                    }
+                    else
                     #region [Debug] Appending Offset.
                     if (Settings.Debug)
                         debugInfo.AppendLine("Offset: " + Offset.ToString());
-                #endregion
+                    #endregion
 
-                // Only recorded for debug purposes. Will put in real use or restructure, this is ugly.
-                bool pfound = shot.SetPlayer();
+                    // Only recorded for debug purposes. Will put in real use or restructure, this is ugly.
+                    bool pfound = shot.SetPlayer();
 
-                #region [Debug] Appending Player, Direction and updating.
-                if (Settings.Debug)
-                {
-                    debugInfo.AppendLine("Player: " + LastKnown.ToString() + (pfound ? "" : "[?]"));
-                    debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
-                }
-                #endregion
-
-                NewDistance = -1;
-
-                // New block finding mechanism.
-                // 1. Get list of all block locations.
-                List<int> ToCheck = Global.EligibleBetween(shot.X - 31, shot.X + shot.Width - 1, Offset.X);
-                List<int> Blocks = new List<int>();
-                foreach(int x in ToCheck)
-                {
-                    BlockState next = shot.HasBlock(x - shot.X, 0);
-                    if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
-                        Blocks.Add(x);
-                }
-
-                // 2. Go through them to find the first one in front of player.
-                for(int i = (Right ? 0 : Blocks.Count - 1); i >= 0 && i < Blocks.Count; i += Right ? 1 : -1)
-                {
-                    int tDistance = Right ? (Blocks[i] - LastKnown.Value.X - 32) : (LastKnown.Value.X - Blocks[i] - 32);
-                    if (tDistance > 0)
+                    #region [Debug] Appending Player, Direction and updating.
+                    if (Settings.Debug)
                     {
-                        NewDistance = tDistance;
-                        break;
+                        debugInfo.AppendLine("Player: " + LastKnown.ToString() + (pfound ? "" : "[?]"));
+                        debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
                     }
+                    #endregion
+
+                    NewDistance = -1;
+
+                    // New block finding mechanism.
+                    // 1. Get list of all block locations.
+                    List<int> ToCheck = Global.EligibleBetween(shot.X - 31, shot.X + shot.Width - 1, Offset.X);
+                    List<int> Blocks = new List<int>();
+                    foreach (int x in ToCheck)
+                    {
+                        BlockState next = shot.HasBlock(x - shot.X, 0);
+                        if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
+                            Blocks.Add(x);
+                    }
+
+                    // 2. Go through them to find the first one in front of player.
+                    for (int i = (Right ? 0 : Blocks.Count - 1); i >= 0 && i < Blocks.Count; i += Right ? 1 : -1)
+                    {
+                        int tDistance = Right ? (Blocks[i] - LastKnown.Value.X - 32) : (LastKnown.Value.X - Blocks[i] - 32);
+                        if (tDistance > 0)
+                        {
+                            NewDistance = tDistance;
+                            break;
+                        }
+                    }
+
+                    Distance.Value = NewDistance;
+
+                    int CrackState = shot.HasCracks(Worker.LastKnown.Value.X + (Worker.Right ? 1 : -1) * (Worker.Distance.Value + 32) + Window.X - shot.X, 0);
+                    #region [Debug] Appending CrackState.
+                    if (Settings.Debug)
+                    {
+                        debugInfo.AppendLine("CrackState: " + (CrackState == -1 ? "N/A" : CrackState.ToString()));
+                    }
+                    #endregion
+
+                    // If facing left, maximum distance to reach the block is 58.
+                    // If right, 38.
+                    KeyDown.Value = Distance.Value > (Right ? 38 : 58) && Distance != -1;
+
+                    // I realized I removed input completely while restructuring.
+                    // When trying to reimplement, also realized that managing input is a problem of itself.
+                    // Will take care of it later.
+
+                    #region [Debug] Appending NewDistance, Distance, Keydown and updating.
+                    if (Settings.Debug)
+                    {
+                        debugInfo.AppendLine("NewDistance: " + (NewDistance == -1 ? "N/A" : NewDistance.ToString()));
+                        debugInfo.AppendLine("Distance: " + (Distance == -1 ? "N/A" : Distance.ToString()));
+                        debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
+                        debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
+                    }
+                    #endregion
                 }
-
-                Distance.Value = NewDistance;
-
-                int CrackState = shot.HasCracks(Worker.LastKnown.Value.X + (Worker.Right ? 1 : -1) * (Worker.Distance.Value + 32) + Window.X - shot.X, 0);
-                #region [Debug] Appending CrackState.
-                if (Settings.Debug)
-                {
-                    debugInfo.AppendLine("CrackState: " + (CrackState == -1 ? "N/A" : CrackState.ToString()));
-                }
-                #endregion
-
-                // If facing left, maximum distance to reach the block is 58.
-                // If right, 38.
-                KeyDown.Value = Distance.Value > (Right ? 38 : 58) && Distance != -1;
-
-                // I realized I removed input completely while restructuring.
-                // When trying to reimplement, also realized that managing input is a problem of itself.
-                // Will take care of it later.
-
-                #region [Debug] Appending NewDistance, Distance, Keydown and updating.
-                if (Settings.Debug)
-                {
-                    debugInfo.AppendLine("NewDistance: " + (NewDistance == -1 ? "N/A" : NewDistance.ToString()));
-                    debugInfo.AppendLine("Distance: " + (Distance == -1 ? "N/A" : Distance.ToString()));
-                    debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
-                    debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
-                }
-                #endregion
             }
         }
     }

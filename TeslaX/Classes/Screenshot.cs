@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace TeslaX
 {
-    public class Screenshot
+    public class Screenshot : IDisposable
     {
         private Bitmap Image;
         public Point Location;
@@ -57,6 +57,11 @@ namespace TeslaX
         public Color GetPixel(Point p)
         {
             return Image.GetPixel(p);
+        }
+
+        public void Dispose()
+        {
+            Image.Dispose();
         }
     }
 }

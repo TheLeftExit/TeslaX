@@ -51,20 +51,22 @@ namespace TeslaX
             }
 
             // Taking initial screenshot.
-            Screenshot firstshot = new Screenshot();
-
-            // Finding offset.
-            if (!firstshot.SetNewOffset())
+            using (Screenshot firstshot = new Screenshot())
             {
-                MessageBox.Show("Failed to find offset. Make sure you're in a fully platformed world.");
-                return false;
-            }
 
-            // Finding player.
-            if(!firstshot.SetNewPlayer())
-            {
-                MessageBox.Show("Failed to find player. Make sure your character has no hair/hat items, and skin color is set in Settings.cs.");
-                return false;
+                // Finding offset.
+                if (!firstshot.SetNewOffset())
+                {
+                    MessageBox.Show("Failed to find offset. Make sure you're in a fully platformed world.");
+                    return false;
+                }
+
+                // Finding player.
+                if (!firstshot.SetNewPlayer())
+                {
+                    MessageBox.Show("Failed to find player. Make sure your character has no hair/hat items, and skin color is set in Settings.cs.");
+                    return false;
+                }
             }
 
             // Going at it.
