@@ -58,7 +58,7 @@ namespace TeslaX
                     this.Location = BottomLeft.Add(0, -this.Size.Height);
                     DebugLabel.Text = s;
                     DebugPlayerButton.Location = new Point(Worker.LastKnown.Value.X - Worker.shot.X, this.Size.Height - ph - 1);
-                    DebugBlockButton.Location = new Point(Worker.LastKnown.Value.X + (Worker.Right ? 1 : -1) * (Worker.Distance.Value + 32) + Window.X - this.Location.X, this.Size.Height - bh - 1);
+                    DebugBlockButton.Location = new Point(Worker.Distance.Value != -1 ? Worker.LastKnown.Value.X + (Worker.Right ? 1 : -1) * (Worker.Distance.Value + 32) + Window.X - this.Location.X : -33, this.Size.Height - bh - 1);
                     if (!Worker.Busy)
                         this.Close();
                 });

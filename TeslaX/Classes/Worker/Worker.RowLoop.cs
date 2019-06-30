@@ -42,6 +42,11 @@ namespace TeslaX
             return false;
         }
 
+        public static bool SetDistance(this Screenshot shot)
+        {
+            return true;
+        }
+
         public static Smooth<int> Distance;
         public static Screenshot shot;
 
@@ -115,24 +120,16 @@ namespace TeslaX
                     if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
                         Blocks.Add(x);
                 }
+
                 // 2. Go through them to find the first one in front of player.
-                int lDistance = 256; // Value from last iteration, used if facing left.
-                foreach(int x in Blocks)
+                for(int i = (Right ? 0 : Blocks.Count - 1); i >= 0 && i < Blocks.Count; i += Right ? 1 : -1)
                 {
-                    int tDistance = Right ? (x - LastKnown.Value.X - 32) : LastKnown.Value.X - x;
-                    // If facing right, all values before matching one should be negative.
-                    if(Right && tDistance > 0)
+                    int tDistance = Right ? (Blocks[i] - LastKnown.Value.X - 32) : (LastKnown.Value.X - Blocks[i] - 32);
+                    if (tDistance > 0)
                     {
                         NewDistance = tDistance;
                         break;
                     }
-                    // If facing left, the first value after matching one should be negative.
-                    if(!Right && tDistance < 0)
-                    {
-                        NewDistance = lDistance;
-                        break;
-                    }
-                    lDistance = tDistance;
                 }
 
                 Distance.Value = NewDistance;

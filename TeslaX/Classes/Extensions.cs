@@ -17,11 +17,11 @@ namespace TeslaX
 
         public static Color Dim(this Color color, int d)
         {
-            int Dim(int a, int b)
-            {
-                return (int)Math.Round((double)a * b / 255);
-            }
-            return Color.FromArgb(Dim(color.R, d), Dim(color.G, d), Dim(color.B, d));
+            return Color.FromArgb(
+                Convert.ToInt32((double)color.R * d / 255),
+                Convert.ToInt32((double)color.G * d / 255),
+                Convert.ToInt32((double)color.B * d / 255)
+            );
         }
         
         // Apparently, specific way in which pixels interact with crack sprite.
@@ -37,7 +37,7 @@ namespace TeslaX
 
         public static bool Is(this Color source, Color color)
         {
-            int d = 3; // Distortion value.
+            int d = Settings.Distortion; // Distortion value.
             if (Math.Abs(color.R - source.R) > d)
                 return false;
             if (Math.Abs(color.G - source.G) > d)
