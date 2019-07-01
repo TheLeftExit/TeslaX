@@ -9,7 +9,7 @@ namespace TeslaX
     public static class Settings
     {
         // Whether debug information should be displayed.
-        public static bool Debug = false;
+        public static bool Debug = true;
 
         // Whether input should be simulated.
         public static bool SimulateInput = false;
