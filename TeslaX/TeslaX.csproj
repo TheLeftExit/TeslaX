@@ -54,13 +54,13 @@
   <ItemGroup>
     <Compile Include="Classes\ConvertLocation.cs" />
     <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\Key.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Smooth.cs" />
     <Compile Include="Classes\Window.cs" />
     <Compile Include="Classes\Screenshot.cs" />
     <Compile Include="Classes\Cracks.cs" />
     <Compile Include="Classes\Predicates.cs" />
-    <Compile Include="Classes\SendKeys.cs" />
     <Compile Include="Classes\Block.cs" />
     <Compile Include="Classes\Ignorable.cs" />
     <Compile Include="Main\DebugForm.cs" />
