@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TeslaX
 {
@@ -31,6 +32,16 @@ namespace TeslaX
             (-24, -1, true), // MLSC.
             (-24, 24, false), // MLSC.
         };
+
+        public static Func<Point, Point, bool> PlayerSpikeCondition =
+            (ov, nv) => Math.Abs(ov.X - nv.X) > Settings.MaxSpeed || (ov.X == Window.Width / 2 - 16 && ov != nv);
+
+        public static int PlayerSpikeLength = 250;
+
+        public static Func<int, int, bool> DistanceSpikeCondition =
+            ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
+
+        public static int DistanceSpikeLength = 150;
 
         // Maximum pixels-per-frame character speed. Best to leave somewhere high due to FPS drops.
         public static int MaxSpeed = 32;

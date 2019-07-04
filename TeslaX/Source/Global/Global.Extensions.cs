@@ -8,7 +8,7 @@ using HwndObject = WindowScrape.Types.HwndObject;
 
 namespace TeslaX
 {
-    public static class Extensions
+    public static partial class Global
     {
         public static Color GetPixel(this Bitmap bitmap, Point point)
         {

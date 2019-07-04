@@ -7,10 +7,7 @@ using System.Drawing;
 
 namespace TeslaX
 {
-    // For things that just wouldn't fit in a single class.
-    // I really don't like the fact that this has to exist,
-    // but otherwise these things are introduced more than once, and that's even more ugly.
-    public static class Global
+    public static partial class Global
     {
         public static readonly Point InvalidPoint = new Point(-1, -1);
 

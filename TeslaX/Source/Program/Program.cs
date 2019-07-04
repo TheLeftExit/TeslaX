@@ -15,12 +15,10 @@ namespace TeslaX
             Ignorable.Load();
             Block.Load();
             Cracks.Load();
-            ;
             Player.Load();
 
             Application.EnableVisualStyles();
-            Worker.mainForm = new MainForm();
-            Application.Run(Worker.mainForm);
+            Application.Run(new MainForm());
         }
     }
 }

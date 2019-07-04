@@ -52,26 +52,25 @@
     <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Classes\ConvertLocation.cs" />
-    <Compile Include="Classes\Extensions.cs" />
-    <Compile Include="Classes\Key.cs" />
-    <Compile Include="Classes\Player.cs" />
-    <Compile Include="Classes\Smooth.cs" />
-    <Compile Include="Classes\Window.cs" />
-    <Compile Include="Classes\Screenshot.cs" />
-    <Compile Include="Classes\Cracks.cs" />
-    <Compile Include="Classes\Predicates.cs" />
-    <Compile Include="Classes\Block.cs" />
-    <Compile Include="Classes\Ignorable.cs" />
-    <Compile Include="Main\DebugForm.cs" />
-    <Compile Include="Main\Global.cs" />
-    <Compile Include="Main\MainForm.cs">
+    <Compile Include="Source\Global\Global.Extensions.cs" />
+    <Compile Include="Source\Other\Key.cs" />
+    <Compile Include="Source\Loaded\Player.cs" />
+    <Compile Include="Source\Other\Smooth.cs" />
+    <Compile Include="Source\Loaded\Window.cs" />
+    <Compile Include="Source\Other\Screenshot.cs" />
+    <Compile Include="Source\Loaded\Cracks.cs" />
+    <Compile Include="Source\Other\Predicates.cs" />
+    <Compile Include="Source\Loaded\Block.cs" />
+    <Compile Include="Source\Loaded\Ignorable.cs" />
+    <Compile Include="Source\Worker\Worker.DebugForm.cs" />
+    <Compile Include="Source\Global\Global.cs" />
+    <Compile Include="Source\Program\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\MainForm.Designer.cs">
+    <Compile Include="Source\Program\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\Settings.cs" />
+    <Compile Include="Source\Global\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,12 +81,12 @@
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
     <Compile Include="WindowScrape\Types\HwndObject.cs" />
     <Compile Include="WindowScrape\Types\RECT.cs" />
-    <Compile Include="Classes\Worker\Worker.Init.cs" />
-    <Compile Include="Classes\Worker\Worker.RowLoop.cs" />
+    <Compile Include="Source\Worker\Worker.Init.cs" />
+    <Compile Include="Source\Worker\Worker.RowLoop.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Worker\Worker.Global.cs" />
-    <Compile Include="Main\Program.cs" />
+    <Compile Include="Source\Worker\Worker.cs" />
+    <Compile Include="Source\Program\Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\crack.png" />
@@ -121,7 +120,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Main\MainForm.resx">
+    <EmbeddedResource Include="Source\Program\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

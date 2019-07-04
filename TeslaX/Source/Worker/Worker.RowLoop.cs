@@ -13,53 +13,10 @@ namespace TeslaX
 {
     public static partial class Worker
     {
-        public static bool SetOffset(this Screenshot shot)
+        private static void RowLoop()
         {
-            Point res = shot.GetOffset();
-            if (res == Global.InvalidPoint)
-                return false;
-            Offset = res;
-            return true;
-        }
-
-        public static bool SetPlayer(this Screenshot shot)
-        {
-            foreach(var cmd in Settings.Order)
-            {
-                bool tRight = Right ^ !cmd.SameDirection;
-                // All this trouble to check a range from x1 to x2 in their respective order.
-                int inc = (cmd.x1 < cmd.x2 ? 1 : -1);
-                for (int x = cmd.x1; x != cmd.x2 + inc; x += inc)
-                {
-                    if (shot.HasPlayer(LastKnown.Value.X + (Right ? x : -x) - shot.X, 0, tRight))
-                    {
-                        LastKnown.Value = new Point(LastKnown.Value.X + (Right ? x : -x), shot.Y);
-                        Right = tRight;
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        public static bool SetDistance(this Screenshot shot)
-        {
-            return true;
-        }
-
-        public static Smooth<int> Distance;
-        public static Screenshot shot;
-
-        public static void RowLoop()
-        {
-
-            Distance = new Smooth<int>(150, ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1));
-            int NewDistance;
-
-            Smooth<bool> KeyDown = new Smooth<bool>(150, (ov, nv) => ov != nv);
-
-            int ahead = Settings.BlocksAhead;
-            int behind = Settings.BlocksBehind;
+            Distance = new Smooth<int>(Settings.DistanceSpikeLength, Settings.DistanceSpikeCondition);
+            KeyDown = new Smooth<bool>(150, (ov, nv) => (ov != nv) && nv);
 
             #region [Debug] Initializing.
             DebugForm debugForm = new DebugForm();
@@ -71,7 +28,11 @@ namespace TeslaX
             Busy = true;
             while (Busy)
             {
-                using (shot = new Screenshot(LastKnown.Value.X + (Right ? -behind * 32 : -ahead * 32), LastKnown.Value.Y, (ahead + behind + 1) * 32, 64))
+                using (shot = new Screenshot(
+                    LastKnown.Value.X + (Right ? -Settings.BlocksBehind * 32 : -Settings.BlocksAhead * 32), 
+                    LastKnown.Value.Y, 
+                    (Settings.BlocksAhead + Settings.BlocksBehind + 1) * 32, 
+                    64))
                 {
 
                     #region [Debug] Clearing.
@@ -109,29 +70,7 @@ namespace TeslaX
                     }
                     #endregion
 
-                    NewDistance = -1;
-
-                    // New block finding mechanism.
-                    // 1. Get list of all block locations.
-                    List<int> ToCheck = Global.EligibleBetween(shot.X - 31, shot.X + shot.Width - 1, Offset.X);
-                    List<int> Blocks = new List<int>();
-                    foreach (int x in ToCheck)
-                    {
-                        BlockState next = shot.HasBlock(x - shot.X, 0);
-                        if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
-                            Blocks.Add(x);
-                    }
-
-                    // 2. Go through them to find the first one in front of player.
-                    for (int i = (Right ? 0 : Blocks.Count - 1); i >= 0 && i < Blocks.Count; i += Right ? 1 : -1)
-                    {
-                        int tDistance = Right ? (Blocks[i] - LastKnown.Value.X - 32) : (LastKnown.Value.X - Blocks[i] - 32);
-                        if (tDistance > 0)
-                        {
-                            NewDistance = tDistance;
-                            break;
-                        }
-                    }
+                    shot.SetDistance();
 
                     Distance.Value = NewDistance;
 
@@ -145,11 +84,13 @@ namespace TeslaX
 
                     // If facing left, maximum distance to reach the block is 58.
                     // If right, 38.
-                    KeyDown.Value = Distance.Value > (Right ? 38 : 58) && Distance != -1;
+                    bool NewKeyDown = Distance.Value > (Right ? 38 : 58) && Distance != -1;
+                    KeyDown.Value = NewKeyDown;
 
-                    // I realized I removed input completely while restructuring.
-                    // When trying to reimplement, also realized that managing input is a problem of itself.
-                    // Will take care of it later.
+                    if (KeyDown && !Key.LastDown)
+                        (Right ? Keys.D : Keys.A).Down();
+                    if ((!KeyDown) && Key.LastDown)
+                        (Right ? Keys.D : Keys.A).Up();
 
                     #region [Debug] Appending NewDistance, Distance, Keydown and updating.
                     if (Settings.Debug)
