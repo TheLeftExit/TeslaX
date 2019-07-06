@@ -55,7 +55,8 @@ namespace TeslaX
             public void UpdateDebugInfo(Point BottomLeft, string s)
             {
                 if (Application.OpenForms[this.Text] != null)
-                    this.Invoke((MethodInvoker)delegate
+                {
+                    var r = this.BeginInvoke((MethodInvoker)delegate
                     {
                         this.Location = BottomLeft.Add(0, -this.Size.Height);
                         s += (Keys.A.IsDown() ? "A" : "") + (Keys.D.IsDown() ? "D" : "");
@@ -65,6 +66,21 @@ namespace TeslaX
                         if (!Busy)
                             this.Close();
                     });
+                    this.EndInvoke(r);
+                }
+            }
+
+            public void BusyCheck()
+            {
+                if (Application.OpenForms[this.Text] != null)
+                {
+                    var r = this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (!Busy)
+                            this.Close();
+                    });
+                    this.EndInvoke(r);
+                }
             }
         }
     }

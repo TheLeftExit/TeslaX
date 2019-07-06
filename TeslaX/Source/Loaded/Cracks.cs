@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace TeslaX
 {
+    // Unused.
     public static class Cracks
     {
         public static Bitmap[] Clean;

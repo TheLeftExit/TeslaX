@@ -51,10 +51,14 @@
   <PropertyGroup>
     <StartupObject>TeslaX.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\pickaxe.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Source\Global\Global.Extensions.cs" />
     <Compile Include="Source\Other\Key.cs" />
     <Compile Include="Source\Loaded\Player.cs" />
+    <Compile Include="Source\Other\Physics.cs" />
     <Compile Include="Source\Other\Smooth.cs" />
     <Compile Include="Source\Loaded\Window.cs" />
     <Compile Include="Source\Other\Screenshot.cs" />
@@ -62,14 +66,16 @@
     <Compile Include="Source\Other\Predicates.cs" />
     <Compile Include="Source\Loaded\Block.cs" />
     <Compile Include="Source\Loaded\Ignorable.cs" />
-    <Compile Include="Source\Worker\Worker.DebugForm.cs" />
-    <Compile Include="Source\Global\Global.cs" />
     <Compile Include="Source\Program\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Source\Program\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Worker\TechLoops\GainLoop.cs" />
+    <Compile Include="Source\Worker\TechLoops\SpeedLoop.cs" />
+    <Compile Include="Source\Worker\Worker.DebugForm.cs" />
+    <Compile Include="Source\Global\Global.cs" />
     <Compile Include="Source\Global\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -96,6 +102,7 @@
     <Content Include="Images\pickaxe.ico" />
     <None Include="Images\Ignorable\seed.png" />
     <None Include="Images\Block\lasergrid.png" />
+    <Compile Include="Source\Worker\Worker.Input.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -120,12 +127,12 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Source\Program\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Program\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

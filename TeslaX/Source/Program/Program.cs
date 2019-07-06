@@ -12,11 +12,6 @@ namespace TeslaX
     {
         public static void Main()
         {
-            Ignorable.Load();
-            Block.Load();
-            Cracks.Load();
-            Player.Load();
-
             Application.EnableVisualStyles();
             Application.Run(new MainForm());
         }

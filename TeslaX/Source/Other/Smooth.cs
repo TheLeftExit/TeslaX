@@ -37,9 +37,9 @@ namespace TeslaX
         // Protected value.
         private T svalue;
         // Milliseconds until spike is accepted.
-        private int slength;
+        private readonly int slength;
         // Condition for spike to occur.
-        private Func<T,T,bool> scondition;
+        private readonly Func<T, T, bool> scondition;
 
         // Whether there's a spike.
         private bool spike;
@@ -48,7 +48,7 @@ namespace TeslaX
         // Whether the value has been set for the first time
         private bool initialized;
 
-        public Smooth(int length, Func<T,T,bool> condition)
+        public Smooth(int length, Func<T, T, bool> condition)
         {
             slength = length;
             scondition = condition;

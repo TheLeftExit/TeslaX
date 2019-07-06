@@ -10,10 +10,10 @@ namespace TeslaX
     public static class Settings
     {
         // Whether debug information should be displayed.
-        public static bool Debug = true;
+        public static bool Debug;
 
         // Whether input should be simulated.
-        public static bool SimulateInput = false;
+        public static bool SimulateInput;
 
         public static int BlocksAhead = 3; // 0 = crash.
         public static int BlocksBehind = 1; // 0 = crash.
@@ -34,7 +34,7 @@ namespace TeslaX
         };
 
         public static Func<Point, Point, bool> PlayerSpikeCondition =
-            (ov, nv) => Math.Abs(ov.X - nv.X) > Settings.MaxSpeed || (ov.X == Window.Width / 2 - 16 && ov != nv);
+            (ov, nv) => Math.Abs(ov.X - nv.X) > 32 || (ov.X == Window.Width / 2 - 16 && ov != nv);
 
         public static int PlayerSpikeLength = 250;
 
@@ -42,9 +42,6 @@ namespace TeslaX
             ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
 
         public static int DistanceSpikeLength = 150;
-
-        // Maximum pixels-per-frame character speed. Best to leave somewhere high due to FPS drops.
-        public static int MaxSpeed = 32;
         
         // Skin color, in order on color picking panel.
         public static int SkinColor = 3;

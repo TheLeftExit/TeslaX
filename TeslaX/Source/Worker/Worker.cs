@@ -21,7 +21,6 @@ namespace TeslaX
         private static int NewDistance = -1;
         private static Smooth<int> Distance;
         private static Screenshot shot;
-        private static Smooth<bool> KeyDown;
 
         private static bool SetNewOffset(this Screenshot shot)
         {

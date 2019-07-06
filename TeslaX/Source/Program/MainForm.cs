@@ -19,13 +19,19 @@ namespace TeslaX
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
             if (!Worker.Busy)
             {
+                Settings.Debug = checkBox2.Checked;
+                Settings.SimulateInput = !checkBox3.Checked;
                 Window.Windowed = checkBox1.Checked;
-                //Worker.Right = radioButton2.Checked || radioButton4.Checked;
-                //Worker.Down = radioButton3.Checked || radioButton4.Checked;
-                if(Worker.Init())
+                Settings.SkinColor = Convert.ToInt32(numericUpDown1.Value);
+
+                Ignorable.Load();
+                Block.Load();
+                Cracks.Load();
+                Player.Load();
+
+                if (Worker.Init())
                     button1.Text = "Working";
             }
             else
@@ -38,6 +44,11 @@ namespace TeslaX
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Worker.Busy = false;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedItem = comboBox1.Items[0];
         }
     }
 }

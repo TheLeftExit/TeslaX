@@ -16,7 +16,9 @@ namespace TeslaX
         private static void RowLoop()
         {
             Distance = new Smooth<int>(Settings.DistanceSpikeLength, Settings.DistanceSpikeCondition);
-            KeyDown = new Smooth<bool>(150, (ov, nv) => (ov != nv) && nv);
+
+            if (Settings.SimulateInput)
+                Input.Initialize();
 
             #region [Debug] Initializing.
             DebugForm debugForm = new DebugForm();
@@ -34,7 +36,6 @@ namespace TeslaX
                     (Settings.BlocksAhead + Settings.BlocksBehind + 1) * 32, 
                     64))
                 {
-
                     #region [Debug] Clearing.
                     if (Settings.Debug)
                     {
@@ -69,7 +70,7 @@ namespace TeslaX
                         debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
                     }
                     #endregion
-
+                    
                     shot.SetDistance();
 
                     Distance.Value = NewDistance;
@@ -82,22 +83,15 @@ namespace TeslaX
                     }
                     #endregion
 
-                    // If facing left, maximum distance to reach the block is 58.
-                    // If right, 38.
-                    bool NewKeyDown = Distance.Value > (Right ? 38 : 58) && Distance != -1;
-                    KeyDown.Value = NewKeyDown;
-
-                    if (KeyDown && !Key.LastDown)
-                        (Right ? Keys.D : Keys.A).Down();
-                    if ((!KeyDown) && Key.LastDown)
-                        (Right ? Keys.D : Keys.A).Up();
-
+                    // Feeding the Distance value into the input machine. It'll take it from here.
+                    if (Settings.SimulateInput)
+                        Input.Distance = Distance;
+                    
                     #region [Debug] Appending NewDistance, Distance, Keydown and updating.
                     if (Settings.Debug)
                     {
                         debugInfo.AppendLine("NewDistance: " + (NewDistance == -1 ? "N/A" : NewDistance.ToString()));
                         debugInfo.AppendLine("Distance: " + (Distance == -1 ? "N/A" : Distance.ToString()));
-                        debugInfo.AppendLine("KeyDown: " + KeyDown.ToString());
                         debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
                     }
                     #endregion
