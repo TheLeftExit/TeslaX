@@ -33,35 +33,34 @@ namespace TeslaX
             Sprite = new HashSet<(Point Point, Color Color)>();
             Points = new HashSet<Point>();
 
-            using (Bitmap block = Settings.CurrentBlock.Source)
-            {
-                // Dealing with invalid spritesheets the hard way. 
-                if (block.Width % 32 > 0)
-                    throw new Exception("Invalid spritesheet supplied: width not a multiple of 32.");
+            Bitmap block = Settings.CurrentBlock.Source;
 
-                int frames = block.Width / 32;
+            // Dealing with invalid spritesheets the hard way. 
+            if (block.Width % 32 > 0)
+                throw new Exception("Invalid spritesheet supplied: width not a multiple of 32.");
 
-                Color color;
-                Point point;
-                for(int x = 0; x<32; x++)
-                    for(int y = 0; y <32; y++)
+            int frames = block.Width / 32;
+
+            Color color;
+            Point point;
+            for (int x = 0; x < 32; x++)
+                for (int y = 0; y < 32; y++)
+                {
+                    point = new Point(x, y);
+                    bool opaque = true;
+
+                    for (int i = 0; i < frames; i++)
                     {
-                        point = new Point(x, y);
-                        bool opaque = true;
-
-                        for(int i = 0; i < frames; i++)
-                        {
-                            color = block.GetPixel(x, y);
-                            if (color.A == 255 && !Ignorable.Colors.Contains(color))
-                                Sprite.Add((point, color));
-                            if (color.A < 255)
-                                opaque = false;
-                        }
-
-                        if (opaque)
-                            Points.Add(point);
+                        color = block.GetPixel(x, y);
+                        if (color.A == 255 && !Ignorable.Colors.Contains(color))
+                            Sprite.Add((point, color));
+                        if (color.A < 255)
+                            opaque = false;
                     }
-            }
+
+                    if (opaque)
+                        Points.Add(point);
+                }
         }
 
         public static BlockState HasBlock(this Screenshot shot, int x, int y)
