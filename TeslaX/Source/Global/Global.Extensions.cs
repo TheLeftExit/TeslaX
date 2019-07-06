@@ -29,9 +29,9 @@ namespace TeslaX
         public static Color UnderCrack(this Color ucolor, int a)
         {
             return Color.FromArgb(
-                Convert.ToInt32(ucolor.R * (0.5 + (double)a / 255)),
-                Convert.ToInt32(ucolor.G * (0.5 + (double)a / 255)),
-                Convert.ToInt32(ucolor.B * (0.5 + (double)a / 255))
+                Math.Min(Convert.ToInt32(ucolor.R * (0.5 + (double)a / 255)), 255),
+                Math.Min(Convert.ToInt32(ucolor.G * (0.5 + (double)a / 255)), 255),
+                Math.Min(Convert.ToInt32(ucolor.B * (0.5 + (double)a / 255)), 255)
             );
         }
 
