@@ -26,8 +26,6 @@ namespace TeslaX
         // Used to detect Air.
         public static HashSet<Point> Points;
 
-        public static bool Flippable = true;
-
         // Include other images and load them here instead for 100% extensibility!
         // To be run after Ignorable.Load.
         public static void Load()
@@ -35,32 +33,33 @@ namespace TeslaX
             Sprite = new HashSet<(Point Point, Color Color)>();
             Points = new HashSet<Point>();
 
-            using (Bitmap block = Properties.Resources.lasergrid)
+            using (Bitmap block = Settings.CurrentBlock.Source)
             {
+                // Dealing with invalid spritesheets the hard way. 
+                if (block.Width % 32 > 0)
+                    throw new Exception("Invalid spritesheet supplied: width not a multiple of 32.");
+
+                int frames = block.Width / 32;
+
                 Color color;
                 Point point;
                 for(int x = 0; x<32; x++)
                     for(int y = 0; y <32; y++)
                     {
-                        color = block.GetPixel(x, y);
                         point = new Point(x, y);
-                        if (color.A == 255 && !Ignorable.Colors.Contains(color) && !Ignorable.Points.Contains(point))
+                        bool opaque = true;
+
+                        for(int i = 0; i < frames; i++)
                         {
-                            if (!Flippable)
-                            {
+                            color = block.GetPixel(x, y);
+                            if (color.A == 255 && !Ignorable.Colors.Contains(color))
                                 Sprite.Add((point, color));
-                                Points.Add(point);
-                            }
-                            else
-                            {
-                                if (!Sprite.Contains((point, color))){
-                                    Sprite.Add((point, color));
-                                    Sprite.Add((point.Flip(), color));
-                                }
-                                if (block.GetPixel(point.Flip()).A == 255)
-                                    Points.Add(point);
-                            }
+                            if (color.A < 255)
+                                opaque = false;
                         }
+
+                        if (opaque)
+                            Points.Add(point);
                     }
             }
         }

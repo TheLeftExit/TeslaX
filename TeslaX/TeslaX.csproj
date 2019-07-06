@@ -95,6 +95,12 @@
     <Compile Include="Source\Program\Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Block\chandelier.png" />
+    <Content Include="Images\Block\dirt.png" />
+    <Content Include="Images\Block\fishtank.png" />
+    <Content Include="Images\Block\pepper.png" />
+    <Content Include="Images\Block\pinball.png" />
+    <Content Include="Images\Block\sorcerer.png" />
     <Content Include="Images\crack.png" />
     <Content Include="Images\Ignorable\dust.png" />
     <Content Include="Images\Ignorable\gems.png" />
@@ -103,6 +109,7 @@
     <None Include="Images\Ignorable\seed.png" />
     <None Include="Images\Block\lasergrid.png" />
     <Compile Include="Source\Worker\Worker.Input.cs" />
+    <None Include="Properties\DataSources\Settings.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

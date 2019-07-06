@@ -25,6 +25,7 @@ namespace TeslaX
                 Settings.SimulateInput = !checkBox3.Checked;
                 Window.Windowed = checkBox1.Checked;
                 Settings.SkinColor = Convert.ToInt32(numericUpDown1.Value);
+                Settings.BlockID = comboBox1.SelectedIndex;
 
                 Ignorable.Load();
                 Block.Load();

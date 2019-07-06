@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using TeslaX.Properties;
 
 namespace TeslaX
 {
@@ -24,7 +25,7 @@ namespace TeslaX
         // Order of locations (horizontal) to check for player, relative to last known position.
         // For each command, every location from x1 to x2 is checked, looking for player facing same or different (from current) direction.
         // Main tool in calibrating LastKnown for accuracy.
-        public static List<(int x1, int x2, bool SameDirection)> Order = new List<(int, int, bool)>
+        public static (int x1, int x2, bool SameDirection)[] Order = new (int, int, bool)[]
         {
             (0, 0, true), // First guess: same as before (center of the screen).
             (0, 0, false), // Mid-loop swap compatibility. To be commented in/out depending on situation.
@@ -57,5 +58,24 @@ namespace TeslaX
         // 4 - green  (50)
         // 5 - purple (100)
         public static int BiggestGem = 3;
+
+        // List of all available blocks.
+        private static (int ID, string Name, Bitmap Source, Color SeedColor1, Color SeedColor2, int SeedStyle)[] Blocks = new (int, string, Bitmap, Color, Color, int)[]
+        {
+            (0, "Laser Grid", Resources.lasergrid, Color.Empty, Color.Empty, -1),
+            (1, "Pepper Tree", Resources.pepper, Color.Empty, Color.Empty, -1),
+            (2, "Pinball Bumper", Resources.pinball, Color.Empty, Color.Empty, -1),
+            (3, "Fish Tank", Resources.fishtank, Color.Empty, Color.Empty, -1),
+            (4, "Sorcerer Stone", Resources.sorcerer, Color.Empty, Color.Empty, -1),
+            (5, "Dirt", Resources.dirt, Color.Empty, Color.Empty, -1),
+        };
+
+        // Currently selected block.
+        public static int BlockID;
+
+        public static (int ID, string Name, Bitmap Source, Color SeedColor1, Color SeedColor2, int SeedStyle) CurrentBlock
+        {
+            get { return Blocks[BlockID]; }
+        }
     }
 }
