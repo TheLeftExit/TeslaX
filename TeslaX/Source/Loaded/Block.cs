@@ -18,8 +18,8 @@ namespace TeslaX
     {
         // List of all points on a 32x32 grid that are fully opaque and don't share color with Ignorables.
         // If flippable, one point may have two colors.
-        // Used to detect Block,
-        public static HashSet<(Point Point, Color Color)> Sprite;
+        // Used to detect Block.
+        public static HashSet<(Point Point, HashSet<Color> Colors)> Sprite;
 
         // List of all points.
         // If flippable, only points opaque on both rotations are listed.
@@ -30,7 +30,7 @@ namespace TeslaX
         // To be run after Ignorable.Load.
         public static void Load()
         {
-            Sprite = new HashSet<(Point Point, Color Color)>();
+            Sprite = new HashSet<(Point Point, HashSet<Color> Colors)>();
             Points = new HashSet<Point>();
 
             Bitmap block = Settings.CurrentBlock.Source;
@@ -48,15 +48,20 @@ namespace TeslaX
                 {
                     point = new Point(x, y);
                     bool opaque = true;
+                    HashSet<Color> thispixel = new HashSet<Color>();
 
                     for (int i = 0; i < frames; i++)
                     {
                         color = block.GetPixel(x, y);
                         if (color.A == 255 && !Ignorable.Colors.Contains(color))
-                            Sprite.Add((point, color));
+                            thispixel.Add(color);
+
                         if (color.A < 255)
                             opaque = false;
                     }
+
+                    if (thispixel.Count > 0)
+                        Sprite.Add((point, thispixel));
 
                     if (opaque)
                         Points.Add(point);
@@ -65,14 +70,17 @@ namespace TeslaX
 
         public static BlockState HasBlock(this Screenshot shot, int x, int y)
         {
-            foreach(var p in Sprite)
-                if (shot.Contains(p.Point.Add(x,y)))
-                    if (p.Color.IsColorAt(p.Point.Add(x,y), shot))
-                        return BlockState.Block;
+            foreach (var p in Sprite)
+                if (shot.Contains(p.Point.Add(x, y)))
+                    foreach (var c in p.Colors)
+                        if (c.IsColorAt(p.Point.Add(x, y), shot))
+                            return BlockState.Block;
+
             foreach (var p in Points)
-                if (shot.Contains(p.Add(x,y)))
-                    if (!shot.GetPixel(p.Add(x,y)).IsIgnored())
+                if (shot.Contains(p.Add(x, y)))
+                    if (!shot.GetPixel(p.Add(x, y)).IsIgnored())
                         return BlockState.Air;
+
             return BlockState.Uncertain;
         }
     }

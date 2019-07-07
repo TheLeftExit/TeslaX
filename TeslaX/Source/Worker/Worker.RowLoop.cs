@@ -75,14 +75,6 @@ namespace TeslaX
 
                     Distance.Value = NewDistance;
 
-                    int CrackState = shot.HasCracks(Worker.LastKnown.Value.X + (Worker.Right ? 1 : -1) * (Worker.Distance.Value + 32) + Window.X - shot.X, 0);
-                    #region [Debug] Appending CrackState.
-                    if (Settings.Debug)
-                    {
-                        debugInfo.AppendLine("CrackState: " + (CrackState == -1 ? "N/A" : CrackState.ToString()));
-                    }
-                    #endregion
-
                     // Feeding the Distance value into the input machine. It'll take it from here.
                     if (Settings.SimulateInput)
                         Input.Distance = Distance;
