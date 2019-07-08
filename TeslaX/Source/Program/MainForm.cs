@@ -26,6 +26,7 @@ namespace TeslaX
                 Window.Windowed = checkBox1.Checked;
                 Settings.SkinColor = Convert.ToInt32(numericUpDown1.Value);
                 Settings.BlockID = comboBox1.SelectedIndex;
+                Settings.RichPresence = checkBox8.Checked;
 
                 Ignorable.Load();
                 Block.Load();
@@ -45,6 +46,7 @@ namespace TeslaX
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Worker.Busy = false;
+            Discord.Dispose();
         }
 
         private void MainForm_Load(object sender, EventArgs e)

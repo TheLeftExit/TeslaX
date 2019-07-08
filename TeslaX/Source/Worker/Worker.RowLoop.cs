@@ -27,6 +27,9 @@ namespace TeslaX
                 new Thread(() => { debugForm.ShowDialog(); }).Start();
             #endregion
 
+            if (Settings.RichPresence)
+                Discord.ToBreaking();
+
             Busy = true;
             while (Busy)
             {
@@ -89,6 +92,11 @@ namespace TeslaX
                     #endregion
                 }
             }
+
+            if (Settings.RichPresence)
+                Discord.ToIdle();
+            else
+                Discord.Hide();
         }
     }
 }

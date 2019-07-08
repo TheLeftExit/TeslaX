@@ -66,6 +66,7 @@
     <Compile Include="Source\Other\Predicates.cs" />
     <Compile Include="Source\Loaded\Block.cs" />
     <Compile Include="Source\Loaded\Ignorable.cs" />
+    <Compile Include="Source\Program\DiscordClient.cs" />
     <Compile Include="Source\Program\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,9 +110,16 @@
     <None Include="Images\Ignorable\seed.png" />
     <None Include="Images\Block\lasergrid.png" />
     <Compile Include="Source\Worker\Worker.Input.cs" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\Settings.datasource" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="DiscordRPC, Version=1.0.108.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DiscordRichPresence.1.0.108\lib\net35\DiscordRPC.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
