@@ -8,7 +8,7 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    public static class Settings
+    public static partial class Settings
     {
         // Whether debug information should be displayed.
         public static bool Debug;
@@ -58,25 +58,6 @@ namespace TeslaX
         // 4 - green  (50)
         // 5 - purple (100)
         public static int BiggestGem = 3;
-
-        // List of all available blocks.
-        private static (int ID, string Name, string Code, Bitmap Source, Color SeedColor1, Color SeedColor2, int SeedStyle)[] Blocks = new (int, string, string, Bitmap, Color, Color, int)[]
-        {
-            (0, "Laser Grids", "lasergrid", Resources.lasergrid, Color.Empty, Color.Empty, -1),
-            (1, "Pepper Trees", "peppertree", Resources.pepper, Color.Empty, Color.Empty, -1),
-            (2, "Pinball Bumpers", "bumper", Resources.pinball, Color.Empty, Color.Empty, -1),
-            (3, "Fish Tanks", "fishtank", Resources.fishtank, Color.Empty, Color.Empty, -1),
-            (4, "Sorcerer Stones", "sorcerer", Resources.sorcerer, Color.Empty, Color.Empty, -1),
-            (5, "Dirt", "dirt", Resources.dirt, Color.Empty, Color.Empty, -1),
-        };
-
-        // Currently selected block.
-        public static int BlockID;
-
-        public static (int ID, string Name, string Code, Bitmap Source, Color SeedColor1, Color SeedColor2, int SeedStyle) CurrentBlock
-        {
-            get { return Blocks[BlockID]; }
-        }
 
         // Whether the user has gracefully decided to spread the word via Discord Rich Presence.
         public static bool RichPresence;
