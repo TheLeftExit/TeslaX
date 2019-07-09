@@ -43,6 +43,8 @@ namespace TeslaX
             ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
 
         public static int DistanceSpikeLength = 150;
+
+        public static (int Right, int Left) TriggerDistance;
         
         // Skin color, in order on color picking panel.
         public static int SkinColor = 3;

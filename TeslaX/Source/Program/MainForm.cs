@@ -27,6 +27,8 @@ namespace TeslaX
                 Settings.SkinColor = Convert.ToInt32(numericUpDown1.Value);
                 Settings.BlockID = (comboBox1.SelectedIndex == comboBox1.Items.Count -1) ? -1 : comboBox1.SelectedIndex;
                 Settings.RichPresence = checkBox8.Checked;
+                Settings.TriggerDistance.Left = Convert.ToInt32(numericUpDown2.Value);
+                Settings.TriggerDistance.Right = Convert.ToInt32(numericUpDown3.Value);
 
                 Ignorable.Load();
                 Block.Load();
