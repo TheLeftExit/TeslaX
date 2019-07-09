@@ -2,8 +2,9 @@
 Farming bot for Growtopia. Work in progress.  
 You can join the development/discussion Discord server at https://discord.gg/9Zv2ppD.
 
-Demo from an earlier version:  
-![Demo](demo.gif)
+Preview:  
+![Demo](demo.gif)  
+(only movement was automated; punching was manual)
 
 This bot detects the player and blocks in front of him, and automatically moves forward to simulate normal farming behavior.
 

@@ -46,7 +46,7 @@ namespace TeslaX
 
             private static void newdist(int d)
             {
-                bool newdown = (d) >= (Right ? 38 : 58) && d != -1;
+                bool newdown = (d) >= (/*Right ? 38 : 58*/ 32) && d != -1;
 
                 // If we're idle, and for less than X ms, don't move yet.
                 if (!down && elapsed < 150)
