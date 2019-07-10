@@ -24,7 +24,7 @@ namespace TeslaX
             {
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.TopMost = true;
-                this.Size = new Size((Settings.BlocksAhead + Settings.BlocksBehind + 1) * 32, 90);
+                this.Size = new Size((TechSettings.BlocksAhead + TechSettings.BlocksBehind + 1) * 32, 90);
 
                 DebugLabel = new Label
                 {

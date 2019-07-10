@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using WindowScrape;
 using HwndObject = WindowScrape.Types.HwndObject;
 using System.Diagnostics;
+using TeslaX.Properties;
 
 namespace TeslaX
 {
@@ -15,32 +16,32 @@ namespace TeslaX
     {
         private static void RowLoop()
         {
-            Distance = new Smooth<int>(Settings.DistanceSpikeLength, Settings.DistanceSpikeCondition);
+            Distance = new Smooth<int>(TechSettings.DistanceSpikeLength, TechSettings.DistanceSpikeCondition);
 
-            if (Settings.SimulateInput)
+            if (Settings.Default.SimulateInput)
                 Input.Initialize();
 
             #region [Debug] Initializing.
             DebugForm debugForm = new DebugForm();
             StringBuilder debugInfo = new StringBuilder();
-            if (Settings.Debug)
+            if (Settings.Default.Debug)
                 new Thread(() => { debugForm.ShowDialog(); }).Start();
             #endregion
 
-            if (Settings.RichPresence)
+            if (Settings.Default.RichPresence)
                 Discord.ToBreaking();
 
             Busy = true;
             while (Busy)
             {
                 using (shot = new Screenshot(
-                    LastKnown.Value.X + (Right ? -Settings.BlocksBehind * 32 : -Settings.BlocksAhead * 32), 
+                    LastKnown.Value.X + (Right ? -TechSettings.BlocksBehind * 32 : -TechSettings.BlocksAhead * 32), 
                     LastKnown.Value.Y, 
-                    (Settings.BlocksAhead + Settings.BlocksBehind + 1) * 32, 
+                    (TechSettings.BlocksAhead + TechSettings.BlocksBehind + 1) * 32, 
                     64))
                 {
                     #region [Debug] Clearing.
-                    if (Settings.Debug)
+                    if (Settings.Default.Debug)
                     {
                         debugInfo.Clear();
                     }
@@ -49,7 +50,7 @@ namespace TeslaX
                     if (!shot.SetOffset())
                     {
                         #region [Debug] Appending Offset and updating.
-                        if (Settings.Debug)
+                        if (Settings.Default.Debug)
                         {
                             debugInfo.AppendLine("Offset:   N/A");
                             debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
@@ -59,7 +60,7 @@ namespace TeslaX
                     }
                     else
                     #region [Debug] Appending Offset.
-                    if (Settings.Debug)
+                    if (Settings.Default.Debug)
                         debugInfo.AppendLine("Offset: " + Offset.ToString());
                     #endregion
 
@@ -67,7 +68,7 @@ namespace TeslaX
                     bool pfound = shot.SetPlayer();
 
                     #region [Debug] Appending Player, Direction and updating.
-                    if (Settings.Debug)
+                    if (Settings.Default.Debug)
                     {
                         debugInfo.AppendLine("Player: " + LastKnown.ToString() + (pfound ? "" : "[?]"));
                         debugInfo.AppendLine("Direction: " + (Right ? "Right" : "Left"));
@@ -79,11 +80,11 @@ namespace TeslaX
                     Distance.Value = NewDistance;
 
                     // Feeding the Distance value into the input machine. It'll take it from here.
-                    if (Settings.SimulateInput)
+                    if (Settings.Default.SimulateInput)
                         Input.Distance = Distance;
                     
                     #region [Debug] Appending NewDistance, Distance, Keydown and updating.
-                    if (Settings.Debug)
+                    if (Settings.Default.Debug)
                     {
                         debugInfo.AppendLine("NewDistance: " + (NewDistance == -1 ? "N/A" : NewDistance.ToString()));
                         debugInfo.AppendLine("Distance: " + (Distance == -1 ? "N/A" : Distance.ToString()));
@@ -93,7 +94,7 @@ namespace TeslaX
                 }
             }
 
-            if (Settings.RichPresence)
+            if (Settings.Default.RichPresence)
                 Discord.ToIdle();
             else
                 Discord.Hide();

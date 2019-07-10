@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DiscordRPC;
+using TeslaX.Properties;
 
 namespace TeslaX
 {
@@ -38,10 +39,10 @@ namespace TeslaX
 
             client.SetPresence(new RichPresence()
             {
-                State = Settings.SimulateInput ? "Breaking " + Settings.CurrentBlock.PluralName : "Debugging",
+                State = Settings.Default.SimulateInput ? "Breaking " + TechSettings.CurrentBlock.PluralName : "Debugging",
                 Assets = new Assets
                 {
-                    LargeImageKey = Settings.CurrentBlock.Code
+                    LargeImageKey = TechSettings.CurrentBlock.Code
                 },
                 Timestamps = Timestamps.Now
             });

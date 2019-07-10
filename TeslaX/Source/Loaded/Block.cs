@@ -33,7 +33,7 @@ namespace TeslaX
             Sprite = new HashSet<(Point Point, HashSet<Color> Colors)>();
             Points = new HashSet<Point>();
 
-            Bitmap block = Settings.CurrentBlock.Source;
+            Bitmap block = TechSettings.CurrentBlock.Source;
 
             // Dealing with invalid spritesheets the hard way. 
             if (block.Width % 32 > 0)

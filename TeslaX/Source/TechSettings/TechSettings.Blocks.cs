@@ -8,7 +8,7 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    public static partial class Settings
+    public static partial class TechSettings
     {
         // List of all available blocks.
         public static (string SingleName, string PluralName, string Code, Bitmap Source)[] Blocks = new (string, string, string, Bitmap)[]

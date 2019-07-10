@@ -15,7 +15,7 @@ namespace TeslaX
     {
         private static void GainLoop()
         {
-            Distance = new Smooth<int>(Settings.DistanceSpikeLength, Settings.DistanceSpikeCondition);
+            Distance = new Smooth<int>(TechSettings.DistanceSpikeLength, TechSettings.DistanceSpikeCondition);
             Distance.Value = -1;
 
             DebugForm debugForm = new DebugForm();
@@ -35,9 +35,9 @@ namespace TeslaX
             while (Busy)
             {
                 using (shot = new Screenshot(
-                    LastKnown.Value.X + (Right ? -Settings.BlocksBehind * 32 : -Settings.BlocksAhead * 32),
+                    LastKnown.Value.X + (Right ? -TechSettings.BlocksBehind * 32 : -TechSettings.BlocksAhead * 32),
                     LastKnown.Value.Y,
-                    (Settings.BlocksAhead + Settings.BlocksBehind + 1) * 32,
+                    (TechSettings.BlocksAhead + TechSettings.BlocksBehind + 1) * 32,
                     64))
                 {
                     // Clearing.

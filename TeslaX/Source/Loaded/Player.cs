@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using TeslaX.Properties;
 
 namespace TeslaX
 {
@@ -32,7 +33,7 @@ namespace TeslaX
         {
             List<Color> res = new List<Color>(FistShades.Length);
             for (int i = 0; i < FistShades.Length; i++)
-                res.Add(SkinColors[Settings.SkinColor].Dim(FistShades[i]));
+                res.Add(SkinColors[Settings.Default.SkinColor].Dim(FistShades[i]));
             return res;
         }
 
@@ -45,7 +46,7 @@ namespace TeslaX
                 for (int y = 0; y < Head.Height; y++)
                     if (Head.GetPixel(x, y).A == 255)
                     {
-                        Head.SetPixel(x, y, SkinColors[Settings.SkinColor].Dim(Head.GetPixel(x, y).R));
+                        Head.SetPixel(x, y, SkinColors[Settings.Default.SkinColor].Dim(Head.GetPixel(x, y).R));
                     }
         }
 

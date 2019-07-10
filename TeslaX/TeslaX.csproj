@@ -55,8 +55,14 @@
     <ApplicationIcon>Images\pickaxe.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Source\Global\Global.Extensions.cs" />
-    <Compile Include="Source\Global\Settings.Blocks.cs" />
+    <Compile Include="Source\Program\Message.cs" />
+    <Compile Include="Source\TechSettings\TechSettings.Blocks.cs" />
     <Compile Include="Source\Other\Key.cs" />
     <Compile Include="Source\Loaded\Player.cs" />
     <Compile Include="Source\Other\Physics.cs" />
@@ -74,11 +80,11 @@
     <Compile Include="Source\Program\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\TechSettings\TechSettings.Unused.cs" />
     <Compile Include="Source\Worker\TechLoops\GainLoop.cs" />
     <Compile Include="Source\Worker\TechLoops\SpeedLoop.cs" />
     <Compile Include="Source\Worker\Worker.DebugForm.cs" />
     <Compile Include="Source\Global\Global.cs" />
-    <Compile Include="Source\Global\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +119,10 @@
     <Compile Include="Source\Worker\Worker.Input.cs" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Settings.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.108.0, Culture=neutral, processorArchitecture=MSIL">

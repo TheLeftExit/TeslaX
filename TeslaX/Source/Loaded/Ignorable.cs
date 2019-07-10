@@ -35,7 +35,7 @@ namespace TeslaX
             using (Bitmap gems = Properties.Resources.gems)
             {
                 Color color;
-                int k = Settings.BiggestGem;
+                int k = TechSettings.BiggestGem;
                 for (int x = 0; x < k*32; x++)
                     for (int y = 0; y < gems.Height; y++)
                     {

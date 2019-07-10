@@ -8,14 +8,8 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    public static partial class Settings
+    public static partial class TechSettings
     {
-        // Whether debug information should be displayed.
-        public static bool Debug;
-
-        // Whether input should be simulated.
-        public static bool SimulateInput;
-
         public static int BlocksAhead = 3; // 0 = crash.
         public static int BlocksBehind = 1; // 0 = crash.
 
@@ -44,11 +38,6 @@ namespace TeslaX
 
         public static int DistanceSpikeLength = 150;
 
-        public static (int Right, int Left) TriggerDistance;
-        
-        // Skin color, in order on color picking panel.
-        public static int SkinColor = 3;
-
         // Whether "Uncertain" block should be functionally treated as Block instead of Air.
         public static bool UncertainIsBlock = false;
 
@@ -60,8 +49,5 @@ namespace TeslaX
         // 4 - green  (50)
         // 5 - purple (100)
         public static int BiggestGem = 3;
-
-        // Whether the user has gracefully decided to spread the word via Discord Rich Presence.
-        public static bool RichPresence;
     }
 }

@@ -39,7 +39,7 @@ namespace TeslaX
                 var res = shot.SeekPlayer(0, shot.Width - 32 - 1, y);
                 if (res.x != -1)
                 {
-                    LastKnown = new Smooth<Point>(Settings.PlayerSpikeLength, Settings.PlayerSpikeCondition);
+                    LastKnown = new Smooth<Point>(TechSettings.PlayerSpikeLength, TechSettings.PlayerSpikeCondition);
                     LastKnown.Value = new Point(res.x, y);
                     Right = res.Right;
                     return true;
@@ -59,7 +59,7 @@ namespace TeslaX
 
         private static bool SetPlayer(this Screenshot shot)
         {
-            foreach (var cmd in Settings.Order)
+            foreach (var cmd in TechSettings.Order)
             {
                 bool tRight = Right ^ !cmd.SameDirection;
                 int inc = (cmd.x1 < cmd.x2 ? 1 : -1);
@@ -83,7 +83,7 @@ namespace TeslaX
             foreach (int x in ToCheck)
             {
                 BlockState next = shot.HasBlock(x - shot.X, 0);
-                if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.UncertainIsBlock))
+                if (next == BlockState.Block || (next == BlockState.Uncertain && TechSettings.UncertainIsBlock))
                     Blocks.Add(x);
             }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TeslaX.Properties;
 
 namespace TeslaX
 {
@@ -21,14 +22,16 @@ namespace TeslaX
         {
             if (!Worker.Busy)
             {
-                Settings.Debug = checkBox2.Checked;
-                Settings.SimulateInput = !checkBox3.Checked;
-                Window.Windowed = checkBox1.Checked;
-                Settings.SkinColor = Convert.ToInt32(numericUpDown1.Value);
-                Settings.BlockID = (comboBox1.SelectedIndex == comboBox1.Items.Count -1) ? -1 : comboBox1.SelectedIndex;
-                Settings.RichPresence = checkBox8.Checked;
-                Settings.TriggerDistance.Left = Convert.ToInt32(numericUpDown2.Value);
-                Settings.TriggerDistance.Right = Convert.ToInt32(numericUpDown3.Value);
+                Settings.Default.Debug = Debug.Checked;
+                Settings.Default.SimulateInput = !SimulateInput.Checked;
+                Window.Windowed = Windowed.Checked;
+                Settings.Default.SkinColor = Convert.ToInt32(SkinColor.Value);
+                TechSettings.BlockID = (BlockID.SelectedIndex == BlockID.Items.Count -1) ? -1 : BlockID.SelectedIndex;
+                Settings.Default.RichPresence = RichPresence.Checked;
+                Settings.Default.DistanceLeft = Convert.ToInt32(DistanceLeft.Value);
+                Settings.Default.DistanceRight = Convert.ToInt32(DistanceRight.Value);
+                Settings.Default.MaxMove = Convert.ToInt32(MaxMove.Value);
+                Settings.Default.MinStop = Convert.ToInt32(MinStop.Value);
 
                 Ignorable.Load();
                 Block.Load();
@@ -36,12 +39,12 @@ namespace TeslaX
                 Player.Load();
 
                 if (Worker.Init())
-                    button1.Text = "Working";
+                    StartButton.Text = "Working";
             }
             else
             {
                 Worker.Busy = false;
-                button1.Text = "Start";
+                StartButton.Text = "Start";
             }
         }
 
@@ -49,25 +52,34 @@ namespace TeslaX
         {
             Worker.Busy = false;
             Discord.Dispose();
+            Settings.Default.Save();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            foreach (var x in Settings.Blocks)
-                comboBox1.Items.Add(x.SingleName);
-            comboBox1.Items.Add("Custom spritesheet");
-            comboBox1.SelectedItem = comboBox1.Items[0];
+            foreach (var x in TechSettings.Blocks)
+                BlockID.Items.Add(x.SingleName);
+            BlockID.Items.Add("Custom spritesheet");
+            BlockID.SelectedItem = BlockID.Items[0];
+
+            SimulateInput.Checked = Settings.Default.SimulateInput;
+            Debug.Checked = Settings.Default.Debug;
+            DistanceLeft.Value = Settings.Default.DistanceLeft;
+            DistanceRight.Value = Settings.Default.DistanceRight;
+            RichPresence.Checked = Settings.Default.RichPresence;
+            SkinColor.Value = Settings.Default.SkinColor;
+            MinStop.Value = Settings.Default.MinStop;
+            MaxMove.Value = Settings.Default.MaxMove;
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex == comboBox1.Items.Count - 1)
+            if (BlockID.SelectedIndex == BlockID.Items.Count - 1)
                 openFileDialog1.ShowDialog();
         }
 
         private void OpenFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            // This feels messy.
             Bitmap src;
             try
             {
@@ -77,14 +89,13 @@ namespace TeslaX
             }
             catch
             {
-                MessageBox.Show("Could not load custom spritesheet.");
-                comboBox1.SelectedIndex = 0;
+                Message.NoCustomSpritesheet();
+                BlockID.SelectedIndex = 0;
                 return;
             }
 
-            MessageBox.Show("Custom spritesheet successfully loaded.");
-            Settings.CustomBlock.Source = src;
-            Settings.BlockID = -1;
+            TechSettings.CustomBlock.Source = src;
+            TechSettings.BlockID = -1;
         }
     }
 }

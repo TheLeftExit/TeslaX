@@ -37,7 +37,7 @@ namespace TeslaX
 
         public static bool Is(this Color source, Color color)
         {
-            int d = Settings.Distortion; // Distortion value.
+            int d = TechSettings.Distortion; // Distortion value.
             if (Math.Abs(color.R - source.R) > d)
                 return false;
             if (Math.Abs(color.G - source.G) > d)
