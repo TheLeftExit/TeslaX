@@ -97,5 +97,11 @@ namespace TeslaX
             BlockInfo.CustomBlock.Source = src;
             BlockInfo.BlockID = -1;
         }
+
+        private void SkinColor_ValueChanged(object sender, EventArgs e)
+        {
+            Color newbg = Player.SkinColors[Convert.ToInt32(SkinColor.Value)];
+            SkinColor.BackColor = newbg;
+        }
     }
 }

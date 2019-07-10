@@ -152,6 +152,7 @@
             this.SkinColor.ReadOnly = true;
             this.SkinColor.Size = new System.Drawing.Size(106, 20);
             this.SkinColor.TabIndex = 5;
+            this.SkinColor.ValueChanged += new System.EventHandler(this.SkinColor_ValueChanged);
             // 
             // label2
             // 

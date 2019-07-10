@@ -10,7 +10,7 @@ namespace TeslaX
 {
     public static class Player
     {
-        private static readonly Color[] SkinColors = new Color[] {
+        public static readonly Color[] SkinColors = new Color[] {
                 Color.FromArgb(119, 91, 80),
                 Color.FromArgb(149, 113, 99),
                 Color.FromArgb(179, 137, 119),
