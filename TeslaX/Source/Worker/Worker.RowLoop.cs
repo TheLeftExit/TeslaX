@@ -16,7 +16,7 @@ namespace TeslaX
     {
         private static void RowLoop()
         {
-            Distance = new Smooth<int>(TechSettings.DistanceSpikeLength, TechSettings.DistanceSpikeCondition);
+            Distance = new Smooth<int>(DistanceSpikeLength, DistanceSpikeCondition);
 
             if (Settings.Default.SimulateInput)
                 Input.Initialize();
@@ -35,9 +35,9 @@ namespace TeslaX
             while (Busy)
             {
                 using (shot = new Screenshot(
-                    LastKnown.Value.X + (Right ? -TechSettings.BlocksBehind * 32 : -TechSettings.BlocksAhead * 32), 
+                    LastKnown.Value.X + (Right ? -BlocksBehind * 32 : -BlocksAhead * 32), 
                     LastKnown.Value.Y, 
-                    (TechSettings.BlocksAhead + TechSettings.BlocksBehind + 1) * 32, 
+                    (BlocksAhead + BlocksBehind + 1) * 32, 
                     64))
                 {
                     #region [Debug] Clearing.

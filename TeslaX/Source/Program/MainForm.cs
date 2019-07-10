@@ -26,7 +26,7 @@ namespace TeslaX
                 Settings.Default.SimulateInput = !SimulateInput.Checked;
                 Window.Windowed = Windowed.Checked;
                 Settings.Default.SkinColor = Convert.ToInt32(SkinColor.Value);
-                TechSettings.BlockID = (BlockID.SelectedIndex == BlockID.Items.Count -1) ? -1 : BlockID.SelectedIndex;
+                BlockInfo.BlockID = (BlockID.SelectedIndex == BlockID.Items.Count -1) ? -1 : BlockID.SelectedIndex;
                 Settings.Default.RichPresence = RichPresence.Checked;
                 Settings.Default.DistanceLeft = Convert.ToInt32(DistanceLeft.Value);
                 Settings.Default.DistanceRight = Convert.ToInt32(DistanceRight.Value);
@@ -57,7 +57,7 @@ namespace TeslaX
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            foreach (var x in TechSettings.Blocks)
+            foreach (var x in BlockInfo.Blocks)
                 BlockID.Items.Add(x.SingleName);
             BlockID.Items.Add("Custom spritesheet");
             BlockID.SelectedItem = BlockID.Items[0];
@@ -75,7 +75,7 @@ namespace TeslaX
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (BlockID.SelectedIndex == BlockID.Items.Count - 1)
-                openFileDialog1.ShowDialog();
+                CustomSpriteSelect.ShowDialog();
         }
 
         private void OpenFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -83,7 +83,7 @@ namespace TeslaX
             Bitmap src;
             try
             {
-                src = new Bitmap(openFileDialog1.FileName);
+                src = new Bitmap(CustomSpriteSelect.FileName);
                 if (src.Width % 32 > 0 || src.Height != 32)
                     throw new Exception();
             }
@@ -94,8 +94,8 @@ namespace TeslaX
                 return;
             }
 
-            TechSettings.CustomBlock.Source = src;
-            TechSettings.BlockID = -1;
+            BlockInfo.CustomBlock.Source = src;
+            BlockInfo.BlockID = -1;
         }
     }
 }

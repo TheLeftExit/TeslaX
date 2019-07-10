@@ -62,10 +62,9 @@
     </Compile>
     <Compile Include="Source\Global\Global.Extensions.cs" />
     <Compile Include="Source\Program\Message.cs" />
-    <Compile Include="Source\TechSettings\TechSettings.Blocks.cs" />
+    <Compile Include="Source\Other\BlockInfo.cs" />
     <Compile Include="Source\Other\Key.cs" />
     <Compile Include="Source\Loaded\Player.cs" />
-    <Compile Include="Source\Other\Physics.cs" />
     <Compile Include="Source\Other\Smooth.cs" />
     <Compile Include="Source\Loaded\Window.cs" />
     <Compile Include="Source\Other\Screenshot.cs" />
@@ -80,7 +79,6 @@
     <Compile Include="Source\Program\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\TechSettings\TechSettings.Unused.cs" />
     <Compile Include="Source\Worker\TechLoops\GainLoop.cs" />
     <Compile Include="Source\Worker\TechLoops\SpeedLoop.cs" />
     <Compile Include="Source\Worker\Worker.DebugForm.cs" />
@@ -90,6 +88,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Worker\Worker.Settings.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
@@ -118,7 +117,6 @@
     <None Include="Images\Block\lasergrid.png" />
     <Compile Include="Source\Worker\Worker.Input.cs" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

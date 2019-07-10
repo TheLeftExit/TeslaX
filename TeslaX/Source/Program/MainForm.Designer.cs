@@ -39,29 +39,29 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.RichPresence = new System.Windows.Forms.CheckBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.CustomSpriteSelect = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.MaxMove = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.MinStop = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.DistanceRight = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.DistanceLeft = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.MinStop = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.MaxMove = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinStop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceLeft)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MinStop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).BeginInit();
             this.SuspendLayout();
             // 
             // StartButton
@@ -182,11 +182,11 @@
             this.RichPresence.Text = "Enable";
             this.RichPresence.UseVisualStyleBackColor = true;
             // 
-            // openFileDialog1
+            // CustomSpriteSelect
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "PNG file|*.png";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog1_FileOk);
+            this.CustomSpriteSelect.FileName = "openFileDialog1";
+            this.CustomSpriteSelect.Filter = "PNG file|*.png";
+            this.CustomSpriteSelect.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog1_FileOk);
             // 
             // groupBox2
             // 
@@ -206,6 +206,57 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Movement tuning";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(125, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Target distance to block:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(119, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Max move duration (ms)";
+            // 
+            // MaxMove
+            // 
+            this.MaxMove.Location = new System.Drawing.Point(140, 45);
+            this.MaxMove.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.MaxMove.Name = "MaxMove";
+            this.MaxMove.Size = new System.Drawing.Size(47, 20);
+            this.MaxMove.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 21);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(110, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Min stop duration (ms)";
+            // 
+            // MinStop
+            // 
+            this.MinStop.Location = new System.Drawing.Point(140, 19);
+            this.MinStop.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.MinStop.Name = "MinStop";
+            this.MinStop.Size = new System.Drawing.Size(47, 20);
+            this.MinStop.TabIndex = 11;
             // 
             // label4
             // 
@@ -292,57 +343,6 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Other settings";
             // 
-            // MinStop
-            // 
-            this.MinStop.Location = new System.Drawing.Point(140, 19);
-            this.MinStop.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.MinStop.Name = "MinStop";
-            this.MinStop.Size = new System.Drawing.Size(47, 20);
-            this.MinStop.TabIndex = 11;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 21);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(110, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Min stop duration (ms)";
-            // 
-            // MaxMove
-            // 
-            this.MaxMove.Location = new System.Drawing.Point(140, 45);
-            this.MaxMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.MaxMove.Name = "MaxMove";
-            this.MaxMove.Size = new System.Drawing.Size(47, 20);
-            this.MaxMove.TabIndex = 13;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 47);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(119, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Max move duration (ms)";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 70);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(125, 13);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Target distance to block:";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -369,14 +369,14 @@
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MinStop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceLeft)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MinStop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -393,7 +393,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox RichPresence;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog CustomSpriteSelect;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown DistanceRight;

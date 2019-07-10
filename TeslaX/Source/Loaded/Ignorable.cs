@@ -10,6 +10,9 @@ namespace TeslaX
 {
     public static class Ignorable
     {
+        // Largest gem to be considered (1-5, but really 1-3).
+        private static readonly int BiggestGem = 3;
+
         // REALLY long list of colors to be considered Uncertain by Block Predicate.
         public static List<Color> Colors; // Expect >500 colors.
         // Benchmark: checking 100 different colors against each of those: a couple milliseconds. That'll work.
@@ -35,7 +38,7 @@ namespace TeslaX
             using (Bitmap gems = Properties.Resources.gems)
             {
                 Color color;
-                int k = TechSettings.BiggestGem;
+                int k = BiggestGem;
                 for (int x = 0; x < k*32; x++)
                     for (int y = 0; y < gems.Height; y++)
                     {

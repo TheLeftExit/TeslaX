@@ -39,10 +39,10 @@ namespace TeslaX
 
             client.SetPresence(new RichPresence()
             {
-                State = Settings.Default.SimulateInput ? "Breaking " + TechSettings.CurrentBlock.PluralName : "Debugging",
+                State = Settings.Default.SimulateInput ? "Breaking " + BlockInfo.CurrentBlock.PluralName : "Debugging",
                 Assets = new Assets
                 {
-                    LargeImageKey = TechSettings.CurrentBlock.Code
+                    LargeImageKey = BlockInfo.CurrentBlock.Code
                 },
                 Timestamps = Timestamps.Now
             });
