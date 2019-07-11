@@ -77,17 +77,23 @@ namespace TeslaX
                     
                     shot.SetDistance();
 
-                    Distance.Value = NewDistance;
+                    int OldDistance = Distance;
+
+                    if(NewDistance - Distance >= 24 || NewDistance <= Distance)
+                        Distance.Value = NewDistance;
+                    if (Distance - OldDistance >= 24)
+                        Settings.Default.TotalBlocks++;
 
                     // Feeding the Distance value into the input machine. It'll take it from here.
                     if (Settings.Default.SimulateInput)
                         Input.Distance = Distance;
                     
-                    #region [Debug] Appending NewDistance, Distance, Keydown and updating.
+                    #region [Debug] Appending more stuff and updating.
                     if (Settings.Default.Debug)
                     {
                         debugInfo.AppendLine("NewDistance: " + (NewDistance == -1 ? "N/A" : NewDistance.ToString()));
                         debugInfo.AppendLine("Distance: " + (Distance == -1 ? "N/A" : Distance.ToString()));
+                        debugInfo.AppendLine("TotalBlocks: " + Settings.Default.TotalBlocks.ToString());
                         debugForm.UpdateDebugInfo(shot.Location.Add(Window.Location), debugInfo.ToString());
                     }
                     #endregion

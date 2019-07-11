@@ -118,5 +118,17 @@ namespace TeslaX.Properties {
                 this["RichPresence"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TotalBlocks {
+            get {
+                return ((int)(this["TotalBlocks"]));
+            }
+            set {
+                this["TotalBlocks"] = value;
+            }
+        }
     }
 }
