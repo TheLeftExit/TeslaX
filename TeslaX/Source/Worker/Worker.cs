@@ -14,15 +14,15 @@ namespace TeslaX
     {
         public static bool Busy;
 
-        private static Point Offset;
-        private static Smooth<Point> LastKnown;
-        private static bool Right;
+        public static Point Offset;
+        public static Smooth<Point> LastKnown;
+        public static bool Right;
 
         private static int NewDistance = -1;
         private static Smooth<int> Distance;
         private static Screenshot shot;
 
-        private static bool SetNewOffset(this Screenshot shot)
+        public static bool SetNewOffset(this Screenshot shot)
         {
             Point res = shot.GetOffset(true).Mod(32);
             if (res == Global.InvalidPoint)
@@ -31,7 +31,7 @@ namespace TeslaX
             return true;
         }
 
-        private static bool SetNewPlayer(this Screenshot shot)
+        public static bool SetNewPlayer(this Screenshot shot)
         {
             List<int> EligibleY = Global.EligibleBetween(0, shot.Height - 32, Offset.Y).AddInt(-shot.Y);
             foreach (int y in EligibleY)
@@ -48,7 +48,7 @@ namespace TeslaX
             return false;
         }
 
-        private static bool SetOffset(this Screenshot shot)
+        public static bool SetOffset(this Screenshot shot)
         {
             Point res = shot.GetOffset();
             if (res == Global.InvalidPoint)
@@ -57,7 +57,7 @@ namespace TeslaX
             return true;
         }
 
-        private static bool SetPlayer(this Screenshot shot)
+        public static bool SetPlayer(this Screenshot shot)
         {
             foreach (var cmd in Order)
             {
@@ -76,7 +76,7 @@ namespace TeslaX
             return false;
         }
 
-        private static bool SetDistance(this Screenshot shot)
+        public static int SetDistance(this Screenshot shot)
         {
             List<int> ToCheck = Global.EligibleBetween(shot.X - 31, shot.X + shot.Width - 1, Offset.X);
             List<int> Blocks = new List<int>();
@@ -93,11 +93,11 @@ namespace TeslaX
                 if (tDistance > 0)
                 {
                     NewDistance = tDistance;
-                    return true;
+                    return NewDistance;
                 }
             }
             NewDistance = -1;
-            return false;
+            return NewDistance;
         }
     }
 }

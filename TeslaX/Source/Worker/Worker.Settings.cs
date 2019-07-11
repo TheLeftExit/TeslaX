@@ -25,16 +25,16 @@ namespace TeslaX
             (-24, 24, false), // MLSC.
         };
 
-        private static readonly bool UncertainIsBlock = false;
+        private static readonly bool UncertainIsBlock = true;
 
         private static readonly Func<Point, Point, bool> PlayerSpikeCondition =
             (ov, nv) => Math.Abs(ov.X - nv.X) > 32 || (ov.X == Window.Width / 2 - 16 && ov != nv);
 
-        private static readonly int PlayerSpikeLength = 250;
+        private static readonly int PlayerSpikeLength = 0;
 
         private static readonly Func<int, int, bool> DistanceSpikeCondition =
             ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
 
-        private static readonly int DistanceSpikeLength = 150;
+        private static readonly int DistanceSpikeLength = 0;
     }
 }

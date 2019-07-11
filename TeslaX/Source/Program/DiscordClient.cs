@@ -22,6 +22,9 @@ namespace TeslaX
 
         public static void ToIdle()
         {
+            if (client == null)
+                return;
+
             if (!initialized)
                 Initialize();
 

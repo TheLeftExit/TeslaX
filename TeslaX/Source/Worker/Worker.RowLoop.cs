@@ -31,9 +31,15 @@ namespace TeslaX
             if (Settings.Default.RichPresence)
                 Discord.ToBreaking();
 
+            //Stopwatch sw = Stopwatch.StartNew();
+            //int freq = 50;
+
             Busy = true;
             while (Busy)
             {
+                //if (sw.ElapsedMilliseconds < freq)
+                //    continue;
+                //sw.Restart();
                 using (shot = new Screenshot(
                     LastKnown.Value.X + (Right ? -BlocksBehind * 32 : -BlocksAhead * 32), 
                     LastKnown.Value.Y, 
@@ -76,10 +82,10 @@ namespace TeslaX
                     #endregion
                     
                     shot.SetDistance();
-
+                    
                     int OldDistance = Distance;
 
-                    if(NewDistance - Distance >= 24 || NewDistance <= Distance)
+                    if (Distance - NewDistance < 24 || NewDistance == -1)
                         Distance.Value = NewDistance;
                     if (Distance - OldDistance >= 24)
                         Settings.Default.TotalBlocks++;
@@ -99,6 +105,7 @@ namespace TeslaX
                     #endregion
                 }
             }
+            debugForm.BusyCheck();
 
             if (Settings.Default.RichPresence)
                 Discord.ToIdle();

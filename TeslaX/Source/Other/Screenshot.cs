@@ -31,6 +31,13 @@ namespace TeslaX
 
         public Screenshot() : this(0, 0, Window.Width, Window.Height) { }
 
+        // For testing purposes only.
+        public Screenshot(Bitmap image, int x, int y)
+        {
+            Image = image;
+            Location = new Point(x, y);
+        }
+
         // Screenshot is a solution-wide replacement for Bitmap, because you can't inherit from it.
         // The rest is "compatibility layer", extensive enough to allow Image to be private.
 
