@@ -80,6 +80,12 @@
     <Compile Include="Source\Program\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\Program\TextureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Program\TextureForm.Designer.cs">
+      <DependentUpon>TextureForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Worker\TechLoops\GainLoop.cs" />
     <Compile Include="Source\Worker\TechLoops\SpeedLoop.cs" />
     <Compile Include="Source\Worker\Worker.DebugForm.cs" />
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Program\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Program\TextureForm.resx">
+      <DependentUpon>TextureForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

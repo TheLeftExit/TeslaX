@@ -130,5 +130,17 @@ namespace TeslaX.Properties {
                 this["TotalBlocks"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TextureInfo {
+            get {
+                return ((bool)(this["TextureInfo"]));
+            }
+            set {
+                this["TextureInfo"] = value;
+            }
+        }
     }
 }
