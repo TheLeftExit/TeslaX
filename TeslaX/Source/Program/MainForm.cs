@@ -103,5 +103,30 @@ namespace TeslaX
             Color newbg = Player.SkinColors[Convert.ToInt32(SkinColor.Value)];
             SkinColor.BackColor = newbg;
         }
+
+        private void Button1_Click_1(object sender, EventArgs e)
+        {
+            string msg = "Press Yes to remove textures from /game."+Environment.NewLine+
+                "Press No to replace textures in /cache/game with modified ones."+Environment.NewLine+
+                "Press Cancel to restore original textures in /cache/game";
+            var res = MessageBox.Show(msg, "Texture swap", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+            if (res == DialogResult.Yes)
+            {
+                if (Texture.Delete())
+                    Message.TextureDeleted();
+                else
+                    Message.TextureAlreadyDeleted();
+            }
+            if(res == DialogResult.No)
+            {
+                Texture.Replace();
+                Message.TextureSwapped();
+            }
+            if(res == DialogResult.Cancel)
+            {
+                Texture.Restore();
+                Message.TextureRestored();
+            }
+        }
     }
 }

@@ -52,6 +52,7 @@
             this.DistanceLeft = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -66,9 +67,9 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(213, 190);
+            this.StartButton.Location = new System.Drawing.Point(280, 190);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(131, 23);
+            this.StartButton.Size = new System.Drawing.Size(64, 23);
             this.StartButton.TabIndex = 0;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -344,11 +345,22 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Other settings";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(213, 190);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Textures";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 222);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -408,5 +420,6 @@
         private System.Windows.Forms.NumericUpDown MaxMove;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown MinStop;
+        private System.Windows.Forms.Button button1;
     }
 }

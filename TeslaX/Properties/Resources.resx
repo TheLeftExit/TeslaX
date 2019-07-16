@@ -142,11 +142,23 @@
   <data name="lasergrid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Block\lasergrid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="particles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Textures\particles.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="particles_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\textures\particles_old.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pepper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Block\pepper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pickaxe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\pickaxe.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pickup_box" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Textures\pickup_box.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pickup_box_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\textures\pickup_box_old.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="pinball" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Block\pinball.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

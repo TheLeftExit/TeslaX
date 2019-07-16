@@ -28,5 +28,25 @@ namespace TeslaX
         {
             MessageBox.Show("Invalid spritesheet file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        public static void TextureDeleted()
+        {
+            MessageBox.Show("Textures in /game deleted.", "Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
+        }
+
+        public static void TextureAlreadyDeleted()
+        {
+            MessageBox.Show("Textures in /game not found.", "No action required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static void TextureSwapped()
+        {
+            MessageBox.Show("Textures in /cache/game replaced.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static void TextureRestored()
+        {
+            MessageBox.Show("Textures in /cache/game restored.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

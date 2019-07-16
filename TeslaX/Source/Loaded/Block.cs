@@ -53,7 +53,7 @@ namespace TeslaX
                     for (int i = 0; i < frames; i++)
                     {
                         color = block.GetPixel(x + i * 32, y);
-                        if (color.A == 255 && !Ignorable.Colors.Contains(color))
+                        if (color.A == 255 && !color.IsIgnored())
                             thispixel.Add(color);
 
                         if (color.A < 255)

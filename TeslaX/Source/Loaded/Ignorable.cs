@@ -13,15 +13,17 @@ namespace TeslaX
         // Largest gem to be considered (1-5, but really 1-3).
         private static readonly int BiggestGem = 3;
 
-        // REALLY long list of colors to be considered Uncertain by Block Predicate.
-        public static List<Color> Colors; // Expect >500 colors.
-        // Benchmark: checking 100 different colors against each of those: a couple milliseconds. That'll work.
+        // List of colors to be considered Uncertain by Block Predicate.
+        private static List<Color> Colors;
 
         public static void Load()
         {
             Colors = new List<Color>();
 
+            // Most Ignorable sources are deprecated in favor of texture injection.
+
             // dust.png
+            /*
             using(Bitmap dust = Properties.Resources.dust)
             {
                 Color color;
@@ -33,6 +35,7 @@ namespace TeslaX
                             Colors.Add(color);
                     }
             }
+            */
 
             // gems.png
             using (Bitmap gems = Properties.Resources.gems)
@@ -50,6 +53,9 @@ namespace TeslaX
 
             // Fist
             Colors.AddRange(Player.FistColors());
+
+            // (0,255,0) from injected pickup_box.rttex
+            Colors.Add(Color.FromArgb(0, 255, 0));
         }
 
         public static bool IsIgnored(this Color color)

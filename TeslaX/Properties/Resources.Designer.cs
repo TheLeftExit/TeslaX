@@ -141,6 +141,26 @@ namespace TeslaX.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] particles {
+            get {
+                object obj = ResourceManager.GetObject("particles", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] particles_old {
+            get {
+                object obj = ResourceManager.GetObject("particles_old", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap pepper {
@@ -157,6 +177,26 @@ namespace TeslaX.Properties {
             get {
                 object obj = ResourceManager.GetObject("pickaxe", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] pickup_box {
+            get {
+                object obj = ResourceManager.GetObject("pickup_box", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] pickup_box_old {
+            get {
+                object obj = ResourceManager.GetObject("pickup_box_old", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

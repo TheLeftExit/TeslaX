@@ -61,6 +61,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Source\Global\Global.Extensions.cs" />
+    <Compile Include="Source\Other\Texture.cs" />
     <Compile Include="Source\Program\Message.cs" />
     <Compile Include="Source\Other\BlockInfo.cs" />
     <Compile Include="Source\Other\Key.cs" />
@@ -121,6 +122,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Textures\particles.rttex" />
+    <None Include="Textures\particles_old.rttex" />
+    <None Include="Textures\pickup_box.rttex" />
+    <None Include="Textures\pickup_box_old.rttex" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.108.0, Culture=neutral, processorArchitecture=MSIL">

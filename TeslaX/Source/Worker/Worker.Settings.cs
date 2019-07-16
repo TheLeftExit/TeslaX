@@ -35,6 +35,6 @@ namespace TeslaX
         private static readonly Func<int, int, bool> DistanceSpikeCondition =
             ((ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
 
-        private static readonly int DistanceSpikeLength = 0;
+        private static readonly int DistanceSpikeLength = 150;
     }
 }
