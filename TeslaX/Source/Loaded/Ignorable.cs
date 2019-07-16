@@ -11,7 +11,7 @@ namespace TeslaX
     public static class Ignorable
     {
         // Largest gem to be considered (1-5, but really 1-3).
-        private static readonly int BiggestGem = 3;
+        private static readonly int BiggestGem = 5;
 
         // List of colors to be considered Uncertain by Block Predicate.
         private static List<Color> Colors;
@@ -20,10 +20,8 @@ namespace TeslaX
         {
             Colors = new List<Color>();
 
-            // Most Ignorable sources are deprecated in favor of texture injection.
-
             // dust.png
-            /*
+            // In case custom textures aren't used.
             using(Bitmap dust = Properties.Resources.dust)
             {
                 Color color;
@@ -35,7 +33,6 @@ namespace TeslaX
                             Colors.Add(color);
                     }
             }
-            */
 
             // gems.png
             using (Bitmap gems = Properties.Resources.gems)
@@ -53,13 +50,13 @@ namespace TeslaX
 
             // Fist
             Colors.AddRange(Player.FistColors());
-
-            // (0,255,0) from injected pickup_box.rttex
-            Colors.Add(Color.FromArgb(0, 255, 0));
         }
 
         public static bool IsIgnored(this Color color)
         {
+            // Ignoring shades of green, to take advantage of custom textures. Distortion is considered.
+            if (color.R < 2 && color.B < 2)
+                return true;
             foreach (Color c in Colors)
                 if (color.Is(c))
                     return true;

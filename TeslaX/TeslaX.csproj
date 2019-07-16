@@ -132,6 +132,8 @@
     <None Include="Textures\particles_old.rttex" />
     <None Include="Textures\pickup_box.rttex" />
     <None Include="Textures\pickup_box_old.rttex" />
+    <None Include="Textures\seed.rttex" />
+    <None Include="Textures\seed_old.rttex" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.108.0, Culture=neutral, processorArchitecture=MSIL">

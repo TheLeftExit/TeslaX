@@ -12,26 +12,32 @@ namespace TeslaX
     {
         private static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Growtopia\";
 
+        private static List<(string Name, byte[] Custom, byte[] Original)> files = new List<(string, byte[], byte[])>()
+        {
+            ("pickup_box.rttex", Resources.pickup_box, Resources.pickup_box_old),
+            ("particles.rttex", Resources.particles, Resources.particles_old),
+            ("seed.rttex", Resources.seed, Resources.seed_old)
+        };
+
         public static bool Delete()
         {
-            bool res = File.Exists(path + @"game\pickup_box.rttex") || File.Exists(path + @"game\particles.rttex");
-            if (File.Exists(path + @"game\pickup_box.rttex"))
-                File.Delete(path + @"game\pickup_box.rttex");
-            if (File.Exists(path + @"game\particles.rttex"))
-                File.Delete(path + @"game\particles.rttex");
+            bool res = !files.All(x => !File.Exists(path + @"game\" + x.Name));
+            foreach (var x in files)
+                if (File.Exists(path + @"game\" + x.Name))
+                    File.Delete(path + @"game\" + x.Name);
             return res;
         }
 
         public static void Replace()
         {
-            File.WriteAllBytes(path + @"cache\game\particles.rttex", Resources.particles);
-            File.WriteAllBytes(path + @"cache\game\pickup_box.rttex", Resources.pickup_box);
+            foreach (var x in files)
+                File.WriteAllBytes(path + @"cache\game\" + x.Name, x.Custom);
         }
 
         public static void Restore()
         {
-            File.WriteAllBytes(path + @"cache\game\particles.rttex", Resources.particles_old);
-            File.WriteAllBytes(path + @"cache\game\pickup_box.rttex", Resources.pickup_box_old);
+            foreach (var x in files)
+                File.WriteAllBytes(path + @"cache\game\" + x.Name, x.Original);
         }
     }
 }
