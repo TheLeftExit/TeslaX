@@ -8,7 +8,7 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    public static class Texture
+    static class Texture
     {
         private static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Growtopia\";
 

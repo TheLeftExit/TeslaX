@@ -41,6 +41,9 @@ namespace TeslaX
         // Condition for spike to occur.
         private readonly Func<T, T, bool> scondition;
 
+        // Last input through Value.
+        public T UnsafeValue;
+
         // Whether there's a spike.
         private bool spike;
         // Timer.
@@ -60,6 +63,8 @@ namespace TeslaX
         // Old value goes first.
         private void Update(T nvalue)
         {
+            UnsafeValue = nvalue;
+
             if (!initialized)
             {
                 svalue = nvalue;

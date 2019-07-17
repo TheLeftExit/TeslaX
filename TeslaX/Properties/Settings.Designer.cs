@@ -50,9 +50,9 @@ namespace TeslaX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("58")]
-        public int DistanceLeft {
+        public decimal DistanceLeft {
             get {
-                return ((int)(this["DistanceLeft"]));
+                return ((decimal)(this["DistanceLeft"]));
             }
             set {
                 this["DistanceLeft"] = value;
@@ -62,9 +62,9 @@ namespace TeslaX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("38")]
-        public int DistanceRight {
+        public decimal DistanceRight {
             get {
-                return ((int)(this["DistanceRight"]));
+                return ((decimal)(this["DistanceRight"]));
             }
             set {
                 this["DistanceRight"] = value;
@@ -74,9 +74,9 @@ namespace TeslaX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int SkinColor {
+        public decimal SkinColor {
             get {
-                return ((int)(this["SkinColor"]));
+                return ((decimal)(this["SkinColor"]));
             }
             set {
                 this["SkinColor"] = value;
@@ -86,9 +86,9 @@ namespace TeslaX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("150")]
-        public int MaxMove {
+        public decimal MaxMove {
             get {
-                return ((int)(this["MaxMove"]));
+                return ((decimal)(this["MaxMove"]));
             }
             set {
                 this["MaxMove"] = value;
@@ -98,9 +98,9 @@ namespace TeslaX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("150")]
-        public int MinStop {
+        public decimal MinStop {
             get {
-                return ((int)(this["MinStop"]));
+                return ((decimal)(this["MinStop"]));
             }
             set {
                 this["MinStop"] = value;
@@ -140,6 +140,57 @@ namespace TeslaX.Properties {
             }
             set {
                 this["TextureInfo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Windowed {
+            get {
+                return ((bool)(this["Windowed"]));
+            }
+            set {
+                this["Windowed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UncertainIsBlock {
+            get {
+                return ((bool)(this["UncertainIsBlock"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int BlocksBehind {
+            get {
+                return ((int)(this["BlocksBehind"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int BlocksAhead {
+            get {
+                return ((int)(this["BlocksAhead"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedBlock {
+            get {
+                return ((string)(this["SelectedBlock"]));
+            }
+            set {
+                this["SelectedBlock"] = value;
             }
         }
     }

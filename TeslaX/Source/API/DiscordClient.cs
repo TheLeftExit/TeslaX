@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordRPC;
 using TeslaX.Properties;
-
+/*
 namespace TeslaX
 {
     public static class Discord
@@ -64,3 +64,4 @@ namespace TeslaX
         }
     }
 }
+*/

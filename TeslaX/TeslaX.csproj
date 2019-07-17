@@ -60,53 +60,45 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Source\Global\Global.Extensions.cs" />
-    <Compile Include="Source\Other\Texture.cs" />
-    <Compile Include="Source\Program\Message.cs" />
-    <Compile Include="Source\Other\BlockInfo.cs" />
-    <Compile Include="Source\Other\Key.cs" />
-    <Compile Include="Source\Loaded\Player.cs" />
-    <Compile Include="Source\Other\Smooth.cs" />
-    <Compile Include="Source\Loaded\Window.cs" />
-    <Compile Include="Source\Other\Screenshot.cs" />
-    <Compile Include="Source\Loaded\Cracks.cs" />
-    <Compile Include="Source\Other\Predicates.cs" />
-    <Compile Include="Source\Loaded\Block.cs" />
-    <Compile Include="Source\Loaded\Ignorable.cs" />
-    <Compile Include="Source\Program\DiscordClient.cs" />
-    <Compile Include="Source\Program\MainForm.cs">
+    <Compile Include="Source\Interface\DebugForm.cs" />
+    <Compile Include="Source\Statics\Game.cs" />
+    <Compile Include="Source\Statics\Extensions.cs" />
+    <Compile Include="Source\Statics\App.cs" />
+    <Compile Include="Source\Statics\Texture.cs" />
+    <Compile Include="Source\Statics\Message.cs" />
+    <Compile Include="Source\Helpers\PlayerFinder.cs" />
+    <Compile Include="Source\Entities\Smooth.cs" />
+    <Compile Include="Source\Helpers\WindowManager.cs" />
+    <Compile Include="Source\Entities\Screenshot.cs" />
+    <Compile Include="Source\Helpers\OffsetFinder.cs" />
+    <Compile Include="Source\Helpers\BlockFinder.cs" />
+    <Compile Include="Source\API\DiscordClient.cs" />
+    <Compile Include="Source\Interface\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Program\MainForm.Designer.cs">
+    <Compile Include="Source\Interface\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Program\TextureForm.cs">
+    <Compile Include="Source\Interface\TextureForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Source\Program\TextureForm.Designer.cs">
+    <Compile Include="Source\Interface\TextureForm.Designer.cs">
       <DependentUpon>TextureForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Worker\TechLoops\GainLoop.cs" />
-    <Compile Include="Source\Worker\TechLoops\SpeedLoop.cs" />
-    <Compile Include="Source\Worker\Worker.DebugForm.cs" />
-    <Compile Include="Source\Global\Global.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Source\Worker\Worker.Settings.cs" />
+    <Compile Include="Source\Workflow\Workflow.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
     <Compile Include="WindowScrape\Types\HwndObject.cs" />
     <Compile Include="WindowScrape\Types\RECT.cs" />
-    <Compile Include="Source\Worker\Worker.Init.cs" />
-    <Compile Include="Source\Worker\Worker.RowLoop.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Worker\Worker.cs" />
-    <Compile Include="Source\Program\Program.cs" />
+    <Compile Include="Source\Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Block\chandelier.png" />
@@ -119,10 +111,10 @@
     <Content Include="Images\Ignorable\dust.png" />
     <Content Include="Images\Ignorable\gems.png" />
     <Content Include="Images\head.png" />
+    <Content Include="Images\Ignorable\puncharm.png" />
     <Content Include="Images\pickaxe.ico" />
-    <None Include="Images\Ignorable\seed.png" />
     <None Include="Images\Block\lasergrid.png" />
-    <Compile Include="Source\Worker\Worker.Input.cs" />
+    <Compile Include="Source\Helpers\InputManager.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -168,10 +160,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Program\MainForm.resx">
+    <EmbeddedResource Include="Source\Interface\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Program\TextureForm.resx">
+    <EmbeddedResource Include="Source\Interface\TextureForm.resx">
       <DependentUpon>TextureForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

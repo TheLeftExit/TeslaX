@@ -7,10 +7,9 @@ using System.Drawing;
 
 namespace TeslaX
 {
-    // Might rename to Platform.
-    public static class Predicates
+    class OffsetFinder
     {
-        public static Point GetOffset(this Screenshot shot, bool fullscreen = false)
+        public Point GetOffset(Screenshot shot, bool fullscreen = false)
         {
             Color PlatformDark = Color.FromArgb(112, 71, 28);
             List<int> ValidY;
@@ -31,7 +30,7 @@ namespace TeslaX
                     if (PlatformDark.IsColorAt(x + 13, y + 12, shot) && PlatformDark.IsColorAt(x + 18, y + 12, shot))
                         return new Point(x, y).Add(shot.Location).Mod(32);
 
-            return Global.InvalidPoint;
+            return App.InvalidPoint;
         }
     }
 }
