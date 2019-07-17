@@ -94,13 +94,5 @@ namespace TeslaX
         {
             return new Screenshot(source.X, source.Y, source.Width, source.Height);
         }
-
-        public static List<int> AddInt(this List<int> list, int a)
-        {
-            List<int> res = new List<int>(list.Count);
-            foreach (int x in list)
-                res.Add(x + a);
-            return res;
-        }
     }
 }

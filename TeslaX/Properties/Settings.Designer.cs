@@ -184,10 +184,10 @@ namespace TeslaX.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SelectedBlock {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SelectedBlock {
             get {
-                return ((string)(this["SelectedBlock"]));
+                return ((int)(this["SelectedBlock"]));
             }
             set {
                 this["SelectedBlock"] = value;

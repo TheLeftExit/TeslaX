@@ -44,8 +44,8 @@
     <Setting Name="BlocksAhead" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="SelectedBlock" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="SelectedBlock" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

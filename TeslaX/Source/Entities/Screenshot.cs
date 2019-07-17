@@ -24,6 +24,8 @@ namespace TeslaX
                 g.CopyFromScreen(screenX, screenY, 0, 0, new Size(width, height));
         }
 
+        public Screenshot() { }
+
         // Screenshot is a solution-wide replacement for Bitmap, because you can't inherit from it.
         // The rest is "compatibility layer", extensive enough to allow Image to be private.
 

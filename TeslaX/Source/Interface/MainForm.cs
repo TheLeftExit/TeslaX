@@ -42,7 +42,9 @@ namespace TeslaX
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            foreach (var b in App.Sprites)
+                BlockSelector.Items.Add(b.Name);
+            BlockSelector.SelectedIndex = 0;
         }
 
         private void SkinColor_ValueChanged(object sender, EventArgs e)
@@ -70,14 +72,15 @@ namespace TeslaX
                     {
                         // No safety check. If you've gone out of your way to load a non-image, deal with it.
                         src = new Bitmap(dlg.FileName);
+                        Settings.Default.SelectedBlock = BlockSelector.SelectedIndex;
                         App.CustomSprite = src;
                         return;
                     }
-
                     BlockSelector.SelectedIndex = 0;
-                    return;
                 }
             }
+
+            Settings.Default.SelectedBlock = BlockSelector.SelectedIndex;
         }
     }
 }

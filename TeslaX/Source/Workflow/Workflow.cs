@@ -17,7 +17,7 @@ namespace TeslaX
         {
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
-            BlockFinder blockFinder = new BlockFinder(App.Sprites[Settings.Default.SelectedBlock], Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
+            BlockFinder blockFinder = new BlockFinder(App.Sprites[Settings.Default.SelectedBlock].Sprite, Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
             PlayerFinder playerFinder = new PlayerFinder((int)Settings.Default.SkinColor);
 
             // Preparing managers.
@@ -47,9 +47,9 @@ namespace TeslaX
             // - Offset must already be found.
             bool SetNewPlayer(Screenshot shot)
             {
-                List<int> EligibleY = App.EligibleBetween(0, shot.Height - 32, offsetPosition.Y).AddInt(-shot.Y);
+                List<int> EligibleY = App.EligibleBetween(0, shot.Height - 32, offsetPosition.Y, -shot.Y);
                 foreach (int y in EligibleY)
-                    for (int x = 0; x < windowManager.X - 32; x++)
+                    for (int x = 0; x < windowManager.Width - 32; x++)
                     {
                         if (playerFinder.HasPlayer(shot, x, y, true))
                         {
@@ -158,13 +158,16 @@ namespace TeslaX
             if (Settings.Default.Debug)
             {
                 debugForm = new DebugForm();
-                new Task(() => debugForm.ShowDialog()).Start();
+                new Task(() =>
+                {
+                    debugForm.ShowDialog();
+                }).Start();
             }
 
             // Loop.
             Working = true;
             while (Working)
-                using (Screenshot shot = new Screenshot(
+                using (Screenshot shot = windowManager.Shoot(
                     playerPosition.X + (playerDirection ? -Settings.Default.BlocksBehind * 32 : -Settings.Default.BlocksAhead * 32),
                     playerPosition.Y,
                     (Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32,
@@ -195,8 +198,8 @@ namespace TeslaX
                     {
                         debugForm.Invoke((MethodInvoker)delegate
                         {
-                            debugForm.Location = shot.Location.Add(0, -debugForm.Size.Height);
-                            debugForm.DebugLabel.Text = "";
+                            debugForm.Location = shot.Location.Add(windowManager.Location).Add(0, -debugForm.Size.Height);
+                            debugForm.DebugLabel.Text = "debug window";
                             debugForm.DebugPlayerButton.Location = new Point(playerPosition.X - shot.X, debugForm.Size.Height - DebugForm.ph - 1);
                             debugForm.DebugBlockButton.Location = new Point(
                                 distance != -1 ? playerPosition.X + (playerDirection ? 1 : -1) * (distance + 32) + windowManager.X - debugForm.Location.X : -33,
