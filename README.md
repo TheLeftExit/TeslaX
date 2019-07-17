@@ -1,3 +1,4 @@
+*Right now I'm trying to fix the static hell I've created by turning it into a bunch of singletons. If you're a recruiter, sorry for the mess.*
 # TeslaX
 Farming bot for Growtopia. Work in progress.  
 You can join the development/discussion Discord server at https://discord.gg/9Zv2ppD.
