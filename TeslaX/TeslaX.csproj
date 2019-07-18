@@ -61,9 +61,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Source\Interface\DebugForm.cs" />
+    <Compile Include="Source\Interface\ScriptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Interface\ScriptForm.Designer.cs">
+      <DependentUpon>ScriptForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Statics\Game.cs" />
     <Compile Include="Source\Statics\Extensions.cs" />
     <Compile Include="Source\Statics\App.cs" />
+    <Compile Include="Source\Statics\Script.cs" />
     <Compile Include="Source\Statics\Texture.cs" />
     <Compile Include="Source\Statics\Message.cs" />
     <Compile Include="Source\Helpers\PlayerFinder.cs" />
@@ -162,6 +169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Interface\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\Interface\ScriptForm.resx">
+      <DependentUpon>ScriptForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Interface\TextureForm.resx">
       <DependentUpon>TextureForm.cs</DependentUpon>

@@ -51,5 +51,13 @@ namespace TeslaX
             this.Controls.Add(DebugPlayerButton);
             DebugPlayerButton.BringToFront();
         }
+
+        public void Done()
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                Close();
+            });
+        }
     }
 }

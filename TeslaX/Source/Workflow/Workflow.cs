@@ -13,7 +13,33 @@ namespace TeslaX
     {
         public static bool Working = false;
 
-        public static void Start()
+        // This one is a bit more global.
+        private static WindowManager windowManager;
+
+        public static void Start(bool cont)
+        {
+            // Initializing window.
+            windowManager = new WindowManager(Settings.Default.Windowed);
+            if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
+            {
+                Message.NoWindow();
+                return;
+            }
+
+            // Breaking.
+            if (start() && cont)
+            {
+                Script.Execute(windowManager);
+                while (start())
+                    Script.Execute(windowManager);
+            }
+
+            Working = false;
+        }
+
+        
+
+        private static bool start(bool interactive = true)
         {
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
@@ -21,7 +47,6 @@ namespace TeslaX
             PlayerFinder playerFinder = new PlayerFinder((int)Settings.Default.SkinColor);
 
             // Preparing managers.
-            WindowManager windowManager;
             InputManager inputManager;
 
             // Preparing workflow variables. Compiler gets mad if we don't explicitly initialize them.
@@ -29,9 +54,9 @@ namespace TeslaX
             Point playerPosition = App.InvalidPoint;
             bool playerDirection = false;
 
-            Smooth<int> distance;
+            Smooth<int> distance = new Smooth<int>(150, (ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
 
-            #region Local finders.
+            #region Local functions.
             // Find and set first offset value.
             // - shot: screenshot of the entire window.
             bool SetNewOffset(Screenshot shot)
@@ -66,6 +91,13 @@ namespace TeslaX
                     }
                 return false;
             }
+
+            Screenshot Shoot() =>
+                windowManager.Shoot(
+                    playerPosition.X + (playerDirection ? -Settings.Default.BlocksBehind * 32 : -Settings.Default.BlocksAhead * 32),
+                    playerPosition.Y,
+                    (Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32,
+                    64);
 
             // Find and set offset value.
             // - shot: screenshot with vertical offset of 0.
@@ -126,31 +158,34 @@ namespace TeslaX
             }
             #endregion
 
-            // Finding window.
-            windowManager = new WindowManager(Settings.Default.Windowed);
-            if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
-            {
-                Message.NoWindow();
-                return;
-            }
-
             // Finding offset and player.
             using(Screenshot shot = windowManager.Shoot())
             {
                 if(!SetNewOffset(shot))
                 {
-                    Message.NoNewOffset();
-                    return;
+                    if (interactive)
+                        Message.NoNewOffset();
+                    return false;
                 }
                 if (!SetNewPlayer(shot))
                 {
-                    Message.NoNewPlayer();
-                    return;
+                    if (interactive)
+                        Message.NoNewPlayer();
+                    return false;
                 }
             }
 
+            // Checking for distance.
+            if (Settings.Default.SimulateInput)
+                using (Screenshot shot = Shoot())
+                    if (!SetDistance(shot))
+                    {
+                        if (interactive)
+                            Message.NoNewDistance();
+                        return false;
+                    }
+
             // Preparing for working loop.
-            distance = new Smooth<int>(150, (ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
             inputManager = new InputManager();
             /* Discord: to breaking. */
 
@@ -165,15 +200,12 @@ namespace TeslaX
             }
 
             // Loop.
-            Working = true;
+            if(interactive)
+                Working = true;
             while (Working)
-                using (Screenshot shot = windowManager.Shoot(
-                    playerPosition.X + (playerDirection ? -Settings.Default.BlocksBehind * 32 : -Settings.Default.BlocksAhead * 32),
-                    playerPosition.Y,
-                    (Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32,
-                    64))
+                using (Screenshot shot = Shoot())
                 {
-                    int stage = 0; // How far we've gotten. Used in debugging.
+                    int stage = 0;
 
                     // Finding offset.
                     if (SetOffset(shot))
@@ -195,8 +227,15 @@ namespace TeslaX
                         }
                     }
 
+                    if (stage < 2)
+                        distance.Value = -1;
+
+                    if (distance == -1)
+                        break;
+
                     if (Settings.Default.Debug)
                     {
+                        #region Managing debugForm.
                         StringBuilder debugInfo = new StringBuilder();
                         debugInfo.AppendLine("Offset:      " + offsetPosition.ToString() + (stage < 1 ? "[?]" : ""));
                         debugInfo.AppendLine("Player:      " + playerPosition.ToString() + (stage < 2 ? "[?]" : ""));
@@ -212,16 +251,14 @@ namespace TeslaX
                                 debugForm.Size.Height - DebugForm.bh - 1
                                 );
                         });
+                        #endregion
                     }
                 }
 
-            if(Settings.Default.Debug)
-                debugForm.Invoke((MethodInvoker)delegate
-                {
-                    debugForm.Close();
-                });
+            if (Settings.Default.Debug)
+                debugForm.Done();
 
-            Working = false;
+            return true;
         }
     }
 }

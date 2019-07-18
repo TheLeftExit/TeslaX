@@ -20,17 +20,20 @@ namespace TeslaX
 
         private bool Started = false;
 
-        // Commands to be ran on click.
-        private async void Button1_Click(object sender, EventArgs e)
+        private async void OnStartButtonClick(object sender, EventArgs e)
         {
             if (!Workflow.Working)
             {
                 Started = true;
+                // On click, disable and change to Stop.
                 StartButton.Text = "Stop";
                 StartButton.Enabled = false;
                 new Task(() =>
                 {
-                    Workflow.Start();
+                    // Asynchronously:
+                    // Begin breaking.
+                    Workflow.Start(Settings.Default.Continue && Settings.Default.SimulateInput);
+                    // Once ALL breaking is done, enable and change to Start.
                     this.Invoke((MethodInvoker)delegate
                     {
                         StartButton.Text = "Start";
@@ -38,12 +41,14 @@ namespace TeslaX
                     });
                     Started = false;
                 }).Start();
+                // Don't enable until preparations are done and actual breaking started.
                 while (Started && !Workflow.Working)
                     await Task.Delay(50);
                 StartButton.Enabled = true;
             }
             else
             {
+                // On click, disable. Shortly, in asynchronous thread, we'll enable and change to Start.
                 StartButton.Enabled = false;
                 Workflow.Working = false;
             }
@@ -60,20 +65,22 @@ namespace TeslaX
             foreach (var b in App.Sprites)
                 BlockSelector.Items.Add(b.Name);
             BlockSelector.SelectedIndex = 0;
+
+            SkinColor.BackColor = Game.SkinColors[(int)Settings.Default.SkinColor];
         }
 
-        private void SkinColor_ValueChanged(object sender, EventArgs e)
+        private void OnSkinColorChange(object sender, EventArgs e)
         {
             Color newbg = Game.SkinColors[Convert.ToInt32(SkinColor.Value)];
             SkinColor.BackColor = newbg;
         }
 
-        private void Texture_Click(object sender, EventArgs e)
+        private void OnTextureClick(object sender, EventArgs e)
         {
             (new TextureForm()).ShowDialog();
         }
 
-        private void BlockSelector_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnBlockSelectorChange(object sender, EventArgs e)
         {
             if (BlockSelector.SelectedIndex == BlockSelector.Items.Count - 1)
             {
@@ -96,6 +103,11 @@ namespace TeslaX
             }
 
             Settings.Default.SelectedBlock = BlockSelector.SelectedIndex;
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            (new ScriptForm()).ShowDialog();
         }
     }
 }

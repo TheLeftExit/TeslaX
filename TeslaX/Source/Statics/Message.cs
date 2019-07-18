@@ -32,5 +32,8 @@ namespace TeslaX
 
         public static void TextureRestored() =>
             MessageBox.Show("Textures in /cache/game restored.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        public static void NoNewDistance() =>
+            MessageBox.Show("Failed to find selected block. Try starting with disabled input.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
     }
 }

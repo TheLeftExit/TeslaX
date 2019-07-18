@@ -193,5 +193,28 @@ namespace TeslaX.Properties {
                 this["SelectedBlock"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Continue {
+            get {
+                return ((bool)(this["Continue"]));
+            }
+            set {
+                this["Continue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection ContinueScript {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ContinueScript"]));
+            }
+            set {
+                this["ContinueScript"] = value;
+            }
+        }
     }
 }

@@ -8,11 +8,12 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    // Stuff that's either app-wide (like sprite collection) or just doesn't fit anywhere else.
     static class App
     {
+        // OffsetFinder's default output.
         public static readonly Point InvalidPoint = new Point(-1, -1);
 
+        // Find all integers between /a/ and /b/ where (x => x % 32 == off). Subtract /d/ from each.
         public static List<int> EligibleBetween(int a, int b, int off, int d = 0)
         {
             List<int> result = new List<int>();
@@ -22,6 +23,7 @@ namespace TeslaX
             return result;
         }
 
+        // Managing preset/custom blocks.
         private static Bitmap custom = new Bitmap(32, 32);
         public static readonly List<(string Name, Bitmap Sprite)> Sprites = new List<(string, Bitmap)>()
         {
@@ -36,6 +38,7 @@ namespace TeslaX
         };
         public static Bitmap CustomSprite { set { custom = value; } }
 
+        // Order in which PlayerFinder is used, with respect to last location and direction.
         public static readonly (int x1, int x2, bool SameDirection)[] PlayerFindingOrder = new (int, int, bool)[]
         {
             (0, 0, true), // First guess: same as before (center of the screen).
