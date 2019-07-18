@@ -181,7 +181,7 @@ namespace TeslaX
             }
 
             // Checking for distance.
-            if (Settings.Default.SimulateInput)
+            if (!Settings.Default.DebugMode)
                 using (Screenshot shot = Shoot())
                     if (!SetDistance(shot))
                     {
@@ -198,7 +198,7 @@ namespace TeslaX
             /* Discord: to breaking. */
 
             DebugForm debugForm = null;
-            if (Settings.Default.Debug)
+            if (Settings.Default.DebugForm)
             {
                 debugForm = new DebugForm();
                 new Task(() =>
@@ -232,26 +232,26 @@ namespace TeslaX
                         distance.Value = -2;
 
                     // If no blocks are found, we're done. Unless we're debugging.
-                    if (distance < 0 && Settings.Default.SimulateInput)
+                    if (distance < 0 && !Settings.Default.DebugMode)
                         break;
 
                     // Determining movement based on distance.
-                    if (Settings.Default.SimulateInput)
+                    if (!Settings.Default.DebugMode)
                     {
                         bool? down = movementManager.Update(distance, playerDirection);
                         if (down != null)
                             windowManager.SendKey(playerDirection ? Keys.D : Keys.A, down.Value);
                     }
 
-                    // Determinin punching based on time.
-                    if (Settings.Default.SimulatePunch && Settings.Default.SimulateInput)
+                    // Determinine punching based on time.
+                    if (Settings.Default.SimulatePunch && !Settings.Default.DebugMode)
                     {
                         bool? punch = punchManager.Update();
                         if (punch != null)
                             windowManager.SendKey(Keys.Space, punch.Value);
                     }
 
-                    if (Settings.Default.Debug)
+                    if (Settings.Default.DebugForm)
                     {
                         #region Managing debugForm.
                         StringBuilder debugInfo = new StringBuilder();
@@ -276,7 +276,7 @@ namespace TeslaX
             windowManager.SendKey(playerDirection ? Keys.D : Keys.A, false);
             windowManager.SendKey(Keys.Space, false);
 
-            if (Settings.Default.Debug)
+            if (Settings.Default.DebugForm)
                 debugForm.Done();
 
             return (Active) && (distance != -2);

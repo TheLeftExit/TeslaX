@@ -26,7 +26,7 @@ namespace TeslaX
                 // On click, change it to Stop.
                 StartButton.Text = "Stop";
                 Task.Factory.StartNew(() => {
-                    Workflow.Start(Settings.Default.Continue && Settings.Default.SimulateInput);
+                    Workflow.Start(Settings.Default.Continue && !Settings.Default.DebugMode);
                     Invoke((MethodInvoker)delegate
                     {
                         StartButton.Text = "Start";

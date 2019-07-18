@@ -98,13 +98,13 @@ namespace TeslaX
             // DisableInput
             // 
             this.DisableInput.AutoSize = true;
-            this.DisableInput.Checked = global::TeslaX.Properties.Settings.Default.SimulateInput;
+            this.DisableInput.Checked = global::TeslaX.Properties.Settings.Default.DebugMode;
             this.DisableInput.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulateInput", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DisableInput.Location = new System.Drawing.Point(6, 42);
             this.DisableInput.Name = "DisableInput";
-            this.DisableInput.Size = new System.Drawing.Size(123, 17);
+            this.DisableInput.Size = new System.Drawing.Size(87, 17);
             this.DisableInput.TabIndex = 1;
-            this.DisableInput.Text = "Disable debug mode";
+            this.DisableInput.Text = "Debug mode";
             this.DisableInput.UseVisualStyleBackColor = true;
             // 
             // label9
@@ -120,7 +120,7 @@ namespace TeslaX
             // Debug
             // 
             this.Debug.AutoSize = true;
-            this.Debug.Checked = global::TeslaX.Properties.Settings.Default.Debug;
+            this.Debug.Checked = global::TeslaX.Properties.Settings.Default.DebugForm;
             this.Debug.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Debug.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "Debug", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Debug.Location = new System.Drawing.Point(6, 19);

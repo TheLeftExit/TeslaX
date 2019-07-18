@@ -26,24 +26,24 @@ namespace TeslaX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Debug {
+        public bool DebugForm {
             get {
-                return ((bool)(this["Debug"]));
+                return ((bool)(this["DebugForm"]));
             }
             set {
-                this["Debug"] = value;
+                this["DebugForm"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SimulateInput {
+        public bool DebugMode {
             get {
-                return ((bool)(this["SimulateInput"]));
+                return ((bool)(this["DebugMode"]));
             }
             set {
-                this["SimulateInput"] = value;
+                this["DebugMode"] = value;
             }
         }
         
