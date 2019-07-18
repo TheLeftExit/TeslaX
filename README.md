@@ -6,22 +6,32 @@ Preview:
 ![Demo](demo.gif)  
 (only movement was automated; punching was manual)
 
-This bot detects the player and blocks in front of him, and automatically moves forward to simulate normal farming behavior.
+Recent version's interface:
+![Window](shot.PNG)
+
+## About
+TeslaX is designed to be flexible and extensible, so that in the future
+any player in any world can tweak the tool to work for them,
+and be sure that they won't be found out using it.
+Whenever the progress isn't on new features, it's on broadening
+the range of conditions in which the tool can work.
+
+## Features
+ - Walk forward and break blocks in front of the character, including non-solid foreground and background tiles.
+ - Built-in support for many farmables, with an option to load custom spritesheets for other tiles.
+ - Scripting system to support breaking multiple rows without manual intervention, whatever the farm layout is.
+ - User-friendly texture injection system, for more stable detection.
+ - Precise control of how input is determined based on distance and time passed.
+ - Settings are saved automatically.
 
 ## Instructions
-How to use:
- 1. Enter a world with at least one full row of Wooden Platforms.
- 2. Stand on one of the rows.
- 3. Take off any head items, so the back of your head is fully visible.
- 4. Fully zoom out, so that each block on the screen is 32x32.  
-    If that's not working, see troubleshooting tips below.
- 5. Launch the program and set your skin color.  
-    Colors are numbered from 0 to 13, in order as they appear in game settings.
- 6. If you're going to break blocks, select a block from dropdown menu.  
-    If there are no blocks to break, you can still see your character detected in real time.
- 7. Check "Windowed" if the game is in windowed mode.
- 8. Press Start.  
-    If input isn't disabled, your character should move whenever selected block is detected, until you're enough to reach by hitting SPACE. If debug information is displayed (highly advised), you'll see exactly where the bot thinks you and the nearest block are, as well as other useful information.
+The following conditions must be met:
+ - The game is zoomed out (each block is 32x32 pixels on-screen).
+ - The back of your player's head is fully visible.
+ - Your player is standing on a mostly-screen-wide row of Wooden Platforms.
+ - There's a row of blocks ahead of you (at least one is enough).
+
+If all of those are true, and you've set relevant settings, you should be ready to click Start and have your blocks broken for you.
 
 ## Troubleshooting
 Q: I can't fully zoom out.  
