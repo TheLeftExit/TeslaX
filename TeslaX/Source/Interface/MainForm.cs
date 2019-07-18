@@ -19,45 +19,32 @@ namespace TeslaX
             InitializeComponent();
         }
 
-        private bool Started = false;
-
         private void OnStartButtonClick(object sender, EventArgs e)
         {
-            if (!Workflow.Working)
+            if (!Workflow.Active)
             {
-                Started = true;
-                // On click, disable and change to Stop.
+                // On click, change it to Stop.
                 StartButton.Text = "Stop";
-                StartButton.Enabled = false;
-                new Thread(() =>
-                {
-                    // Asynchronously:
-                    // Begin breaking.
+                Task.Factory.StartNew(() => {
                     Workflow.Start(Settings.Default.Continue && Settings.Default.SimulateInput);
-                    // Once ALL breaking is done, enable and change to Start.
-                    Started = false;
-                    this.Invoke((MethodInvoker)delegate
+                    Invoke((MethodInvoker)delegate
                     {
                         StartButton.Text = "Start";
                         StartButton.Enabled = true;
                     });
-                }).Start();
-                // Don't enable until preparations are done and actual breaking started.
-                while (Started && !Workflow.Working)
-                    Thread.Sleep(50);
-                StartButton.Enabled = true;
+                });
             }
             else
             {
                 // On click, disable. Shortly, in asynchronous thread, we'll enable and change to Start.
                 StartButton.Enabled = false;
-                Workflow.Working = false;
+                Workflow.Active = false;
             }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Workflow.Working = false;
+            Workflow.Active = false;
             Settings.Default.Save();
         }
 

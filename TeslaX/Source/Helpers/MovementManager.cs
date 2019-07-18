@@ -29,7 +29,7 @@ namespace TeslaX
 
         private void newdist(int d, bool right)
         {
-            bool newdown = (d) >= (right ? Settings.Default.DistanceRight : Settings.Default.DistanceLeft) && d != -1;
+            bool newdown = (d) >= (right ? Settings.Default.DistanceRight : Settings.Default.DistanceLeft) && d > -1;
 
             // If we're idle, and for less than X ms, don't move yet.
             if (!down && elapsed < Settings.Default.MinStop)

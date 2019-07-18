@@ -53,13 +53,13 @@ namespace TeslaX
             this.BlockSelector = new System.Windows.Forms.ComboBox();
             this.SkinColor = new System.Windows.Forms.NumericUpDown();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.Windowed = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -353,6 +353,18 @@ namespace TeslaX
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Settings";
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = global::TeslaX.Properties.Settings.Default.SimulatePunch;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulatePunch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(6, 42);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(118, 17);
+            this.checkBox2.TabIndex = 17;
+            this.checkBox2.Text = "Automate punching";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // Windowed
             // 
             this.Windowed.AutoSize = true;
@@ -421,18 +433,6 @@ namespace TeslaX
             this.checkBox1.Text = "Enable";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = global::TeslaX.Properties.Settings.Default.SimulatePunch;
-            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulatePunch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(6, 42);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(118, 17);
-            this.checkBox2.TabIndex = 17;
-            this.checkBox2.Text = "Automate punching";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -476,8 +476,6 @@ namespace TeslaX
         }
 
         #endregion
-
-        private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox DisableInput;
         private System.Windows.Forms.CheckBox Debug;
@@ -507,5 +505,6 @@ namespace TeslaX
         private Label label9;
         private Label label8;
         private CheckBox checkBox2;
+        private Button StartButton;
     }
 }

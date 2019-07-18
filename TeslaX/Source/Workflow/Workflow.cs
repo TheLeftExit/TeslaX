@@ -11,13 +11,19 @@ namespace TeslaX
 {
     static partial class Workflow
     {
-        public static bool Working = false;
+        // 0: Not doing anything.
+        // 1: Initializing before first row.
+        // 2: Breaking or initializing before subsequent rows.
+        // 3: Manually cancelled, finishing.
+        public static bool Active = false;
 
         // This one is a bit more global.
         private static WindowManager windowManager;
 
         public static void Start(bool cont)
         {
+            Active = true;
+
             windowManager = new WindowManager(Settings.Default.Windowed);
             if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
             {
@@ -32,7 +38,7 @@ namespace TeslaX
                     Script.Execute(windowManager);
             }
 
-            Working = false;
+            Active = false;
         }
 
         
@@ -53,7 +59,8 @@ namespace TeslaX
             Point playerPosition = App.InvalidPoint;
             bool playerDirection = false;
 
-            Smooth<int> distance = new Smooth<int>(150, (ov, nv) => Math.Abs(ov - nv) > 24 || nv == -1);
+            // -1 for no blocks, -2 for no player/offset.
+            Smooth<int> distance = new Smooth<int>(150, (ov, nv) => Math.Abs(ov - nv) > 24 || nv < 0);
 
             #region Local functions.
             // Find and set first offset value.
@@ -184,6 +191,10 @@ namespace TeslaX
                         return false;
                     }
 
+            // If we've been cancelled during preparations, count it as failed loading.
+            if (!Active)
+                return false;
+
             // Preparing for working loop.
             /* Discord: to breaking. */
 
@@ -196,11 +207,8 @@ namespace TeslaX
                     debugForm.ShowDialog();
                 }).Start();
             }
-
-            // Loop.
-            if(interactive)
-                Working = true;
-            while (Working)
+            // Otherwise, proceed.
+            while (Active)
                 using (Screenshot shot = Shoot())
                 {
                     int stage = 0;
@@ -222,10 +230,10 @@ namespace TeslaX
 
                     // That's not supposed to happen.
                     if (stage < 2)
-                        distance.Value = -1;
+                        distance.Value = -2;
 
                     // If no blocks are found, we're done. Unless we're debugging.
-                    if (distance == -1 && Settings.Default.SimulateInput)
+                    if (distance < 0 && Settings.Default.SimulateInput)
                         break;
 
                     // Determining movement based on distance.
@@ -272,7 +280,7 @@ namespace TeslaX
             if (Settings.Default.Debug)
                 debugForm.Done();
 
-            return true;
+            return (Active) && (distance != -2);
         }
     }
 }
