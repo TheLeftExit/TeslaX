@@ -8,7 +8,7 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    public class PlayerFinder
+    public class PlayerFinder : IDisposable
     {
         // Player's head.
         public Bitmap Head;
@@ -20,6 +20,11 @@ namespace TeslaX
                 for (int y = 0; y < Head.Height; y++)
                     if (Head.GetPixel(x, y).A == 255)
                         Head.SetPixel(x, y, Game.SkinColors[skincolor].Dim(Head.GetPixel(x, y).R));
+        }
+
+        public void Dispose()
+        {
+            Head.Dispose();
         }
 
         public bool HasPlayer(Screenshot shot, int x, int y, bool right)

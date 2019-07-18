@@ -18,20 +18,35 @@ namespace TeslaX
             InitializeComponent();
         }
 
+        private bool Started = false;
+
         // Commands to be ran on click.
-        private void Button1_Click(object sender, EventArgs e)
+        private async void Button1_Click(object sender, EventArgs e)
         {
             if (!Workflow.Working)
             {
+                Started = true;
                 StartButton.Text = "Stop";
+                StartButton.Enabled = false;
                 new Task(() =>
                 {
                     Workflow.Start();
-                    StartButton.Text = "Start";
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        StartButton.Text = "Start";
+                        StartButton.Enabled = true;
+                    });
+                    Started = false;
                 }).Start();
+                while (Started && !Workflow.Working)
+                    await Task.Delay(50);
+                StartButton.Enabled = true;
             }
             else
+            {
+                StartButton.Enabled = false;
                 Workflow.Working = false;
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

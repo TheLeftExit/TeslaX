@@ -297,6 +297,7 @@ namespace TeslaX
             // 
             // BlockSelector
             // 
+            this.BlockSelector.DisplayMember = "Key";
             this.BlockSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.BlockSelector.FormattingEnabled = true;
             this.BlockSelector.Location = new System.Drawing.Point(81, 19);
@@ -320,6 +321,7 @@ namespace TeslaX
             this.SkinColor.Size = new System.Drawing.Size(106, 20);
             this.SkinColor.TabIndex = 5;
             this.SkinColor.Value = global::TeslaX.Properties.Settings.Default.SkinColor;
+            this.SkinColor.BackColor = global::TeslaX.Game.SkinColors[(int)global::TeslaX.Properties.Settings.Default.SkinColor];
             this.SkinColor.ValueChanged += new System.EventHandler(this.SkinColor_ValueChanged);
             // 
             // groupBox6

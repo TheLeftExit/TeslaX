@@ -176,30 +176,36 @@ namespace TeslaX
                     int stage = 0; // How far we've gotten. Used in debugging.
 
                     // Finding offset.
-                    if (!SetOffset(shot))
-                        goto MyLabel;
-                    stage++;
+                    if (SetOffset(shot))
+                    {
+                        stage++;
 
-                    // Finding player.
-                    if (!SetPlayer(shot))
-                        goto MyLabel;
-                    stage++;
+                        // Finding player.
+                        if (SetPlayer(shot))
+                        {
+                            stage++;
 
-                    // Finding blocks and calculating distance.
-                    SetDistance(shot);
+                            // Finding blocks and calculating distance.
+                            SetDistance(shot);
 
-                    // Determining input based on distance.
-                    bool? down = inputManager.Update(distance, playerDirection);
-                    if (down != null)
-                        windowManager.SendKey(playerDirection ? Keys.D : Keys.A, down.GetValueOrDefault());
+                            // Determining input based on distance.
+                            bool? down = inputManager.Update(distance, playerDirection);
+                            if (down != null)
+                                windowManager.SendKey(playerDirection ? Keys.D : Keys.A, down.GetValueOrDefault());
+                        }
+                    }
 
-                    MyLabel:
                     if (Settings.Default.Debug)
                     {
+                        StringBuilder debugInfo = new StringBuilder();
+                        debugInfo.AppendLine("Offset:      " + offsetPosition.ToString() + (stage < 1 ? "[?]" : ""));
+                        debugInfo.AppendLine("Player:      " + playerPosition.ToString() + (stage < 2 ? "[?]" : ""));
+                        debugInfo.AppendLine("Distance:    " + (distance > 0 ? distance.ToString() : "N/A"));
+                        debugInfo.AppendLine("NewDistance: " + (distance.UnsafeValue > 0 ? distance.UnsafeValue.ToString() : "N/A"));
                         debugForm.Invoke((MethodInvoker)delegate
                         {
                             debugForm.Location = shot.Location.Add(windowManager.Location).Add(0, -debugForm.Size.Height);
-                            debugForm.DebugLabel.Text = "debug window";
+                            debugForm.DebugLabel.Text = debugInfo.ToString();
                             debugForm.DebugPlayerButton.Location = new Point(playerPosition.X - shot.X, debugForm.Size.Height - DebugForm.ph - 1);
                             debugForm.DebugBlockButton.Location = new Point(
                                 distance != -1 ? playerPosition.X + (playerDirection ? 1 : -1) * (distance + 32) + windowManager.X - debugForm.Location.X : -33,
