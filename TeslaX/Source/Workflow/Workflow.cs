@@ -28,9 +28,8 @@ namespace TeslaX
             if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
             {
                 Message.NoWindow();
-                return;
             }
-
+            else
             if (start() && cont)
             {
                 Script.Execute(windowManager);
