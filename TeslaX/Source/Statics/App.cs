@@ -25,16 +25,16 @@ namespace TeslaX
 
         // Managing preset/custom blocks.
         private static Bitmap custom = new Bitmap(32, 32);
-        public static readonly List<(string Name, Bitmap Sprite)> Sprites = new List<(string, Bitmap)>()
+        public static readonly List<(string Name, Bitmap Sprite, string AssetName)> Sprites = new List<(string, Bitmap, string)>()
         {
-            ("Laser Grid", Resources.lasergrid),
-            ("Pepper Tree", Resources.pepper),
-            ("Fish Tank", Resources.fishtank),
-            ("Sorcerer Stone", Resources.sorcerer),
-            ("Chandelier", Resources.chandelier),
-            ("Pinball Bumper", Resources.pinball),
-            ("Dirt", Resources.dirt),
-            ("Custom", custom)
+            ("Laser Grid", Resources.lasergrid, "lasergrid"),
+            ("Pepper Tree", Resources.pepper, "peppertree"),
+            ("Fish Tank", Resources.fishtank, "fishtank"),
+            ("Sorcerer Stone", Resources.sorcerer, "sorcerer"),
+            ("Chandelier", Resources.chandelier, "chandelier"),
+            ("Pinball Bumper", Resources.pinball, "bumper"),
+            ("Dirt", Resources.dirt, "dirt"),
+            ("Custom", custom, "mystery")
         };
         public static Bitmap CustomSprite { set { custom = value; } }
 

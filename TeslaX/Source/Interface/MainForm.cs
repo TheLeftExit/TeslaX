@@ -55,6 +55,8 @@ namespace TeslaX
             BlockSelector.SelectedIndex = 0;
 
             SkinColor.BackColor = Game.SkinColors[(int)Settings.Default.SkinColor];
+
+            Discord.Update(DiscordStatus.Idle);
         }
 
         private void OnSkinColorChange(object sender, EventArgs e)

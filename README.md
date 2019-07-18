@@ -19,9 +19,10 @@ the range of conditions in which the tool can work.
 ## Features
  - Walk forward and break blocks in front of the character, including non-solid foreground and background tiles.
  - Built-in support for many farmables, with an option to load custom spritesheets for other tiles.
+ - Precise control of how input is determined based on distance and time passed.
  - Scripting system to support breaking multiple rows without manual intervention, whatever the farm layout is.
  - User-friendly texture injection system, for more stable detection.
- - Precise control of how input is determined based on distance and time passed.
+ - Discord Rich Presence, if that appeals to you for some reason.
  - Settings are saved automatically.
 
 ## Instructions

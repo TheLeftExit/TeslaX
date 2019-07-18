@@ -23,6 +23,7 @@ namespace TeslaX
         public static void Start(bool cont)
         {
             Active = true;
+            int row = 0;
 
             windowManager = new WindowManager(Settings.Default.Windowed);
             if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
@@ -30,17 +31,23 @@ namespace TeslaX
                 Message.NoWindow();
             }
             else
-            if (start() && cont)
             {
-                Script.Execute(windowManager);
-                while (start(false))
+                Discord.Update(DiscordStatus.Breaking, row);
+                bool fullrow = start();
+                if (fullrow && cont)
+                {
                     Script.Execute(windowManager);
+                    Discord.Update(DiscordStatus.Breaking, row);
+                    while (start(false))
+                    {
+                        Script.Execute(windowManager);
+                    }
+                }
             }
 
+            Discord.Update(DiscordStatus.Idle);
             Active = false;
         }
-
-        
 
         private static bool start(bool interactive = true)
         {

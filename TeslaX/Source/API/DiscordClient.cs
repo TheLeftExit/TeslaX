@@ -5,10 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using DiscordRPC;
 using TeslaX.Properties;
-/*
+
 namespace TeslaX
 {
-    public static class Discord
+    enum DiscordStatus
+    {
+        Disabled = 0,
+        Idle = 1,
+        Breaking = 2,
+        Advancing = 3
+    }
+
+    static class Discord
     {
         private static DiscordRpcClient client;
         private static bool initialized;
@@ -20,35 +28,46 @@ namespace TeslaX
             initialized = true;
         }
 
-        public static void ToIdle()
+        public static void Update(DiscordStatus status, int rows = 0)
         {
-            if (client == null)
+            if (!Settings.Default.RichPresence)
                 return;
-
-            if (!initialized)
+            if (!initialized && status != DiscordStatus.Disabled)
                 Initialize();
-
-            client.SetPresence(new RichPresence()
+            switch (status)
             {
-                State = "Not breaking anything",
-                Timestamps = Timestamps.Now
-            });
-        }
-
-        public static void ToBreaking()
-        {
-            if (!initialized)
-                Initialize();
-
-            client.SetPresence(new RichPresence()
-            {
-                State = Settings.Default.SimulateInput ? "Breaking " + BlockInfo.CurrentBlock.PluralName : "Debugging",
-                Assets = new Assets
-                {
-                    LargeImageKey = BlockInfo.CurrentBlock.Code
-                },
-                Timestamps = Timestamps.Now
-            });
+                case DiscordStatus.Idle:
+                    client.SetPresence(new RichPresence()
+                    {
+                        State = "Not breaking anything",
+                        Timestamps = Timestamps.Now
+                    });
+                    break;
+                case DiscordStatus.Breaking:
+                    client.SetPresence(new RichPresence()
+                    {
+                        State = Settings.Default.DebugMode ? "Debugging" : "Breaking " + App.Sprites[Settings.Default.SelectedBlock].Name,
+                        Details = Settings.Default.DebugMode ? null : "Broke " + rows.ToString() + " rows so far.",
+                        Assets = new Assets
+                        {
+                            LargeImageKey = App.Sprites[Settings.Default.SelectedBlock].AssetName
+                        },
+                        Timestamps = Timestamps.Now
+                    });
+                    break;
+                case DiscordStatus.Advancing:
+                    client.SetPresence(new RichPresence()
+                    {
+                        State = "Moving to the next row.",
+                        Details = "Broke " + rows.ToString() + " rows so far.",
+                        Assets = new Assets
+                        {
+                            LargeImageKey = App.Sprites[Settings.Default.SelectedBlock].AssetName
+                        },
+                        Timestamps = Timestamps.Now
+                    });
+                    break;
+            }
         }
 
         public static void Hide()
@@ -64,4 +83,3 @@ namespace TeslaX
         }
     }
 }
-*/
