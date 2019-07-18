@@ -18,7 +18,6 @@ namespace TeslaX
 
         public static void Start(bool cont)
         {
-            // Initializing window.
             windowManager = new WindowManager(Settings.Default.Windowed);
             if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
             {
@@ -26,11 +25,10 @@ namespace TeslaX
                 return;
             }
 
-            // Breaking.
             if (start() && cont)
             {
                 Script.Execute(windowManager);
-                while (start())
+                while (start(false))
                     Script.Execute(windowManager);
             }
 
@@ -46,8 +44,9 @@ namespace TeslaX
             BlockFinder blockFinder = new BlockFinder(App.Sprites[Settings.Default.SelectedBlock].Sprite, Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
             PlayerFinder playerFinder = new PlayerFinder((int)Settings.Default.SkinColor);
 
-            // Preparing managers.
-            InputManager inputManager;
+            // Initializing managers.
+            MovementManager movementManager = new MovementManager();
+            PunchManager punchManager = new PunchManager();
 
             // Preparing workflow variables. Compiler gets mad if we don't explicitly initialize them.
             Point offsetPosition = App.InvalidPoint;
@@ -186,7 +185,6 @@ namespace TeslaX
                     }
 
             // Preparing for working loop.
-            inputManager = new InputManager();
             /* Discord: to breaking. */
 
             DebugForm debugForm = null;
@@ -219,19 +217,32 @@ namespace TeslaX
 
                             // Finding blocks and calculating distance.
                             SetDistance(shot);
-
-                            // Determining input based on distance.
-                            bool? down = inputManager.Update(distance, playerDirection);
-                            if (down != null)
-                                windowManager.SendKey(playerDirection ? Keys.D : Keys.A, down.GetValueOrDefault());
                         }
                     }
 
+                    // That's not supposed to happen.
                     if (stage < 2)
                         distance.Value = -1;
 
-                    if (distance == -1)
+                    // If no blocks are found, we're done. Unless we're debugging.
+                    if (distance == -1 && Settings.Default.SimulateInput)
                         break;
+
+                    // Determining movement based on distance.
+                    if (Settings.Default.SimulateInput)
+                    {
+                        bool? down = movementManager.Update(distance, playerDirection);
+                        if (down != null)
+                            windowManager.SendKey(playerDirection ? Keys.D : Keys.A, down.Value);
+                    }
+
+                    // Determinin punching based on time.
+                    if (Settings.Default.SimulatePunch && Settings.Default.SimulateInput)
+                    {
+                        bool? punch = punchManager.Update();
+                        if (punch != null)
+                            windowManager.SendKey(Keys.Space, punch.Value);
+                    }
 
                     if (Settings.Default.Debug)
                     {
@@ -254,6 +265,9 @@ namespace TeslaX
                         #endregion
                     }
                 }
+            // Making sure we're idle.
+            windowManager.SendKey(playerDirection ? Keys.D : Keys.A, false);
+            windowManager.SendKey(Keys.Space, false);
 
             if (Settings.Default.Debug)
                 debugForm.Done();

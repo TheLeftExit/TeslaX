@@ -216,5 +216,35 @@ namespace TeslaX.Properties {
                 this["ContinueScript"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3333")]
+        public int PunchDown {
+            get {
+                return ((int)(this["PunchDown"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("222")]
+        public int PunchUp {
+            get {
+                return ((int)(this["PunchUp"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SimulatePunch {
+            get {
+                return ((bool)(this["SimulatePunch"]));
+            }
+            set {
+                this["SimulatePunch"] = value;
+            }
+        }
     }
 }

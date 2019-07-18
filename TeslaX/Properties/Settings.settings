@@ -53,5 +53,14 @@
     <Setting Name="ContinueScript" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="PunchDown" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3333</Value>
+    </Setting>
+    <Setting Name="PunchUp" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">222</Value>
+    </Setting>
+    <Setting Name="SimulatePunch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

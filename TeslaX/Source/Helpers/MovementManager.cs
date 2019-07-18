@@ -10,7 +10,7 @@ using TeslaX.Properties;
 
 namespace TeslaX
 {
-    public class InputManager
+    public class MovementManager
     {
         private Stopwatch sw;
         private bool down;
@@ -61,7 +61,7 @@ namespace TeslaX
             return down;
         }
 
-        public InputManager()
+        public MovementManager()
         {
             sw = Stopwatch.StartNew();
             down = false;

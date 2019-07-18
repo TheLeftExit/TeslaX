@@ -66,7 +66,7 @@ namespace TeslaX
             }
         }
 
-        public static async void Execute(WindowManager window)
+        public static void Execute(WindowManager window)
         {
             if (Settings.Default.ContinueScript == null)
                 return;
@@ -76,7 +76,7 @@ namespace TeslaX
                 switch (cmd.Name)
                 {
                     case "wait":
-                        await Task.Delay(cmd[0]);
+                        window.HoldKey(Keys.None, cmd[0]);
                         break;
                     case "left":
                         window.HoldKey(Keys.A, cmd[0]);
@@ -91,7 +91,9 @@ namespace TeslaX
                         window.HoldKey(Keys.Space, cmd[0]);
                         break;
                 }
+                ;
             }
+            ;
         }
     }
 }

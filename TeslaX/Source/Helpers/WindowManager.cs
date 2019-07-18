@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
 using WindowScrape;
@@ -43,10 +44,10 @@ namespace TeslaX
         public void SendKey(Keys k, bool down) =>
             HwndObject.SendMessage(down ? WM.KEYDOWN : WM.KEYUP, (uint)k, 0);
 
-        public async void HoldKey(Keys k, ushort ms)
+        public void HoldKey(Keys k, ushort ms)
         {
             SendKey(k, true);
-            await Task.Delay(ms);
+            Thread.Sleep(ms);
             SendKey(k, false);
         }
     }

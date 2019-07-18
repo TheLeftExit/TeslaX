@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using TeslaX.Properties;
 
@@ -20,7 +21,7 @@ namespace TeslaX
 
         private bool Started = false;
 
-        private async void OnStartButtonClick(object sender, EventArgs e)
+        private void OnStartButtonClick(object sender, EventArgs e)
         {
             if (!Workflow.Working)
             {
@@ -28,22 +29,22 @@ namespace TeslaX
                 // On click, disable and change to Stop.
                 StartButton.Text = "Stop";
                 StartButton.Enabled = false;
-                new Task(() =>
+                new Thread(() =>
                 {
                     // Asynchronously:
                     // Begin breaking.
                     Workflow.Start(Settings.Default.Continue && Settings.Default.SimulateInput);
                     // Once ALL breaking is done, enable and change to Start.
+                    Started = false;
                     this.Invoke((MethodInvoker)delegate
                     {
                         StartButton.Text = "Start";
                         StartButton.Enabled = true;
                     });
-                    Started = false;
                 }).Start();
                 // Don't enable until preparations are done and actual breaking started.
                 while (Started && !Workflow.Working)
-                    await Task.Delay(50);
+                    Thread.Sleep(50);
                 StartButton.Enabled = true;
             }
             else

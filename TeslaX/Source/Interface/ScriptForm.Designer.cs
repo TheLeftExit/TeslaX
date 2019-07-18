@@ -39,7 +39,7 @@
             this.AddButton = new System.Windows.Forms.Button();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.QuitButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -167,13 +167,13 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(6, 149);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 8;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.Button4_Click);
+            this.QuitButton.Location = new System.Drawing.Point(6, 149);
+            this.QuitButton.Name = "CancelButton";
+            this.QuitButton.Size = new System.Drawing.Size(75, 23);
+            this.QuitButton.TabIndex = 8;
+            this.QuitButton.Text = "Cancel";
+            this.QuitButton.UseVisualStyleBackColor = true;
+            this.QuitButton.Click += new System.EventHandler(this.Button4_Click);
             // 
             // groupBox1
             // 
@@ -205,7 +205,7 @@
             // 
             this.groupBox2.Controls.Add(this.AddButton);
             this.groupBox2.Controls.Add(this.ScriptDraft);
-            this.groupBox2.Controls.Add(this.CancelButton);
+            this.groupBox2.Controls.Add(this.QuitButton);
             this.groupBox2.Controls.Add(this.RemoveButton);
             this.groupBox2.Controls.Add(this.SaveButton);
             this.groupBox2.Location = new System.Drawing.Point(141, 12);
@@ -249,7 +249,7 @@
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button QuitButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;

@@ -32,8 +32,8 @@ namespace TeslaX
         {
             this.StartButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.DisableInput = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.Debug = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -59,6 +59,7 @@ namespace TeslaX
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,9 +75,9 @@ namespace TeslaX
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(350, 190);
+            this.StartButton.Location = new System.Drawing.Point(417, 190);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(131, 23);
+            this.StartButton.Size = new System.Drawing.Size(64, 23);
             this.StartButton.TabIndex = 0;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
@@ -94,6 +95,18 @@ namespace TeslaX
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Debug options";
             // 
+            // DisableInput
+            // 
+            this.DisableInput.AutoSize = true;
+            this.DisableInput.Checked = global::TeslaX.Properties.Settings.Default.SimulateInput;
+            this.DisableInput.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulateInput", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DisableInput.Location = new System.Drawing.Point(6, 42);
+            this.DisableInput.Name = "DisableInput";
+            this.DisableInput.Size = new System.Drawing.Size(123, 17);
+            this.DisableInput.TabIndex = 1;
+            this.DisableInput.Text = "Disable debug mode";
+            this.DisableInput.UseVisualStyleBackColor = true;
+            // 
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -103,18 +116,6 @@ namespace TeslaX
             this.label9.TabIndex = 2;
             this.label9.Text = "In debug mode input is disabled and detection doesn\'t stop when there aren\'t any " +
     "blocks.";
-            // 
-            // DisableInput
-            // 
-            this.DisableInput.AutoSize = true;
-            this.DisableInput.Checked = global::TeslaX.Properties.Settings.Default.SimulateInput;
-            this.DisableInput.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulateInput", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DisableInput.Location = new System.Drawing.Point(6, 42);
-            this.DisableInput.Name = "DisableInput";
-            this.DisableInput.Size = new System.Drawing.Size(87, 17);
-            this.DisableInput.TabIndex = 1;
-            this.DisableInput.Text = "Debug mode";
-            this.DisableInput.UseVisualStyleBackColor = true;
             // 
             // Debug
             // 
@@ -343,8 +344,8 @@ namespace TeslaX
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.checkBox2);
             this.groupBox6.Controls.Add(this.Windowed);
-            this.groupBox6.Controls.Add(this.button1);
             this.groupBox6.Location = new System.Drawing.Point(213, 12);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(131, 75);
@@ -367,11 +368,11 @@ namespace TeslaX
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 42);
+            this.button1.Location = new System.Drawing.Point(350, 190);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 23);
+            this.button1.Size = new System.Drawing.Size(61, 23);
             this.button1.TabIndex = 14;
-            this.button1.Text = "Set custom textures";
+            this.button1.Text = "Textures";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.OnTextureClick);
             // 
@@ -420,17 +421,30 @@ namespace TeslaX
             this.checkBox1.Text = "Enable";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = global::TeslaX.Properties.Settings.Default.SimulatePunch;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulatePunch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(6, 42);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(118, 17);
+            this.checkBox2.TabIndex = 17;
+            this.checkBox2.Text = "Automate punching";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 220);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.StartButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::TeslaX.Properties.Resources.pickaxe;
@@ -492,5 +506,6 @@ namespace TeslaX
         private CheckBox checkBox1;
         private Label label9;
         private Label label8;
+        private CheckBox checkBox2;
     }
 }
