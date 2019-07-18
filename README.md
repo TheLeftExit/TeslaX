@@ -6,7 +6,7 @@ Preview:
 ![Demo](demo.gif)  
 (only movement was automated; punching was manual)
 
-Recent version's interface:
+Recent version's interface:  
 ![Window](shot.PNG)
 
 ## About
