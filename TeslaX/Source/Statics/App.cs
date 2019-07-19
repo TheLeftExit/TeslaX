@@ -23,23 +23,18 @@ namespace TeslaX
             return result;
         }
 
-        // Managing preset/custom blocks.
-        private static Bitmap custom = new Bitmap(32, 32);
-        public static readonly List<(string Name, Bitmap Sprite, string AssetName)> Sprites = new List<(string, Bitmap, string)>()
+        public static readonly List<(string Name, Bitmap Sprite, string AssetName, string DiscordName)> Sprites = new List<(string, Bitmap, string, string)>()
         {
-            ("Laser Grid", Resources.lasergrid, "lasergrid"),
-            ("Pepper Tree", Resources.pepper, "peppertree"),
-            ("Fish Tank", Resources.fishtank, "fishtank"),
-            ("Sorcerer Stone", Resources.sorcerer, "sorcerer"),
-            ("Chandelier", Resources.chandelier, "chandelier"),
-            ("Pinball Bumper", Resources.pinball, "bumper"),
-            ("Dirt", Resources.dirt, "dirt"),
-            ("Custom", null, "mystery")
+            ("Laser Grid", Resources.lasergrid, "lasergrid", "Laser Grids."),
+            ("Pepper Tree", Resources.pepper, "peppertree", "Pepper Trees."),
+            ("Fish Tank", Resources.fishtank, "fishtank", "Fish Tanks."),
+            ("Sorcerer Stone", Resources.sorcerer, "sorcerer", "Sorcerer Stones."),
+            ("Chandelier", Resources.chandelier, "chandelier", "Chandeliers."),
+            ("Pinball Bumper", Resources.pinball, "bumper", "Pinball Bumpers."),
+            ("Dirt", Resources.dirt, "dirt", "Dirt."),
+            ("Custom", null, "mystery", "a mystery!")
         };
-        public static Bitmap CustomSprite {
-            set { custom = value; }
-            get { return custom; }
-       }
+        public static Bitmap CustomSprite { set; get; } = new Bitmap(32, 32);
 
         // Order in which PlayerFinder is used, with respect to last location and direction.
         public static readonly (int x1, int x2, bool SameDirection)[] PlayerFindingOrder = new (int, int, bool)[]

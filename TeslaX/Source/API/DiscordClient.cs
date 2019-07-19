@@ -46,7 +46,7 @@ namespace TeslaX
                 case DiscordStatus.Breaking:
                     client.SetPresence(new RichPresence()
                     {
-                        State = Settings.Default.DebugMode ? "Debugging" : "Breaking " + App.Sprites[Settings.Default.SelectedBlock].Name,
+                        State = Settings.Default.DebugMode ? "Debugging" : "Breaking " + App.Sprites[Settings.Default.SelectedBlock].DiscordName,
                         Details = Settings.Default.DebugMode ? null : "Broke " + rows.ToString() + " rows so far.",
                         Assets = new Assets
                         {
