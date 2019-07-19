@@ -22,16 +22,20 @@ namespace TeslaX
 
         public DebugForm()
         {
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.TopMost = true;
-            this.Size = new Size((Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32, fh);
+            //SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+
+            FormBorderStyle = FormBorderStyle.None;
+            TopMost = true;
+            Size = new Size((Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32, fh);
 
             DebugLabel = new Label
             {
                 Dock = DockStyle.Fill,
-                Font = new Font(FontFamily.GenericMonospace, 7)
+                Font = new Font(FontFamily.GenericMonospace, 7.5f),
+                //ForeColor = Color.White
+
             };
-            this.Controls.Add(DebugLabel);
+            Controls.Add(DebugLabel);
 
             DebugBlockButton = new Button
             {
@@ -39,7 +43,7 @@ namespace TeslaX
                 Size = new Size(32, bh),
                 Location = new Point(0, this.Size.Height - bh)
             };
-            this.Controls.Add(DebugBlockButton);
+            Controls.Add(DebugBlockButton);
             DebugBlockButton.BringToFront();
 
             DebugPlayerButton = new Button
@@ -48,8 +52,12 @@ namespace TeslaX
                 Size = new Size(32, ph),
                 Location = new Point(0, this.Size.Height - ph)
             };
-            this.Controls.Add(DebugPlayerButton);
+            Controls.Add(DebugPlayerButton);
             DebugPlayerButton.BringToFront();
+
+            
+            //BackColor = Color.Black;
+            //TransparencyKey = BackColor;
         }
 
         public void Done()

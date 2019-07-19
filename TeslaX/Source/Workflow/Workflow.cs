@@ -51,9 +51,11 @@ namespace TeslaX
 
         private static bool start(bool interactive = true)
         {
+            // Loading the appropriate spritesheet.
+            bool custom = Settings.Default.SelectedBlock == App.Sprites.Count - 1;
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
-            BlockFinder blockFinder = new BlockFinder(App.Sprites[Settings.Default.SelectedBlock].Sprite, Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
+            BlockFinder blockFinder = new BlockFinder(custom ? App.CustomSprite : App.Sprites[Settings.Default.SelectedBlock].Sprite, Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
             PlayerFinder playerFinder = new PlayerFinder((int)Settings.Default.SkinColor);
 
             // Initializing managers.

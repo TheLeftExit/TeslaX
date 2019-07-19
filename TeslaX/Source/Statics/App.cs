@@ -34,9 +34,12 @@ namespace TeslaX
             ("Chandelier", Resources.chandelier, "chandelier"),
             ("Pinball Bumper", Resources.pinball, "bumper"),
             ("Dirt", Resources.dirt, "dirt"),
-            ("Custom", custom, "mystery")
+            ("Custom", null, "mystery")
         };
-        public static Bitmap CustomSprite { set { custom = value; } }
+        public static Bitmap CustomSprite {
+            set { custom = value; }
+            get { return custom; }
+       }
 
         // Order in which PlayerFinder is used, with respect to last location and direction.
         public static readonly (int x1, int x2, bool SameDirection)[] PlayerFindingOrder = new (int, int, bool)[]
