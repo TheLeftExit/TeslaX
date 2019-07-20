@@ -14,9 +14,20 @@ namespace TeslaX
 {
     public partial class MainForm : Form
     {
+        private Control[] ToDisable;
+
         public MainForm()
         {
             InitializeComponent();
+            ToDisable = new Control[]{
+                basicOptionsGroupBox,
+                movementGroupBox,
+                settingsGroupBox,
+                rowsGroupBox,
+                debugGroupBox,
+                discordGroupBox,
+                button1
+            };
         }
 
         private void OnStartButtonClick(object sender, EventArgs e)
@@ -25,12 +36,16 @@ namespace TeslaX
             {
                 // On click, change it to Stop.
                 StartButton.Text = "Stop";
+                foreach (var c in ToDisable)
+                    c.Enabled = false;
                 Task.Factory.StartNew(() => {
                     Workflow.Start(Settings.Default.Continue && !Settings.Default.DebugMode);
                     Invoke((MethodInvoker)delegate
                     {
                         StartButton.Text = "Start";
                         StartButton.Enabled = true;
+                        foreach (var c in ToDisable)
+                            c.Enabled = true;
                     });
                 });
             }

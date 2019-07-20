@@ -23,18 +23,19 @@ namespace TeslaX
             return result;
         }
 
-        public static readonly List<(string Name, Bitmap Sprite, string AssetName, string DiscordName)> Sprites = new List<(string, Bitmap, string, string)>()
+        private static Bitmap custom = new Bitmap(32, 32);
+        public static readonly List<(string Name, Func<Bitmap> Sprite, string AssetName, string DiscordName)> Sprites = new List<(string, Func<Bitmap>, string, string)>()
         {
-            ("Laser Grid", Resources.lasergrid, "lasergrid", "Laser Grids."),
-            ("Pepper Tree", Resources.pepper, "peppertree", "Pepper Trees."),
-            ("Fish Tank", Resources.fishtank, "fishtank", "Fish Tanks."),
-            ("Sorcerer Stone", Resources.sorcerer, "sorcerer", "Sorcerer Stones."),
-            ("Chandelier", Resources.chandelier, "chandelier", "Chandeliers."),
-            ("Pinball Bumper", Resources.pinball, "bumper", "Pinball Bumpers."),
-            ("Dirt", Resources.dirt, "dirt", "Dirt."),
-            ("Custom", null, "mystery", "a mystery!")
+            ("Laser Grid", () => Resources.lasergrid, "lasergrid", "Laser Grids."),
+            ("Pepper Tree", () => Resources.pepper, "peppertree", "Pepper Trees."),
+            ("Fish Tank", () => Resources.fishtank, "fishtank", "Fish Tanks."),
+            ("Sorcerer Stone", () => Resources.sorcerer, "sorcerer", "Sorcerer Stones."),
+            ("Chandelier", () => Resources.chandelier, "chandelier", "Chandeliers."),
+            ("Pinball Bumper", () => Resources.pinball, "bumper", "Pinball Bumpers."),
+            ("Dirt", () => Resources.dirt, "dirt", "Dirt."),
+            ("Custom", () => custom, "mystery", "a mystery!")
         };
-        public static Bitmap CustomSprite { set; get; } = new Bitmap(32, 32);
+        public static Bitmap CustomSprite { set { custom = value; } }
 
         // Order in which PlayerFinder is used, with respect to last location and direction.
         public static readonly (int x1, int x2, bool SameDirection)[] PlayerFindingOrder = new (int, int, bool)[]

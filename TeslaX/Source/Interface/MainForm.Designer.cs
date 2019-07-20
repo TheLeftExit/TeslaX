@@ -31,15 +31,15 @@ namespace TeslaX
         private void InitializeComponent()
         {
             this.StartButton = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.debugGroupBox = new System.Windows.Forms.GroupBox();
             this.DisableInput = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Debug = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.discordGroupBox = new System.Windows.Forms.GroupBox();
             this.RichPresence = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.movementGroupBox = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.MaxMove = new System.Windows.Forms.NumericUpDown();
@@ -49,28 +49,28 @@ namespace TeslaX
             this.DistanceRight = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.DistanceLeft = new System.Windows.Forms.NumericUpDown();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.basicOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.BlockSelector = new System.Windows.Forms.ComboBox();
             this.SkinColor = new System.Windows.Forms.NumericUpDown();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.settingsGroupBox = new System.Windows.Forms.GroupBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.Windowed = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.rowsGroupBox = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.debugGroupBox.SuspendLayout();
+            this.discordGroupBox.SuspendLayout();
+            this.movementGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinStop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceLeft)).BeginInit();
-            this.groupBox3.SuspendLayout();
+            this.basicOptionsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).BeginInit();
-            this.groupBox6.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.settingsGroupBox.SuspendLayout();
+            this.rowsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // StartButton
@@ -83,17 +83,17 @@ namespace TeslaX
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.OnStartButtonClick);
             // 
-            // groupBox1
+            // debugGroupBox
             // 
-            this.groupBox1.Controls.Add(this.DisableInput);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.Debug);
-            this.groupBox1.Location = new System.Drawing.Point(350, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(131, 122);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Debug options";
+            this.debugGroupBox.Controls.Add(this.DisableInput);
+            this.debugGroupBox.Controls.Add(this.label9);
+            this.debugGroupBox.Controls.Add(this.Debug);
+            this.debugGroupBox.Location = new System.Drawing.Point(350, 12);
+            this.debugGroupBox.Name = "debugGroupBox";
+            this.debugGroupBox.Size = new System.Drawing.Size(131, 122);
+            this.debugGroupBox.TabIndex = 2;
+            this.debugGroupBox.TabStop = false;
+            this.debugGroupBox.Text = "Debug options";
             // 
             // DisableInput
             // 
@@ -148,15 +148,15 @@ namespace TeslaX
             this.label2.TabIndex = 6;
             this.label2.Text = "Skin color:";
             // 
-            // groupBox4
+            // discordGroupBox
             // 
-            this.groupBox4.Controls.Add(this.RichPresence);
-            this.groupBox4.Location = new System.Drawing.Point(350, 140);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(131, 44);
-            this.groupBox4.TabIndex = 7;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Discord Rich Presence";
+            this.discordGroupBox.Controls.Add(this.RichPresence);
+            this.discordGroupBox.Location = new System.Drawing.Point(350, 140);
+            this.discordGroupBox.Name = "discordGroupBox";
+            this.discordGroupBox.Size = new System.Drawing.Size(131, 44);
+            this.discordGroupBox.TabIndex = 7;
+            this.discordGroupBox.TabStop = false;
+            this.discordGroupBox.Text = "Discord Rich Presence";
             // 
             // RichPresence
             // 
@@ -170,24 +170,24 @@ namespace TeslaX
             this.RichPresence.Text = "Enable";
             this.RichPresence.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // movementGroupBox
             // 
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.MaxMove);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.MinStop);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.DistanceRight);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.DistanceLeft);
-            this.groupBox2.Location = new System.Drawing.Point(12, 93);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.groupBox2.Size = new System.Drawing.Size(195, 120);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Movement tuning";
+            this.movementGroupBox.Controls.Add(this.label7);
+            this.movementGroupBox.Controls.Add(this.label6);
+            this.movementGroupBox.Controls.Add(this.MaxMove);
+            this.movementGroupBox.Controls.Add(this.label5);
+            this.movementGroupBox.Controls.Add(this.MinStop);
+            this.movementGroupBox.Controls.Add(this.label4);
+            this.movementGroupBox.Controls.Add(this.DistanceRight);
+            this.movementGroupBox.Controls.Add(this.label3);
+            this.movementGroupBox.Controls.Add(this.DistanceLeft);
+            this.movementGroupBox.Location = new System.Drawing.Point(12, 93);
+            this.movementGroupBox.Name = "movementGroupBox";
+            this.movementGroupBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.movementGroupBox.Size = new System.Drawing.Size(195, 120);
+            this.movementGroupBox.TabIndex = 8;
+            this.movementGroupBox.TabStop = false;
+            this.movementGroupBox.Text = "Movement tuning";
             // 
             // label7
             // 
@@ -300,18 +300,18 @@ namespace TeslaX
             this.DistanceLeft.TabIndex = 0;
             this.DistanceLeft.Value = global::TeslaX.Properties.Settings.Default.DistanceLeft;
             // 
-            // groupBox3
+            // basicOptionsGroupBox
             // 
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.BlockSelector);
-            this.groupBox3.Controls.Add(this.SkinColor);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(12, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(195, 75);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Basic options";
+            this.basicOptionsGroupBox.Controls.Add(this.label1);
+            this.basicOptionsGroupBox.Controls.Add(this.BlockSelector);
+            this.basicOptionsGroupBox.Controls.Add(this.SkinColor);
+            this.basicOptionsGroupBox.Controls.Add(this.label2);
+            this.basicOptionsGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.basicOptionsGroupBox.Name = "basicOptionsGroupBox";
+            this.basicOptionsGroupBox.Size = new System.Drawing.Size(195, 75);
+            this.basicOptionsGroupBox.TabIndex = 9;
+            this.basicOptionsGroupBox.TabStop = false;
+            this.basicOptionsGroupBox.Text = "Basic options";
             // 
             // BlockSelector
             // 
@@ -342,16 +342,16 @@ namespace TeslaX
             this.SkinColor.Value = global::TeslaX.Properties.Settings.Default.SkinColor;
             this.SkinColor.ValueChanged += new System.EventHandler(this.OnSkinColorChange);
             // 
-            // groupBox6
+            // settingsGroupBox
             // 
-            this.groupBox6.Controls.Add(this.checkBox2);
-            this.groupBox6.Controls.Add(this.Windowed);
-            this.groupBox6.Location = new System.Drawing.Point(213, 12);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(131, 75);
-            this.groupBox6.TabIndex = 13;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Settings";
+            this.settingsGroupBox.Controls.Add(this.checkBox2);
+            this.settingsGroupBox.Controls.Add(this.Windowed);
+            this.settingsGroupBox.Location = new System.Drawing.Point(213, 12);
+            this.settingsGroupBox.Name = "settingsGroupBox";
+            this.settingsGroupBox.Size = new System.Drawing.Size(131, 75);
+            this.settingsGroupBox.TabIndex = 13;
+            this.settingsGroupBox.TabStop = false;
+            this.settingsGroupBox.Text = "Settings";
             // 
             // checkBox2
             // 
@@ -398,17 +398,17 @@ namespace TeslaX
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // groupBox5
+            // rowsGroupBox
             // 
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.button2);
-            this.groupBox5.Controls.Add(this.checkBox1);
-            this.groupBox5.Location = new System.Drawing.Point(213, 93);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(131, 120);
-            this.groupBox5.TabIndex = 16;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Multiple rows support";
+            this.rowsGroupBox.Controls.Add(this.label8);
+            this.rowsGroupBox.Controls.Add(this.button2);
+            this.rowsGroupBox.Controls.Add(this.checkBox1);
+            this.rowsGroupBox.Location = new System.Drawing.Point(213, 93);
+            this.rowsGroupBox.Name = "rowsGroupBox";
+            this.rowsGroupBox.Size = new System.Drawing.Size(131, 120);
+            this.rowsGroupBox.TabIndex = 16;
+            this.rowsGroupBox.TabStop = false;
+            this.rowsGroupBox.Text = "Multiple rows support";
             // 
             // label8
             // 
@@ -438,13 +438,13 @@ namespace TeslaX
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 220);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.debugGroupBox);
+            this.Controls.Add(this.rowsGroupBox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.settingsGroupBox);
+            this.Controls.Add(this.basicOptionsGroupBox);
+            this.Controls.Add(this.movementGroupBox);
+            this.Controls.Add(this.discordGroupBox);
             this.Controls.Add(this.StartButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::TeslaX.Properties.Resources.pickaxe;
@@ -454,44 +454,44 @@ namespace TeslaX
             this.Text = "TeslaX";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.debugGroupBox.ResumeLayout(false);
+            this.debugGroupBox.PerformLayout();
+            this.discordGroupBox.ResumeLayout(false);
+            this.discordGroupBox.PerformLayout();
+            this.movementGroupBox.ResumeLayout(false);
+            this.movementGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinStop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceLeft)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.basicOptionsGroupBox.ResumeLayout(false);
+            this.basicOptionsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.settingsGroupBox.ResumeLayout(false);
+            this.settingsGroupBox.PerformLayout();
+            this.rowsGroupBox.ResumeLayout(false);
+            this.rowsGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox debugGroupBox;
         private System.Windows.Forms.CheckBox DisableInput;
         private System.Windows.Forms.CheckBox Debug;
         private System.Windows.Forms.ComboBox BlockSelector;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown SkinColor;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox discordGroupBox;
         private System.Windows.Forms.CheckBox RichPresence;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox movementGroupBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown DistanceRight;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown DistanceLeft;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox basicOptionsGroupBox;
+        private System.Windows.Forms.GroupBox settingsGroupBox;
         private System.Windows.Forms.CheckBox Windowed;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -500,7 +500,7 @@ namespace TeslaX
         private System.Windows.Forms.NumericUpDown MinStop;
         private System.Windows.Forms.Button button1;
         private Button button2;
-        private GroupBox groupBox5;
+        private GroupBox rowsGroupBox;
         private CheckBox checkBox1;
         private Label label9;
         private Label label8;
