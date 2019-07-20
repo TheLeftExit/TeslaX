@@ -5,52 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading;
 using TeslaX.Properties;
 
 namespace TeslaX
 {
-    static partial class Workflow
+    static class Workflow
     {
-        // 0: Not doing anything.
-        // 1: Initializing before first row.
-        // 2: Breaking or initializing before subsequent rows.
-        // 3: Manually cancelled, finishing.
         public static bool Active = false;
+
+        private static int rows = 0;
 
         // This one is a bit more global.
         private static WindowManager windowManager;
 
-        public static void Start(bool cont)
+        public static void Start()
         {
             Active = true;
-            int row = 0;
+            App.Status = "Initializing...";
 
-            windowManager = new WindowManager(Settings.Default.Windowed);
-            if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
-            {
-                Message.NoWindow();
-            }
-            else
-            {
-                Discord.Update(DiscordStatus.Breaking, row);
-                bool fullrow = start();
-                if (fullrow && cont)
-                {
-                    Script.Execute(windowManager);
-                    Discord.Update(DiscordStatus.Breaking, row);
-                    while (start(false))
-                    {
-                        Script.Execute(windowManager);
-                    }
-                }
-            }
-
-            Discord.Update(DiscordStatus.Idle);
-            Active = false;
-        }
-
-        private static bool start(bool interactive = true)
-        {
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
             BlockFinder blockFinder = new BlockFinder(App.Sprites[Settings.Default.SelectedBlock].Sprite(), Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
@@ -168,22 +141,40 @@ namespace TeslaX
                 distance.Value = -1;
                 return false;
             }
+
+            // Check whether there are dropped items behind the player.
+            bool DropsBehind(Screenshot shot)
+            {
+                int x = playerDirection ? 0 : shot.Width - 1;
+                for (int y = 0; y < shot.Height; y++)
+                {
+                    Color c = shot.GetPixel(x, y);
+                    if (c.R + c.B < 5)
+                        return true;
+                }
+                return false;
+            }
             #endregion
+
+            windowManager = new WindowManager(Settings.Default.Windowed);
+            if(windowManager.HwndObject.Hwnd == IntPtr.Zero)
+            {
+                App.Status = "Window not found.";
+                return;
+            }
 
             // Finding offset and player.
             using(Screenshot shot = windowManager.Shoot())
             {
                 if(!SetNewOffset(shot))
                 {
-                    if (interactive)
-                        Message.NoNewOffset();
-                    return false;
+                    App.Status = "Offset not found.";
+                    return;
                 }
                 if (!SetNewPlayer(shot))
                 {
-                    if (interactive)
-                        Message.NoNewPlayer();
-                    return false;
+                    App.Status = "Player not found.";
+                    return;
                 }
             }
 
@@ -192,17 +183,18 @@ namespace TeslaX
                 using (Screenshot shot = Shoot())
                     if (!SetDistance(shot))
                     {
-                        if (interactive)
-                            Message.NoNewDistance();
-                        return false;
+                        App.Status = "No blocks found.";
+                        return;
                     }
 
             // If we've been cancelled during preparations, count it as failed loading.
             if (!Active)
-                return false;
+                return;
 
             // Preparing for working loop.
             /* Discord: to breaking. */
+            App.Status = "Breaking...";
+            Discord.Update(DiscordStatus.Breaking, rows++);
 
             DebugForm debugForm = null;
             if (Settings.Default.DebugForm)
@@ -213,6 +205,7 @@ namespace TeslaX
                     debugForm.ShowDialog();
                 }).Start();
             }
+
             // Otherwise, proceed.
             while (Active)
                 using (Screenshot shot = Shoot())
@@ -236,7 +229,16 @@ namespace TeslaX
 
                     // That's not supposed to happen.
                     if (stage < 2)
+                    {
                         distance.Value = -2;
+                        break;
+                    }
+
+                    if (Settings.Default.StopOnFull && DropsBehind(shot))
+                    {
+                        distance.Value = -3;
+                        break;
+                    }
 
                     // If no blocks are found, we're done. Unless we're debugging.
                     if (distance < 0 && !Settings.Default.DebugMode)
@@ -286,7 +288,24 @@ namespace TeslaX
             if (Settings.Default.DebugForm)
                 debugForm.Done();
 
-            return (Active) && (distance != -2);
+            bool tocont = Settings.Default.Continue && Active && (distance >= -1);
+            if (tocont)
+            {
+                App.Status = "Executing custom script...";
+                Discord.Update(DiscordStatus.Advancing, rows);
+                Script.Execute(windowManager);
+            }
+
+            if (distance.UnsafeValue == -1)
+                App.Status = "Finished: out of blocks.";
+            else if (distance.UnsafeValue == -2)
+                App.Status = "Finished: lost the player.";
+            else if (distance.UnsafeValue == -3)
+                App.Status = "Finished: full inventory.";
+            else
+                App.Status = "Finished: manual request.";
+
+            return;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace TeslaX
         public MainForm()
         {
             InitializeComponent();
+            App.StatusLabel = StatusLabel;
             ToDisable = new Control[]{
                 basicOptionsGroupBox,
                 movementGroupBox,
@@ -26,35 +27,41 @@ namespace TeslaX
                 rowsGroupBox,
                 debugGroupBox,
                 discordGroupBox,
-                button1
+                TextureButton
             };
+        }
+
+        private void OnStart()
+        {
+            if (!Workflow.Active)
+            {
+                StartButton.Text = "Stop";
+                foreach (var c in ToDisable)
+                    c.Enabled = false;
+                new Thread(() => {
+                    Workflow.Start();
+                    Discord.Update(DiscordStatus.Idle);
+                    Workflow.Active = false;
+                    if (Application.OpenForms["MainForm"] != null)
+                        Invoke((MethodInvoker)delegate
+                        {
+                            StartButton.Text = "Start";
+                            StartButton.Enabled = true;
+                            foreach (var c in ToDisable)
+                                c.Enabled = true;
+                        });
+                }).Start();
+            }
+            else
+            {
+                StartButton.Enabled = false; // Shortly, in asynchronous thread, we'll enable and change to Start.
+                Workflow.Active = false;
+            }
         }
 
         private void OnStartButtonClick(object sender, EventArgs e)
         {
-            if (!Workflow.Active)
-            {
-                // On click, change it to Stop.
-                StartButton.Text = "Stop";
-                foreach (var c in ToDisable)
-                    c.Enabled = false;
-                Task.Factory.StartNew(() => {
-                    Workflow.Start(Settings.Default.Continue && !Settings.Default.DebugMode);
-                    Invoke((MethodInvoker)delegate
-                    {
-                        StartButton.Text = "Start";
-                        StartButton.Enabled = true;
-                        foreach (var c in ToDisable)
-                            c.Enabled = true;
-                    });
-                });
-            }
-            else
-            {
-                // On click, disable. Shortly, in asynchronous thread, we'll enable and change to Start.
-                StartButton.Enabled = false;
-                Workflow.Active = false;
-            }
+            OnStart();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -113,6 +120,49 @@ namespace TeslaX
         private void Button2_Click(object sender, EventArgs e)
         {
             (new ScriptForm()).ShowDialog();
+        }
+
+        Thread MRS;
+        bool autoStart = false;
+
+        private void MRSButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MRSButton.Checked)
+            {
+                autoStart = true;
+                MRSDelay.Enabled = false;
+                ScriptButton.Enabled = false;
+                MRS = new Thread(() =>
+                {
+                    while (autoStart)
+                    {
+                        Thread.Sleep((int)MRSDelay.Value);
+                        if (Application.OpenForms["MainForm"] == null)
+                            break;
+                        Invoke((MethodInvoker)(() =>
+                        {
+                            if (!autoStart)
+                            {
+                                MRSButton.Enabled = true;
+                                MRSDelay.Enabled = true;
+                                ScriptButton.Enabled = true;
+                            }
+                            else if (!Workflow.Active)
+                                OnStart();
+                        }));
+
+                    }
+                });
+                MRS.Start();
+            }
+            else
+            {
+                if (MRS != null && MRS.IsAlive)
+                {
+                    autoStart = false;
+                    MRSButton.Enabled = false;
+                }
+            }
         }
     }
 }

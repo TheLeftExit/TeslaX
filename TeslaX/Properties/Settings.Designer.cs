@@ -194,15 +194,12 @@ namespace TeslaX.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Continue {
             get {
                 return ((bool)(this["Continue"]));
-            }
-            set {
-                this["Continue"] = value;
             }
         }
         
@@ -244,6 +241,30 @@ namespace TeslaX.Properties {
             }
             set {
                 this["SimulatePunch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public decimal MRSDelay {
+            get {
+                return ((decimal)(this["MRSDelay"]));
+            }
+            set {
+                this["MRSDelay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StopOnFull {
+            get {
+                return ((bool)(this["StopOnFull"]));
+            }
+            set {
+                this["StopOnFull"] = value;
             }
         }
     }

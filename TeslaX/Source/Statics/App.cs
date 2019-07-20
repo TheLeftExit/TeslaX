@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 using TeslaX.Properties;
 
 namespace TeslaX
@@ -46,5 +47,21 @@ namespace TeslaX
             (-24, -1, true), // MLSC.
             (-24, 24, false), // MLSC.
         };
+
+        private static Label statusLabel;
+
+        public static Label StatusLabel { set { statusLabel = value; } }
+
+        public static string Status
+        {
+            set
+            {
+                if (Application.OpenForms["MainForm"] != null)
+                    statusLabel.FindForm().Invoke((MethodInvoker)delegate
+                    {
+                        statusLabel.Text = value;
+                    });
+            }
+        }
     }
 }
