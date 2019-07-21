@@ -21,14 +21,15 @@ namespace TeslaX
             InitializeComponent();
             App.StatusLabel = StatusLabel;
             ToDisable = new Control[]{
+                // Groupboxes except for MRS support
                 basicOptionsGroupBox,
                 movementGroupBox,
                 settingsGroupBox,
-                rowsGroupBox,
                 debugGroupBox,
                 discordGroupBox,
-                TextureButton
+                otherGroupBox,
             };
+            MRSButton.Checked = false;
         }
 
         private void OnStart()

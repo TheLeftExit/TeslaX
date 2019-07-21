@@ -194,12 +194,15 @@ namespace TeslaX.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Continue {
             get {
                 return ((bool)(this["Continue"]));
+            }
+            set {
+                this["Continue"] = value;
             }
         }
         

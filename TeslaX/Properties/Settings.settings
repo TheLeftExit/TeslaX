@@ -47,7 +47,7 @@
     <Setting Name="SelectedBlock" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Continue" Type="System.Boolean" Scope="Application">
+    <Setting Name="Continue" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ContinueScript" Type="System.Collections.Specialized.StringCollection" Scope="User">

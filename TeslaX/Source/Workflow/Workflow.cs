@@ -194,7 +194,7 @@ namespace TeslaX
             // Preparing for working loop.
             /* Discord: to breaking. */
             App.Status = "Breaking...";
-            Discord.Update(DiscordStatus.Breaking, rows++);
+            Discord.Update(DiscordStatus.Breaking, rows);
 
             DebugForm debugForm = null;
             if (Settings.Default.DebugForm)
@@ -223,17 +223,18 @@ namespace TeslaX
                             stage++;
 
                             // Finding blocks and calculating distance.
+                            // If there are no blocks, distance will be set to -1.
                             SetDistance(shot);
                         }
                     }
 
-                    // That's not supposed to happen.
+                    // If we didn't get to distance setting, point that out.
                     if (stage < 2)
                     {
                         distance.Value = -2;
-                        break;
                     }
 
+                    // If we found any dropped blocks, stop immediately.
                     if (Settings.Default.StopOnFull && DropsBehind(shot))
                     {
                         distance.Value = -3;
@@ -244,7 +245,7 @@ namespace TeslaX
                     if (distance < 0 && !Settings.Default.DebugMode)
                         break;
 
-                    // Determining movement based on distance.
+                    // Determining movement based on time/distance.
                     if (!Settings.Default.DebugMode)
                     {
                         bool? down = movementManager.Update(distance, playerDirection);
@@ -274,7 +275,7 @@ namespace TeslaX
                             debugForm.DebugLabel.Text = debugInfo.ToString();
                             debugForm.DebugPlayerButton.Location = new Point(playerPosition.X - shot.X, debugForm.Size.Height - DebugForm.ph - 1);
                             debugForm.DebugBlockButton.Location = new Point(
-                                distance != -1 ? playerPosition.X + (playerDirection ? 1 : -1) * (distance + 32) + windowManager.X - debugForm.Location.X : -33,
+                                distance > -1 ? playerPosition.X + (playerDirection ? 1 : -1) * (distance + 32) + windowManager.X - debugForm.Location.X : -33,
                                 debugForm.Size.Height - DebugForm.bh - 1
                                 );
                         });
@@ -288,7 +289,7 @@ namespace TeslaX
             if (Settings.Default.DebugForm)
                 debugForm.Done();
 
-            bool tocont = Settings.Default.Continue && Active && (distance >= -1);
+            bool tocont = Settings.Default.Continue && Active && (distance == -1);
             if (tocont)
             {
                 App.Status = "Executing custom script...";
@@ -296,9 +297,13 @@ namespace TeslaX
                 Script.Execute(windowManager);
             }
 
-            if (distance.UnsafeValue == -1)
+            if (distance == -1)
+            {
                 App.Status = "Finished: out of blocks.";
-            else if (distance.UnsafeValue == -2)
+                // Only updating rows on supposed end-of-row cases. It's only for DRP anyway.
+                rows++;
+            }
+            else if (distance == -2)
                 App.Status = "Finished: lost the player.";
             else if (distance.UnsafeValue == -3)
                 App.Status = "Finished: full inventory.";

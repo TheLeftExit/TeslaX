@@ -32,50 +32,50 @@ namespace TeslaX
         {
             this.StartButton = new System.Windows.Forms.Button();
             this.debugGroupBox = new System.Windows.Forms.GroupBox();
+            this.DisableInput = new System.Windows.Forms.CheckBox();
+            this.Debug = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.discordGroupBox = new System.Windows.Forms.GroupBox();
+            this.RichPresence = new System.Windows.Forms.CheckBox();
             this.movementGroupBox = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.MaxMove = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
+            this.MinStop = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.DistanceRight = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.DistanceLeft = new System.Windows.Forms.NumericUpDown();
             this.basicOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.BlockSelector = new System.Windows.Forms.ComboBox();
+            this.SkinColor = new System.Windows.Forms.NumericUpDown();
             this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.TextureButton = new System.Windows.Forms.Button();
             this.ScriptButton = new System.Windows.Forms.Button();
             this.rowsGroupBox = new System.Windows.Forms.GroupBox();
+            this.MRSDelay = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
+            this.MRSButton = new System.Windows.Forms.CheckBox();
             this.otherGroupBox = new System.Windows.Forms.GroupBox();
             this.Windowed = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.DisableInput = new System.Windows.Forms.CheckBox();
-            this.Debug = new System.Windows.Forms.CheckBox();
-            this.MRSDelay = new System.Windows.Forms.NumericUpDown();
-            this.MRSButton = new System.Windows.Forms.CheckBox();
-            this.SkinColor = new System.Windows.Forms.NumericUpDown();
-            this.MaxMove = new System.Windows.Forms.NumericUpDown();
-            this.MinStop = new System.Windows.Forms.NumericUpDown();
-            this.DistanceRight = new System.Windows.Forms.NumericUpDown();
-            this.DistanceLeft = new System.Windows.Forms.NumericUpDown();
-            this.RichPresence = new System.Windows.Forms.CheckBox();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.debugGroupBox.SuspendLayout();
             this.discordGroupBox.SuspendLayout();
             this.movementGroupBox.SuspendLayout();
-            this.basicOptionsGroupBox.SuspendLayout();
-            this.settingsGroupBox.SuspendLayout();
-            this.rowsGroupBox.SuspendLayout();
-            this.otherGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MRSDelay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinStop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceLeft)).BeginInit();
+            this.basicOptionsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).BeginInit();
+            this.settingsGroupBox.SuspendLayout();
+            this.rowsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MRSDelay)).BeginInit();
+            this.otherGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // StartButton
@@ -98,6 +98,31 @@ namespace TeslaX
             this.debugGroupBox.TabIndex = 2;
             this.debugGroupBox.TabStop = false;
             this.debugGroupBox.Text = "Debug options";
+            // 
+            // DisableInput
+            // 
+            this.DisableInput.AutoSize = true;
+            this.DisableInput.Checked = global::TeslaX.Properties.Settings.Default.DebugMode;
+            this.DisableInput.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "DebugMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DisableInput.Location = new System.Drawing.Point(6, 42);
+            this.DisableInput.Name = "DisableInput";
+            this.DisableInput.Size = new System.Drawing.Size(87, 17);
+            this.DisableInput.TabIndex = 1;
+            this.DisableInput.Text = "Debug mode";
+            this.DisableInput.UseVisualStyleBackColor = true;
+            // 
+            // Debug
+            // 
+            this.Debug.AutoSize = true;
+            this.Debug.Checked = global::TeslaX.Properties.Settings.Default.DebugForm;
+            this.Debug.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Debug.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "DebugForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.Debug.Location = new System.Drawing.Point(6, 19);
+            this.Debug.Name = "Debug";
+            this.Debug.Size = new System.Drawing.Size(112, 17);
+            this.Debug.TabIndex = 0;
+            this.Debug.Text = "Debug information";
+            this.Debug.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -126,6 +151,18 @@ namespace TeslaX
             this.discordGroupBox.TabIndex = 7;
             this.discordGroupBox.TabStop = false;
             this.discordGroupBox.Text = "Discord Rich Presence";
+            // 
+            // RichPresence
+            // 
+            this.RichPresence.AutoSize = true;
+            this.RichPresence.Checked = global::TeslaX.Properties.Settings.Default.RichPresence;
+            this.RichPresence.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "RichPresence", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.RichPresence.Location = new System.Drawing.Point(6, 19);
+            this.RichPresence.Name = "RichPresence";
+            this.RichPresence.Size = new System.Drawing.Size(59, 17);
+            this.RichPresence.TabIndex = 0;
+            this.RichPresence.Text = "Enable";
+            this.RichPresence.UseVisualStyleBackColor = true;
             // 
             // movementGroupBox
             // 
@@ -164,6 +201,20 @@ namespace TeslaX
             this.label6.TabIndex = 14;
             this.label6.Text = "Max move duration (ms)";
             // 
+            // MaxMove
+            // 
+            this.MaxMove.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "MaxMove", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.MaxMove.Location = new System.Drawing.Point(140, 45);
+            this.MaxMove.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.MaxMove.Name = "MaxMove";
+            this.MaxMove.Size = new System.Drawing.Size(47, 20);
+            this.MaxMove.TabIndex = 13;
+            this.MaxMove.Value = global::TeslaX.Properties.Settings.Default.MaxMove;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -172,6 +223,20 @@ namespace TeslaX
             this.label5.Size = new System.Drawing.Size(110, 13);
             this.label5.TabIndex = 12;
             this.label5.Text = "Min stop duration (ms)";
+            // 
+            // MinStop
+            // 
+            this.MinStop.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "MinStop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.MinStop.Location = new System.Drawing.Point(140, 19);
+            this.MinStop.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.MinStop.Name = "MinStop";
+            this.MinStop.Size = new System.Drawing.Size(47, 20);
+            this.MinStop.TabIndex = 11;
+            this.MinStop.Value = global::TeslaX.Properties.Settings.Default.MinStop;
             // 
             // label4
             // 
@@ -182,6 +247,25 @@ namespace TeslaX
             this.label4.TabIndex = 10;
             this.label4.Text = "Right";
             // 
+            // DistanceRight
+            // 
+            this.DistanceRight.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "DistanceRight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DistanceRight.Location = new System.Drawing.Point(140, 88);
+            this.DistanceRight.Maximum = new decimal(new int[] {
+            38,
+            0,
+            0,
+            0});
+            this.DistanceRight.Minimum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.DistanceRight.Name = "DistanceRight";
+            this.DistanceRight.Size = new System.Drawing.Size(47, 20);
+            this.DistanceRight.TabIndex = 10;
+            this.DistanceRight.Value = global::TeslaX.Properties.Settings.Default.DistanceRight;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -190,6 +274,25 @@ namespace TeslaX
             this.label3.Size = new System.Drawing.Size(25, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "Left";
+            // 
+            // DistanceLeft
+            // 
+            this.DistanceLeft.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "DistanceLeft", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.DistanceLeft.Location = new System.Drawing.Point(37, 88);
+            this.DistanceLeft.Maximum = new decimal(new int[] {
+            58,
+            0,
+            0,
+            0});
+            this.DistanceLeft.Minimum = new decimal(new int[] {
+            26,
+            0,
+            0,
+            0});
+            this.DistanceLeft.Name = "DistanceLeft";
+            this.DistanceLeft.Size = new System.Drawing.Size(47, 20);
+            this.DistanceLeft.TabIndex = 0;
+            this.DistanceLeft.Value = global::TeslaX.Properties.Settings.Default.DistanceLeft;
             // 
             // basicOptionsGroupBox
             // 
@@ -216,6 +319,23 @@ namespace TeslaX
             this.BlockSelector.ValueMember = "Key";
             this.BlockSelector.SelectedIndexChanged += new System.EventHandler(this.OnBlockSelectorChange);
             // 
+            // SkinColor
+            // 
+            this.SkinColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(91)))), ((int)(((byte)(80)))));
+            this.SkinColor.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "SkinColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.SkinColor.Location = new System.Drawing.Point(81, 46);
+            this.SkinColor.Maximum = new decimal(new int[] {
+            13,
+            0,
+            0,
+            0});
+            this.SkinColor.Name = "SkinColor";
+            this.SkinColor.ReadOnly = true;
+            this.SkinColor.Size = new System.Drawing.Size(106, 20);
+            this.SkinColor.TabIndex = 5;
+            this.SkinColor.Value = global::TeslaX.Properties.Settings.Default.SkinColor;
+            this.SkinColor.ValueChanged += new System.EventHandler(this.OnSkinColorChange);
+            // 
             // settingsGroupBox
             // 
             this.settingsGroupBox.Controls.Add(this.checkBox2);
@@ -226,6 +346,30 @@ namespace TeslaX
             this.settingsGroupBox.TabIndex = 13;
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Settings";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Checked = global::TeslaX.Properties.Settings.Default.SimulatePunch;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulatePunch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(6, 19);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(118, 17);
+            this.checkBox2.TabIndex = 17;
+            this.checkBox2.Text = "Automate punching";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = global::TeslaX.Properties.Settings.Default.StopOnFull;
+            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "StopOnFull", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox1.Location = new System.Drawing.Point(6, 42);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(125, 17);
+            this.checkBox1.TabIndex = 18;
+            this.checkBox1.Text = "Stop on full inventory";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // TextureButton
             // 
@@ -260,6 +404,25 @@ namespace TeslaX
             this.rowsGroupBox.TabStop = false;
             this.rowsGroupBox.Text = "Multiple rows support";
             // 
+            // MRSDelay
+            // 
+            this.MRSDelay.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "MRSDelay", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.MRSDelay.Location = new System.Drawing.Point(68, 48);
+            this.MRSDelay.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.MRSDelay.Minimum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.MRSDelay.Name = "MRSDelay";
+            this.MRSDelay.Size = new System.Drawing.Size(66, 20);
+            this.MRSDelay.TabIndex = 18;
+            this.MRSDelay.Value = global::TeslaX.Properties.Settings.Default.MRSDelay;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -268,6 +431,20 @@ namespace TeslaX
             this.label8.Size = new System.Drawing.Size(56, 13);
             this.label8.TabIndex = 17;
             this.label8.Text = "Delay (ms)";
+            // 
+            // MRSButton
+            // 
+            this.MRSButton.AutoSize = true;
+            this.MRSButton.Checked = global::TeslaX.Properties.Settings.Default.Continue;
+            this.MRSButton.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.MRSButton.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "Continue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.MRSButton.Location = new System.Drawing.Point(6, 22);
+            this.MRSButton.Name = "MRSButton";
+            this.MRSButton.Size = new System.Drawing.Size(59, 17);
+            this.MRSButton.TabIndex = 16;
+            this.MRSButton.Text = "Enable";
+            this.MRSButton.UseVisualStyleBackColor = true;
+            this.MRSButton.CheckedChanged += new System.EventHandler(this.MRSButton_CheckedChanged);
             // 
             // otherGroupBox
             // 
@@ -292,178 +469,6 @@ namespace TeslaX
             this.Windowed.TabIndex = 1;
             this.Windowed.Text = "Windowed";
             this.Windowed.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = global::TeslaX.Properties.Settings.Default.SimulatePunch;
-            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "SimulatePunch", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox2.Location = new System.Drawing.Point(6, 19);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(118, 17);
-            this.checkBox2.TabIndex = 17;
-            this.checkBox2.Text = "Automate punching";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = global::TeslaX.Properties.Settings.Default.StopOnFull;
-            this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "StopOnFull", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox1.Location = new System.Drawing.Point(6, 42);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(125, 17);
-            this.checkBox1.TabIndex = 18;
-            this.checkBox1.Text = "Stop on full inventory";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // DisableInput
-            // 
-            this.DisableInput.AutoSize = true;
-            this.DisableInput.Checked = global::TeslaX.Properties.Settings.Default.DebugMode;
-            this.DisableInput.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "DebugMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DisableInput.Location = new System.Drawing.Point(6, 42);
-            this.DisableInput.Name = "DisableInput";
-            this.DisableInput.Size = new System.Drawing.Size(87, 17);
-            this.DisableInput.TabIndex = 1;
-            this.DisableInput.Text = "Debug mode";
-            this.DisableInput.UseVisualStyleBackColor = true;
-            // 
-            // Debug
-            // 
-            this.Debug.AutoSize = true;
-            this.Debug.Checked = global::TeslaX.Properties.Settings.Default.DebugForm;
-            this.Debug.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.Debug.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "DebugForm", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.Debug.Location = new System.Drawing.Point(6, 19);
-            this.Debug.Name = "Debug";
-            this.Debug.Size = new System.Drawing.Size(112, 17);
-            this.Debug.TabIndex = 0;
-            this.Debug.Text = "Debug information";
-            this.Debug.UseVisualStyleBackColor = true;
-            // 
-            // MRSDelay
-            // 
-            this.MRSDelay.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "MRSDelay", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.MRSDelay.Location = new System.Drawing.Point(68, 48);
-            this.MRSDelay.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.MRSDelay.Name = "MRSDelay";
-            this.MRSDelay.Size = new System.Drawing.Size(66, 20);
-            this.MRSDelay.TabIndex = 18;
-            this.MRSDelay.Value = global::TeslaX.Properties.Settings.Default.MRSDelay;
-            // 
-            // MRSButton
-            // 
-            this.MRSButton.AutoSize = true;
-            this.MRSButton.Checked = global::TeslaX.Properties.Settings.Default.Continue;
-            this.MRSButton.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.MRSButton.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "Continue", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.MRSButton.Location = new System.Drawing.Point(6, 22);
-            this.MRSButton.Name = "MRSButton";
-            this.MRSButton.Size = new System.Drawing.Size(59, 17);
-            this.MRSButton.TabIndex = 16;
-            this.MRSButton.Text = "Enable";
-            this.MRSButton.UseVisualStyleBackColor = true;
-            this.MRSButton.CheckedChanged += new System.EventHandler(this.MRSButton_CheckedChanged);
-            // 
-            // SkinColor
-            // 
-            this.SkinColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(91)))), ((int)(((byte)(80)))));
-            this.SkinColor.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "SkinColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.SkinColor.Location = new System.Drawing.Point(81, 46);
-            this.SkinColor.Maximum = new decimal(new int[] {
-            13,
-            0,
-            0,
-            0});
-            this.SkinColor.Name = "SkinColor";
-            this.SkinColor.ReadOnly = true;
-            this.SkinColor.Size = new System.Drawing.Size(106, 20);
-            this.SkinColor.TabIndex = 5;
-            this.SkinColor.Value = global::TeslaX.Properties.Settings.Default.SkinColor;
-            this.SkinColor.ValueChanged += new System.EventHandler(this.OnSkinColorChange);
-            // 
-            // MaxMove
-            // 
-            this.MaxMove.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "MaxMove", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.MaxMove.Location = new System.Drawing.Point(140, 45);
-            this.MaxMove.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.MaxMove.Name = "MaxMove";
-            this.MaxMove.Size = new System.Drawing.Size(47, 20);
-            this.MaxMove.TabIndex = 13;
-            this.MaxMove.Value = global::TeslaX.Properties.Settings.Default.MaxMove;
-            // 
-            // MinStop
-            // 
-            this.MinStop.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "MinStop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.MinStop.Location = new System.Drawing.Point(140, 19);
-            this.MinStop.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.MinStop.Name = "MinStop";
-            this.MinStop.Size = new System.Drawing.Size(47, 20);
-            this.MinStop.TabIndex = 11;
-            this.MinStop.Value = global::TeslaX.Properties.Settings.Default.MinStop;
-            // 
-            // DistanceRight
-            // 
-            this.DistanceRight.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "DistanceRight", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DistanceRight.Location = new System.Drawing.Point(140, 88);
-            this.DistanceRight.Maximum = new decimal(new int[] {
-            38,
-            0,
-            0,
-            0});
-            this.DistanceRight.Minimum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.DistanceRight.Name = "DistanceRight";
-            this.DistanceRight.Size = new System.Drawing.Size(47, 20);
-            this.DistanceRight.TabIndex = 10;
-            this.DistanceRight.Value = global::TeslaX.Properties.Settings.Default.DistanceRight;
-            // 
-            // DistanceLeft
-            // 
-            this.DistanceLeft.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::TeslaX.Properties.Settings.Default, "DistanceLeft", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.DistanceLeft.Location = new System.Drawing.Point(37, 88);
-            this.DistanceLeft.Maximum = new decimal(new int[] {
-            58,
-            0,
-            0,
-            0});
-            this.DistanceLeft.Minimum = new decimal(new int[] {
-            26,
-            0,
-            0,
-            0});
-            this.DistanceLeft.Name = "DistanceLeft";
-            this.DistanceLeft.Size = new System.Drawing.Size(47, 20);
-            this.DistanceLeft.TabIndex = 0;
-            this.DistanceLeft.Value = global::TeslaX.Properties.Settings.Default.DistanceLeft;
-            // 
-            // RichPresence
-            // 
-            this.RichPresence.AutoSize = true;
-            this.RichPresence.Checked = global::TeslaX.Properties.Settings.Default.RichPresence;
-            this.RichPresence.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TeslaX.Properties.Settings.Default, "RichPresence", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.RichPresence.Location = new System.Drawing.Point(6, 19);
-            this.RichPresence.Name = "RichPresence";
-            this.RichPresence.Size = new System.Drawing.Size(59, 17);
-            this.RichPresence.TabIndex = 0;
-            this.RichPresence.Text = "Enable";
-            this.RichPresence.UseVisualStyleBackColor = true;
             // 
             // StatusLabel
             // 
@@ -501,20 +506,20 @@ namespace TeslaX
             this.discordGroupBox.PerformLayout();
             this.movementGroupBox.ResumeLayout(false);
             this.movementGroupBox.PerformLayout();
-            this.basicOptionsGroupBox.ResumeLayout(false);
-            this.basicOptionsGroupBox.PerformLayout();
-            this.settingsGroupBox.ResumeLayout(false);
-            this.settingsGroupBox.PerformLayout();
-            this.rowsGroupBox.ResumeLayout(false);
-            this.rowsGroupBox.PerformLayout();
-            this.otherGroupBox.ResumeLayout(false);
-            this.otherGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MRSDelay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxMove)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MinStop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DistanceLeft)).EndInit();
+            this.basicOptionsGroupBox.ResumeLayout(false);
+            this.basicOptionsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SkinColor)).EndInit();
+            this.settingsGroupBox.ResumeLayout(false);
+            this.settingsGroupBox.PerformLayout();
+            this.rowsGroupBox.ResumeLayout(false);
+            this.rowsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MRSDelay)).EndInit();
+            this.otherGroupBox.ResumeLayout(false);
+            this.otherGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
