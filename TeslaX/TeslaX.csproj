@@ -55,13 +55,16 @@
     <ApplicationIcon>Images\pickaxe.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Source\Entities\RandomNumber.cs" />
     <Compile Include="Source\Helpers\PunchManager.cs" />
     <Compile Include="Source\Interface\DebugForm.cs" />
+    <Compile Include="Source\Interface\NewMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\Interface\NewMainForm.Designer.cs">
+      <DependentUpon>NewMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\Interface\ScriptForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,12 +84,6 @@
     <Compile Include="Source\Helpers\OffsetFinder.cs" />
     <Compile Include="Source\Helpers\BlockFinder.cs" />
     <Compile Include="Source\API\DiscordClient.cs" />
-    <Compile Include="Source\Interface\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source\Interface\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source\Interface\TextureForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Statics\UserSettings.cs" />
     <Compile Include="Source\Workflow\Workflow.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
@@ -124,10 +122,6 @@
     <None Include="Images\Block\lasergrid.png" />
     <Compile Include="Source\Helpers\MovementManager.cs" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <None Include="Textures\particles.rttex" />
     <None Include="Textures\particles_old.rttex" />
     <None Include="Textures\pickup_box.rttex" />
@@ -168,8 +162,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Source\Interface\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Source\Interface\NewMainForm.resx">
+      <DependentUpon>NewMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\Interface\ScriptForm.resx">
       <DependentUpon>ScriptForm.cs</DependentUpon>

@@ -26,7 +26,7 @@ namespace TeslaX
 
             FormBorderStyle = FormBorderStyle.None;
             TopMost = true;
-            Size = new Size((Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32, fh);
+            Size = new Size((UserSettings.Current.BlocksAhead + UserSettings.Current.BlocksBehind + 1) * 32, fh);
 
             DebugLabel = new Label
             {
@@ -60,12 +60,7 @@ namespace TeslaX
             //TransparencyKey = BackColor;
         }
 
-        public void Done()
-        {
-            Invoke((MethodInvoker)delegate
-            {
-                Close();
-            });
-        }
+        public void Done() =>
+            Invoke((MethodInvoker)Close);
     }
 }

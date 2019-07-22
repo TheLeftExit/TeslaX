@@ -23,11 +23,6 @@ namespace TeslaX
             ToDisable = new Control[]{
                 // Groupboxes except for MRS support
                 basicOptionsGroupBox,
-                movementGroupBox,
-                settingsGroupBox,
-                debugGroupBox,
-                discordGroupBox,
-                otherGroupBox,
             };
             MRSButton.Checked = false;
         }
@@ -68,6 +63,7 @@ namespace TeslaX
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Workflow.Active = false;
+            Settings.Default.UserSettings = UserSettings.Current;
             Settings.Default.Save();
         }
 
@@ -77,15 +73,9 @@ namespace TeslaX
                 BlockSelector.Items.Add(b.Name);
             BlockSelector.SelectedIndex = 0;
 
-            SkinColor.BackColor = Game.SkinColors[(int)Settings.Default.SkinColor];
-
             Discord.Update(DiscordStatus.Idle);
-        }
 
-        private void OnSkinColorChange(object sender, EventArgs e)
-        {
-            Color newbg = Game.SkinColors[Convert.ToInt32(SkinColor.Value)];
-            SkinColor.BackColor = newbg;
+            propertyGrid1.SelectedObject = UserSettings.Current;
         }
 
         private void OnTextureClick(object sender, EventArgs e)
@@ -107,7 +97,7 @@ namespace TeslaX
                     {
                         // No safety check. If you've gone out of your way to load a non-image, deal with it.
                         src = new Bitmap(dlg.FileName);
-                        Settings.Default.SelectedBlock = BlockSelector.SelectedIndex;
+                        UserSettings.Current.SelectedBlock = BlockSelector.SelectedIndex;
                         App.CustomSprite = src;
                         return;
                     }
@@ -115,7 +105,7 @@ namespace TeslaX
                 }
             }
 
-            Settings.Default.SelectedBlock = BlockSelector.SelectedIndex;
+            UserSettings.Current.SelectedBlock = BlockSelector.SelectedIndex;
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -131,13 +121,12 @@ namespace TeslaX
             if (MRSButton.Checked)
             {
                 autoStart = true;
-                MRSDelay.Enabled = false;
                 ScriptButton.Enabled = false;
                 MRS = new Thread(() =>
                 {
                     while (autoStart)
                     {
-                        Thread.Sleep((int)MRSDelay.Value);
+                        Thread.Sleep(UserSettings.Current.MRSDelay);
                         if (Application.OpenForms["MainForm"] == null)
                             break;
                         Invoke((MethodInvoker)(() =>
@@ -145,7 +134,6 @@ namespace TeslaX
                             if (!autoStart)
                             {
                                 MRSButton.Enabled = true;
-                                MRSDelay.Enabled = true;
                                 ScriptButton.Enabled = true;
                             }
                             else if (!Workflow.Active)

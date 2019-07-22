@@ -20,13 +20,13 @@ namespace TeslaX
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            Settings.Default.TextureInfo = !Settings.Default.TextureInfo;
+            UserSettings.Current.TextureInfo = !UserSettings.Current.TextureInfo;
             TextureForm_Load(null, null);
         }
 
         private void TextureForm_Load(object sender, EventArgs e)
         {
-            if (Settings.Default.TextureInfo)
+            if (UserSettings.Current.TextureInfo)
                 Size = new Size(428, 220);
             else
                 Size = new Size(428, 86);

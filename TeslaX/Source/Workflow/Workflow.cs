@@ -19,15 +19,16 @@ namespace TeslaX
         // This one is a bit more global.
         private static WindowManager windowManager;
 
-        public static void Start()
+        // Return value: whether attempt breaking again.
+        public static bool Start()
         {
             Active = true;
             App.Status = "Initializing...";
 
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
-            BlockFinder blockFinder = new BlockFinder(App.Sprites[Settings.Default.SelectedBlock].Sprite(), Resources.dust, Resources.gems, Game.GetFistBitmap((int)Settings.Default.SkinColor));
-            PlayerFinder playerFinder = new PlayerFinder((int)Settings.Default.SkinColor);
+            BlockFinder blockFinder = new BlockFinder(App.Sprites[UserSettings.Current.SelectedBlock].Sprite(), Resources.dust, Resources.gems, Game.GetFistBitmap((int)UserSettings.Current.SkinColor));
+            PlayerFinder playerFinder = new PlayerFinder((int)UserSettings.Current.SkinColor);
 
             // Initializing managers.
             MovementManager movementManager = new MovementManager();
@@ -79,9 +80,9 @@ namespace TeslaX
 
             Screenshot Shoot() =>
                 windowManager.Shoot(
-                    playerPosition.X + (playerDirection ? -Settings.Default.BlocksBehind * 32 : -Settings.Default.BlocksAhead * 32),
+                    playerPosition.X + (playerDirection ? -UserSettings.Current.BlocksBehind * 32 : -UserSettings.Current.BlocksAhead * 32),
                     playerPosition.Y,
-                    (Settings.Default.BlocksAhead + Settings.Default.BlocksBehind + 1) * 32,
+                    (UserSettings.Current.BlocksAhead + UserSettings.Current.BlocksBehind + 1) * 32,
                     64);
 
             // Find and set offset value.
@@ -125,7 +126,7 @@ namespace TeslaX
                 foreach (int x in ToCheck)
                 {
                     BlockState next = blockFinder.HasBlock(shot, x - shot.X, 0);
-                    if (next == BlockState.Block || (next == BlockState.Uncertain && Settings.Default.UncertainIsBlock))
+                    if (next == BlockState.Block || (next == BlockState.Uncertain && UserSettings.Current.UncertainIsBlock))
                         Blocks.Add(x);
                 }
 
@@ -156,11 +157,11 @@ namespace TeslaX
             }
             #endregion
 
-            windowManager = new WindowManager(Settings.Default.Windowed);
+            windowManager = new WindowManager(UserSettings.Current.Windowed);
             if(windowManager.HwndObject.Hwnd == IntPtr.Zero)
             {
                 App.Status = "Window not found.";
-                return;
+                return false;
             }
 
             // Finding offset and player.
@@ -169,27 +170,27 @@ namespace TeslaX
                 if(!SetNewOffset(shot))
                 {
                     App.Status = "Offset not found.";
-                    return;
+                    return false;
                 }
                 if (!SetNewPlayer(shot))
                 {
                     App.Status = "Player not found.";
-                    return;
+                    return false;
                 }
             }
 
             // Checking for distance.
-            if (!Settings.Default.DebugMode)
+            if (!UserSettings.Current.DebugMode)
                 using (Screenshot shot = Shoot())
                     if (!SetDistance(shot))
                     {
                         App.Status = "No blocks found.";
-                        return;
+                        return false;
                     }
 
             // If we've been cancelled during preparations, count it as failed loading.
             if (!Active)
-                return;
+                return false;
 
             // Preparing for working loop.
             /* Discord: to breaking. */
@@ -197,7 +198,7 @@ namespace TeslaX
             Discord.Update(DiscordStatus.Breaking, rows);
 
             DebugForm debugForm = null;
-            if (Settings.Default.DebugForm)
+            if (UserSettings.Current.DebugForm)
             {
                 debugForm = new DebugForm();
                 new Task(() =>
@@ -235,18 +236,18 @@ namespace TeslaX
                     }
 
                     // If we found any dropped blocks, stop immediately.
-                    if (Settings.Default.StopOnFull && DropsBehind(shot))
+                    if (UserSettings.Current.StopOnFull && DropsBehind(shot))
                     {
                         distance.Value = -3;
                         break;
                     }
 
                     // If no blocks are found, we're done. Unless we're debugging.
-                    if (distance < 0 && !Settings.Default.DebugMode)
+                    if (distance < 0 && !UserSettings.Current.DebugMode)
                         break;
 
                     // Determining movement based on time/distance.
-                    if (!Settings.Default.DebugMode)
+                    if (!UserSettings.Current.DebugMode)
                     {
                         bool? down = movementManager.Update(distance, playerDirection);
                         if (down != null)
@@ -254,14 +255,14 @@ namespace TeslaX
                     }
 
                     // Determinine punching based on time.
-                    if (Settings.Default.SimulatePunch && !Settings.Default.DebugMode)
+                    if (UserSettings.Current.Punch && !UserSettings.Current.DebugMode)
                     {
                         bool? punch = punchManager.Update();
                         if (punch != null)
                             windowManager.SendKey(Keys.Space, punch.Value);
                     }
 
-                    if (Settings.Default.DebugForm)
+                    if (UserSettings.Current.DebugForm)
                     {
                         #region Managing debugForm.
                         StringBuilder debugInfo = new StringBuilder();
@@ -282,26 +283,27 @@ namespace TeslaX
                         #endregion
                     }
                 }
+
             // Making sure we're idle.
             windowManager.SendKey(playerDirection ? Keys.D : Keys.A, false);
             windowManager.SendKey(Keys.Space, false);
 
-            if (Settings.Default.DebugForm)
+            if (UserSettings.Current.DebugForm)
                 debugForm.Done();
-
-            bool tocont = Settings.Default.Continue && Active && (distance == -1);
-            if (tocont)
-            {
-                App.Status = "Executing custom script...";
-                Discord.Update(DiscordStatus.Advancing, rows);
-                Script.Execute(windowManager);
-            }
 
             if (distance == -1)
             {
-                App.Status = "Finished: out of blocks.";
-                // Only updating rows on supposed end-of-row cases. It's only for DRP anyway.
+                if (UserSettings.Current.Continue)
+                {
+                    App.Status = "Executing custom script...";
+                    Discord.Update(DiscordStatus.Advancing, rows);
+                    Script.Execute(windowManager);
+                    // Shortly status will be updated with either "Breaking..." or a "not found" message.
+                }
+                else
+                    App.Status = "Finished: out of blocks.";
                 rows++;
+                return UserSettings.Current.Continue;
             }
             else if (distance == -2)
                 App.Status = "Finished: lost the player.";
@@ -310,7 +312,7 @@ namespace TeslaX
             else
                 App.Status = "Finished: manual request.";
 
-            return;
+            return false;
         }
     }
 }

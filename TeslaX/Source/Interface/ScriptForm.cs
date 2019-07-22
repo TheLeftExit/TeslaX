@@ -32,8 +32,8 @@ namespace TeslaX
                 comboBox1.Items.Add(s.Name);
             comboBox1.SelectedIndex = 0;
 
-            if (Settings.Default.ContinueScript != null)
-                foreach (var s in Settings.Default.ContinueScript)
+            if (UserSettings.Current.ContinueScript != null)
+                foreach (var s in UserSettings.Current.ContinueScript)
                     ScriptDraft.Items.Add(s);
 
             saved = true;
@@ -96,7 +96,7 @@ namespace TeslaX
             {
                 sc.Add(s);
             }
-            Settings.Default.ContinueScript = sc;
+            UserSettings.Current.ContinueScript = sc;
             saved = true;
         }
 

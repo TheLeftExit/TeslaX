@@ -24,7 +24,11 @@ namespace TeslaX
             return result;
         }
 
-        private static Bitmap custom = new Bitmap(32, 32);
+        public static int Limit(this int value, int min, int max)
+        {
+            return Math.Max(min, Math.Min(max, value));
+        }
+
         public static readonly List<(string Name, Func<Bitmap> Sprite, string AssetName, string DiscordName)> Sprites = new List<(string, Func<Bitmap>, string, string)>()
         {
             ("Laser Grid", () => Resources.lasergrid, "lasergrid", "Laser Grids."),
@@ -34,9 +38,9 @@ namespace TeslaX
             ("Chandelier", () => Resources.chandelier, "chandelier", "Chandeliers."),
             ("Pinball Bumper", () => Resources.pinball, "bumper", "Pinball Bumpers."),
             ("Dirt", () => Resources.dirt, "dirt", "Dirt."),
-            ("Custom", () => custom, "mystery", "a mystery!")
+            ("Custom", () => CustomSprite, "mystery", "a mystery!")
         };
-        public static Bitmap CustomSprite { set { custom = value; } }
+        public static Bitmap CustomSprite { get; set; } = new Bitmap(32, 32);
 
         // Order in which PlayerFinder is used, with respect to last location and direction.
         public static readonly (int x1, int x2, bool SameDirection)[] PlayerFindingOrder = new (int, int, bool)[]
@@ -48,16 +52,16 @@ namespace TeslaX
             (-24, 24, false), // MLSC.
         };
 
-        private static Label statusLabel;
+        private static ToolStripStatusLabel statusLabel;
 
-        public static Label StatusLabel { set { statusLabel = value; } }
+        public static ToolStripStatusLabel StatusLabel { set { statusLabel = value; } }
 
         public static string Status
         {
             set
             {
-                if (Application.OpenForms["MainForm"] != null)
-                    statusLabel.FindForm().Invoke((MethodInvoker)delegate
+                if (Application.OpenForms["NewMainForm"] != null)
+                    statusLabel.GetCurrentParent().Invoke((MethodInvoker)delegate
                     {
                         statusLabel.Text = value;
                     });

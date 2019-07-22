@@ -68,9 +68,9 @@ namespace TeslaX
 
         public static void Execute(WindowManager window)
         {
-            if (Settings.Default.ContinueScript == null)
+            if (UserSettings.Current.ContinueScript == null)
                 return;
-            foreach (string s in Settings.Default.ContinueScript)
+            foreach (string s in UserSettings.Current.ContinueScript)
             {
                 Command cmd = new Command(s);
                 switch (cmd.Name)

@@ -30,7 +30,7 @@ namespace TeslaX
 
         public static void Update(DiscordStatus status, int rows = 0)
         {
-            if (!Settings.Default.RichPresence)
+            if (!UserSettings.Current.RichPresence)
                 return;
             if (!initialized && status != DiscordStatus.Disabled)
                 Initialize();
@@ -46,11 +46,11 @@ namespace TeslaX
                 case DiscordStatus.Breaking:
                     client.SetPresence(new RichPresence()
                     {
-                        State = Settings.Default.DebugMode ? "Debugging" : "Breaking " + App.Sprites[Settings.Default.SelectedBlock].DiscordName,
-                        Details = Settings.Default.DebugMode ? null : "Broke " + rows.ToString() + " rows so far.",
+                        State = UserSettings.Current.DebugMode ? "Debugging" : "Breaking " + App.Sprites[UserSettings.Current.SelectedBlock].DiscordName,
+                        Details = UserSettings.Current.DebugMode ? null : "Broke " + rows.ToString() + " rows so far.",
                         Assets = new Assets
                         {
-                            LargeImageKey = App.Sprites[Settings.Default.SelectedBlock].AssetName
+                            LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
                         },
                         Timestamps = Timestamps.Now
                     });
@@ -62,7 +62,7 @@ namespace TeslaX
                         Details = "Broke " + rows.ToString() + " rows so far.",
                         Assets = new Assets
                         {
-                            LargeImageKey = App.Sprites[Settings.Default.SelectedBlock].AssetName
+                            LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
                         },
                         Timestamps = Timestamps.Now
                     });
