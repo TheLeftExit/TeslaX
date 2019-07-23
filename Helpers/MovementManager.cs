@@ -3,23 +3,8 @@ using TheLeftExit.TeslaX.Static;
 
 namespace TheLeftExit.TeslaX.Helpers
 {
-    public class MovementManager
+    public class MovementManager : TimedManager
     {
-        private Stopwatch sw;
-        private bool down;
-        private int last;
-
-        private void toggle()
-        {
-            down = !down;
-            last = (int)sw.ElapsedMilliseconds;
-        }
-
-        private int elapsed
-        {
-            get { return (int)sw.ElapsedMilliseconds - last; }
-        }
-
         private void newdist(int d, bool right)
         {
             bool newdown = (d) >= (right ? UserSettings.Current.DistanceRight : UserSettings.Current.DistanceLeft) && d > -1;
@@ -52,13 +37,6 @@ namespace TheLeftExit.TeslaX.Helpers
             if (down == last)
                 return null;
             return down;
-        }
-
-        public MovementManager()
-        {
-            sw = Stopwatch.StartNew();
-            down = false;
-            last = 0;
         }
     }
 }
