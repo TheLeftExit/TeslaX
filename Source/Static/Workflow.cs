@@ -4,14 +4,12 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TheLeftExit.TeslaX.API;
 using TheLeftExit.TeslaX.Entities;
 using TheLeftExit.TeslaX.Helpers;
 using TheLeftExit.TeslaX.Interface;
 using TheLeftExit.TeslaX.Properties;
-using TheLeftExit.TeslaX.Static;
 
-namespace TheLeftExit.TeslaX
+namespace TheLeftExit.TeslaX.Static
 {
     internal static class Workflow
     {
@@ -30,8 +28,8 @@ namespace TheLeftExit.TeslaX
 
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
-            BlockFinder blockFinder = new BlockFinder(App.Sprites[UserSettings.Current.SelectedBlock].Sprite(), Resources.dust, Resources.gems, Game.GetFistBitmap((int)UserSettings.Current.SkinColor));
-            PlayerFinder playerFinder = new PlayerFinder((int)UserSettings.Current.SkinColor);
+            BlockFinder blockFinder = new BlockFinder(App.Sprites[UserSettings.Current.SelectedBlock].Sprite(), Resources.dust, Resources.gems, Game.GetFistBitmap(UserSettings.Current.SkinColor));
+            PlayerFinder playerFinder = new PlayerFinder(UserSettings.Current.SkinColor);
 
             // Initializing managers.
             MovementManager movementManager = new MovementManager();

@@ -79,6 +79,7 @@
     <Compile Include="Interface\ScriptForm.Designer.cs">
       <DependentUpon>ScriptForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Static\DiscordClient.cs" />
     <Compile Include="Static\Game.cs" />
     <Compile Include="Static\Extensions.cs" />
     <Compile Include="Static\App.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="Entities\Screenshot.cs" />
     <Compile Include="Helpers\OffsetFinder.cs" />
     <Compile Include="Helpers\BlockFinder.cs" />
-    <Compile Include="API\DiscordClient.cs" />
     <Compile Include="Interface\TextureForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,7 +99,7 @@
       <DependentUpon>TextureForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Static\UserSettings.cs" />
-    <Compile Include="Workflow\Workflow.cs" />
+    <Compile Include="Static\Workflow.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />

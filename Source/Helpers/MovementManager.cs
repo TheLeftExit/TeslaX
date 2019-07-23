@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using TheLeftExit.TeslaX.Static;
+﻿using TheLeftExit.TeslaX.Static;
 
 namespace TheLeftExit.TeslaX.Helpers
 {

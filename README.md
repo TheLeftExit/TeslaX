@@ -3,10 +3,10 @@ Farming bot for Growtopia. Work in progress.
 You can join the development/discussion Discord server at https://discord.gg/9Zv2ppD.
 
 Preview:  
-![Demo](media/demo.gif)  
+![Demo](demo.gif)  
 
 Recent version's interface:  
-![Window](media/shot.PNG)
+![Window](shot.PNG)
 
 ## About
 TeslaX is designed to be flexible and extensible, so that in the future

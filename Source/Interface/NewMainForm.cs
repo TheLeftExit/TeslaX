@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using TheLeftExit.TeslaX.API;
 using TheLeftExit.TeslaX.Static;
 using Message = TheLeftExit.TeslaX.Static.Message;
 

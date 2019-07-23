@@ -1,7 +1,6 @@
 ﻿using DiscordRPC;
-using TheLeftExit.TeslaX.Static;
 
-namespace TheLeftExit.TeslaX.API
+namespace TheLeftExit.TeslaX.Static
 {
     internal enum DiscordStatus
     {
