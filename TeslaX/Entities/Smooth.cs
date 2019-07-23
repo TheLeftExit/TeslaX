@@ -96,6 +96,16 @@ namespace TheLeftExit.TeslaX.Entities
             set { Update(value); }
         }
 
+        public void Force(T newvalue)
+        {
+            svalue = newvalue;
+            if (spike)
+            {
+                spike = false;
+                swatch.Stop();
+            }
+        }
+
         public static implicit operator T(Smooth<T> s)
         {
             return s.Value;

@@ -14,7 +14,8 @@ namespace TheLeftExit.TeslaX.Static
         {
             ("pickup_box.rttex", Resources.pickup_box, Resources.pickup_box_old),
             ("particles.rttex", Resources.particles, Resources.particles_old),
-            ("seed.rttex", Resources.seed, Resources.seed_old)
+            ("seed.rttex", Resources.seed, Resources.seed_old),
+            ("crack.rttex", Resources.crack, Resources.crack_old)
         };
 
         public static bool Delete()
@@ -36,6 +37,16 @@ namespace TheLeftExit.TeslaX.Static
         {
             foreach (var x in files)
                 File.WriteAllBytes(path + @"cache\game\" + x.Name, x.Original);
+        }
+
+        public static bool Replaced()
+        {
+            // Using crack.rttex to determine if custom textures are in place.
+            if (File.Exists(path + @"game\crack.rttex") || !File.Exists(path + @"cache\game\crack.rttex"))
+                return false;
+            if (File.ReadAllBytes(path + @"cache\game\crack.rttex").SequenceEqual(Resources.crack))
+                return true;
+            return false;
         }
     }
 }

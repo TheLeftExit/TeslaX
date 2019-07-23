@@ -17,14 +17,14 @@ namespace TheLeftExit.TeslaX.Static
 
         private static int rows = 0;
 
-        // This one is a bit more global.
-        private static WindowManager windowManager;
-
         // Return value: whether attempt breaking again.
         public static bool Start()
         {
             Active = true;
             App.Status = "Initializing...";
+
+            // Checking for custom textures.
+            UserSettings.Current.CustomTextures = Texture.Replaced();
 
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
@@ -34,13 +34,15 @@ namespace TheLeftExit.TeslaX.Static
             // Initializing managers.
             MovementManager movementManager = new MovementManager();
             PunchManager punchManager = new PunchManager();
+            WindowManager windowManager;
 
             // Preparing workflow variables. Compiler gets mad if we don't explicitly initialize them.
             Point offsetPosition = App.InvalidPoint;
             Point playerPosition = App.InvalidPoint;
             bool playerDirection = false;
+            int cracks = 0;
 
-            // -1 for no blocks, -2 for no player/offset.
+            // -1 for no blocks, -2 for no player/offset, -3 for full inventory.
             Smooth<int> distance = new Smooth<int>(150, (ov, nv) => Math.Abs(ov - nv) > 24 || nv < 0);
 
             #region Local functions.
@@ -156,6 +158,21 @@ namespace TheLeftExit.TeslaX.Static
                 }
                 return false;
             }
+
+            void SetCracks(Screenshot shot)
+            {
+                int x = playerPosition.X - shot.X + (playerDirection ? distance + 32 : -distance - 32);
+                cracks = blockFinder.HasCracks(shot, x, 0);
+            }
+
+            bool Move()
+            {
+                if (distance == -1)
+                    return false;
+                int target = playerDirection ? UserSettings.Current.DistanceRight : UserSettings.Current.DistanceLeft;
+                //return distance > target / 3 * (5 - cracks) / 5 + 2 * target / 3;
+                return distance > target;
+            }
             #endregion
 
             windowManager = new WindowManager(UserSettings.Current.Windowed);
@@ -202,10 +219,7 @@ namespace TheLeftExit.TeslaX.Static
             if (UserSettings.Current.DebugForm)
             {
                 debugForm = new DebugForm();
-                new Task(() =>
-                {
-                    debugForm.ShowDialog();
-                }).Start();
+                new Task(() => debugForm.ShowDialog()).Start();
             }
 
             // Otherwise, proceed.
@@ -226,7 +240,12 @@ namespace TheLeftExit.TeslaX.Static
 
                             // Finding blocks and calculating distance.
                             // If there are no blocks, distance will be set to -1.
-                            SetDistance(shot);
+                            if (SetDistance(shot))
+                            {
+                                // Experimental: finding cracks.
+                                if (UserSettings.Current.CustomTextures)
+                                    SetCracks(shot);
+                            }
                         }
                     }
 
@@ -239,7 +258,7 @@ namespace TheLeftExit.TeslaX.Static
                     // If we found any dropped blocks, stop immediately.
                     if (UserSettings.Current.StopOnFull && DropsBehind(shot))
                     {
-                        distance.Value = -3;
+                        distance.Force(-3);
                         break;
                     }
 
@@ -250,7 +269,7 @@ namespace TheLeftExit.TeslaX.Static
                     // Determining movement based on time/distance.
                     if (!UserSettings.Current.DebugMode)
                     {
-                        bool? down = movementManager.Update(distance, playerDirection);
+                        bool? down = movementManager.Update(Move());
                         if (down != null)
                             windowManager.SendKey(playerDirection ? Keys.D : Keys.A, down.Value);
                     }
@@ -270,6 +289,8 @@ namespace TheLeftExit.TeslaX.Static
                         debugInfo.AppendLine("Offset:      " + offsetPosition.ToString() + (stage < 1 ? "[?]" : ""));
                         debugInfo.AppendLine("Player:      " + playerPosition.ToString() + (stage < 2 ? "[?]" : ""));
                         debugInfo.AppendLine("Distance:    " + (distance > 0 ? distance.ToString() : "N/A"));
+                        if (UserSettings.Current.CustomTextures)
+                            debugInfo.AppendLine("Cracks:    " + cracks.ToString());
                         debugInfo.AppendLine("NewDistance: " + (distance.UnsafeValue > 0 ? distance.UnsafeValue.ToString() : "N/A"));
                         debugForm.Invoke((MethodInvoker)delegate
                         {
@@ -294,7 +315,8 @@ namespace TheLeftExit.TeslaX.Static
 
             if (distance == -1)
             {
-                if (UserSettings.Current.Continue)
+                rows++;
+                if (UserSettings.Current.Continue && !UserSettings.Current.DebugMode)
                 {
                     App.Status = "Executing custom script...";
                     Discord.Update(DiscordStatus.Advancing, rows);
@@ -303,12 +325,11 @@ namespace TheLeftExit.TeslaX.Static
                 }
                 else
                     App.Status = "Finished: out of blocks.";
-                rows++;
-                return UserSettings.Current.Continue;
+                return UserSettings.Current.Continue && !UserSettings.Current.DebugMode;
             }
             else if (distance == -2)
                 App.Status = "Finished: lost the player.";
-            else if (distance.UnsafeValue == -3)
+            else if (distance == -3)
                 App.Status = "Finished: full inventory.";
             else
                 App.Status = "Finished: manual request.";

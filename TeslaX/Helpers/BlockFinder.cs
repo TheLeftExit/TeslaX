@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using TheLeftExit.TeslaX.Entities;
+using TheLeftExit.TeslaX.Properties;
 using TheLeftExit.TeslaX.Static;
 
 namespace TheLeftExit.TeslaX.Helpers
@@ -16,7 +18,7 @@ namespace TheLeftExit.TeslaX.Helpers
     internal class BlockFinder
     {
         // All potential points.
-        private HashSet<(Point Point, HashSet<Color> Colors)> sprite;
+        private HashSet<(Point Point, HashSet<(Color Color, bool UnderCrack)> Colors)> sprite;
 
         // Guaranteed points.
         private HashSet<Point> points;
@@ -50,8 +52,11 @@ namespace TheLeftExit.TeslaX.Helpers
                             ignoredcolors.Add(color);
                     }
 
+            if (UserSettings.Current.CustomTextures)
+                ignoredcolors.Add(Color.Black);
+
             // Initializing and filling sprite and points.
-            sprite = new HashSet<(Point Point, HashSet<Color> Colors)>();
+            sprite = new HashSet<(Point Point, HashSet<(Color, bool)> Colors)>();
             points = new HashSet<Point>();
 
             int frames = spritesheet.Width / 32;
@@ -61,27 +66,29 @@ namespace TheLeftExit.TeslaX.Helpers
                 {
                     point = new Point(x, y);
                     bool opaque = true;
-                    HashSet<Color> thispixel = new HashSet<Color>();
+                    HashSet<(Color, bool)> thispixel = new HashSet<(Color, bool)>();
 
                     for (int i = 0; i < frames; i++)
                     {
                         color = spritesheet.GetPixel(x + i * 32, y);
                         if (color.A == 255 && !ignored(color))
-                            thispixel.Add(color);
+                            thispixel.Add((color, false));
 
                         if (color.A < 255)
                             opaque = false;
                     }
 
                     if (thispixel.Count > 0)
+                    {
                         sprite.Add((point, thispixel));
+                    }
 
                     if (opaque)
                         points.Add(point);
                 }
 
             // Appending sprite with cracks.
-            Bitmap crack = Properties.Resources.crack;
+            Bitmap crack = UserSettings.Current.CustomTextures ? Resources.cracksprite_new : Resources.cracksprite_old;
 
             for (int i = 0; i < 4; i++)
             {
@@ -107,9 +114,9 @@ namespace TheLeftExit.TeslaX.Helpers
                             {
                                 HashSet<Color> colors = new HashSet<Color>();
                                 foreach (var c in p.Colors)
-                                    colors.Add(c.UnderCrack(now.R));
+                                    colors.Add(c.Color.UnderCrack(now.R));
                                 foreach (var c in colors)
-                                    p.Colors.Add(c);
+                                    p.Colors.Add((c, true));
                             }
                         }
                     }
@@ -121,7 +128,7 @@ namespace TheLeftExit.TeslaX.Helpers
             foreach (var p in sprite)
                 if (shot.Contains(p.Point.Add(x, y)))
                     foreach (var c in p.Colors)
-                        if (c.IsColorAt(p.Point.Add(x, y), shot))
+                        if (c.Color.IsColorAt(p.Point.Add(x, y), shot))
                             return BlockState.Block;
 
             foreach (var p in points)
@@ -130,6 +137,21 @@ namespace TheLeftExit.TeslaX.Helpers
                         return BlockState.Air;
 
             return BlockState.Uncertain;
+        }
+
+        public int HasCracks(Screenshot shot, int x, int y)
+        {
+            int res = 0;
+            foreach (var p in sprite)
+                if (shot.Contains(p.Point.Add(x, y)))
+                    foreach (var c in p.Colors)
+                    {
+                        if (c.UnderCrack == true)
+                            continue;
+                        if (c.Color.UnderCrack(0).IsColorAt(p.Point.Add(x, y), shot))
+                            res = Math.Max(res, (p.Point.X % 4) + 1);
+                    }
+            return res;
         }
     }
 }

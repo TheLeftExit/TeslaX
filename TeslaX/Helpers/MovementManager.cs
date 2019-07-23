@@ -4,10 +4,8 @@ namespace TheLeftExit.TeslaX.Helpers
 {
     public class MovementManager : TimedManager
     {
-        private void newdist(int d, bool right)
+        private void newdist(bool newdown)
         {
-            bool newdown = (d) >= (right ? UserSettings.Current.DistanceRight : UserSettings.Current.DistanceLeft) && d > -1;
-
             // If we're idle, and for less than X ms, don't move yet.
             if (!down && elapsed < UserSettings.Current.MinStop)
                 return;
@@ -29,10 +27,10 @@ namespace TheLeftExit.TeslaX.Helpers
                 toggle();
         }
 
-        public bool? Update(int value, bool right)
+        public bool? Update(bool newdown)
         {
             bool last = down;
-            newdist(value, right);
+            newdist(newdown);
             if (down == last)
                 return null;
             return down;

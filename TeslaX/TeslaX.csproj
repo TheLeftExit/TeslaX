@@ -59,6 +59,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\TimedManager.cs" />
+    <Compile Include="Interface\HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -92,12 +98,6 @@
     <Compile Include="Entities\Screenshot.cs" />
     <Compile Include="Helpers\OffsetFinder.cs" />
     <Compile Include="Helpers\BlockFinder.cs" />
-    <Compile Include="Interface\TextureForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Interface\TextureForm.Designer.cs">
-      <DependentUpon>TextureForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Static\UserSettings.cs" />
     <Compile Include="Static\Workflow.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
@@ -110,13 +110,15 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Properties\articles.txt" />
     <Content Include="Properties\Images\Block\chandelier.png" />
     <Content Include="Properties\Images\Block\dirt.png" />
     <Content Include="Properties\Images\Block\fishtank.png" />
     <Content Include="Properties\Images\Block\pepper.png" />
     <Content Include="Properties\Images\Block\pinball.png" />
     <Content Include="Properties\Images\Block\sorcerer.png" />
-    <Content Include="Properties\Images\crack.png" />
+    <Content Include="Properties\Images\cracksprite_new.png" />
+    <Content Include="Properties\Images\cracksprite_old.png" />
     <Content Include="Properties\Images\Ignorable\dust.png" />
     <Content Include="Properties\Images\Ignorable\gems.png" />
     <Content Include="Properties\Images\head.png" />
@@ -125,6 +127,8 @@
     <None Include="packages.config" />
     <None Include="Properties\Images\Block\lasergrid.png" />
     <Compile Include="Helpers\MovementManager.cs" />
+    <None Include="Properties\Textures\crack.rttex" />
+    <None Include="Properties\Textures\crack_old.rttex" />
     <None Include="Properties\Textures\particles.rttex" />
     <None Include="Properties\Textures\particles_old.rttex" />
     <None Include="Properties\Textures\pickup_box.rttex" />
@@ -161,18 +165,19 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Interface\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\NewMainForm.resx">
       <DependentUpon>NewMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\ScriptForm.resx">
       <DependentUpon>ScriptForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Interface\TextureForm.resx">
-      <DependentUpon>TextureForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

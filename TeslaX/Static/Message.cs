@@ -30,5 +30,11 @@ namespace TheLeftExit.TeslaX.Static
 
         public static void NoNewDistance() =>
             MessageBox.Show("Failed to find selected block. Try starting with disabled input.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        public static void TexturesAreCustom() =>
+            MessageBox.Show("Custom textures detected.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        public static void TexturesAreOriginal() =>
+            MessageBox.Show("Custom textures not detected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
     }
 }

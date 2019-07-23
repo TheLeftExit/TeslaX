@@ -69,6 +69,13 @@ namespace TheLeftExit.TeslaX.Static
 
         [Browsable(true)]
         [ReadOnly(false)]
+        [Description("Can we display a tuple here?.")]
+        [Category("Other")]
+        [DisplayName("Tuple")]
+        public (int, int) Tuple { set; get; } = (2, 3);
+
+        [Browsable(true)]
+        [ReadOnly(false)]
         [Description("Move forward until this distance to a block is reached when moving right. (pixels)")]
         [Category("Input")]
         [DisplayName("Target distance: right")]
@@ -141,6 +148,15 @@ namespace TheLeftExit.TeslaX.Static
         public bool Continue { get; set; } = false;
 
         [Browsable(false)]
+        [ReadOnly(false)]
+        [Description("Enable features that take advantage of custom textures.")]
+        [Category("Other")]
+        [DisplayName("Support custom textures")]
+        // Enabling this makes it mandatory to update it, which might be painful without injection automation.
+        // For now we'll default this to false and exclude new crack.rttex from custom textures.
+        public bool CustomTextures { get; set; } = false;
+
+        [Browsable(false)]
         // How to treat BlockState.Uncertain.
         public bool UncertainIsBlock { get; set; } = true;
 
@@ -151,10 +167,6 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(false)]
         // Blocks in front of the player to include in a screenshot.
         public int BlocksAhead { get; set; } = 3;
-
-        [Browsable(false)]
-        // Whether TextureForm instructions are displayed.
-        public bool TextureInfo { get; set; } = false;
 
         [Browsable(false)]
         // Stript executed after successful workflows if Continue is checked.

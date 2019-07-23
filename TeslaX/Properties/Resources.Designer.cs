@@ -61,6 +61,20 @@ namespace TheLeftExit.TeslaX.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на [
+        ///{
+        ///&quot;Name&quot;: &quot;Page&quot;,
+        ///&quot;Text&quot;: &quot;Hello hello hello&quot;
+        ///}
+        ///].
+        /// </summary>
+        internal static string articles {
+            get {
+                return ResourceManager.GetString("articles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap chandelier {
@@ -71,11 +85,41 @@ namespace TheLeftExit.TeslaX.Properties {
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap crack {
+        internal static byte[] crack {
             get {
                 object obj = ResourceManager.GetObject("crack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] crack_old {
+            get {
+                object obj = ResourceManager.GetObject("crack_old", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cracksprite_new {
+            get {
+                object obj = ResourceManager.GetObject("cracksprite_new", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cracksprite_old {
+            get {
+                object obj = ResourceManager.GetObject("cracksprite_old", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

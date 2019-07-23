@@ -37,14 +37,18 @@
             this.blockSelector = new System.Windows.Forms.ToolStripDropDownButton();
             this.topMenuStrip = new System.Windows.Forms.MenuStrip();
             this.applicationMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceIncachegameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreIncachegameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bottomToolStrip.SuspendLayout();
             this.topMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -127,10 +131,22 @@
             this.applicationMenu.Size = new System.Drawing.Size(80, 20);
             this.applicationMenu.Text = "Application";
             // 
+            // resetSettingsToolStripMenuItem
+            // 
+            this.resetSettingsToolStripMenuItem.Name = "resetSettingsToolStripMenuItem";
+            this.resetSettingsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.resetSettingsToolStripMenuItem.Text = "Reset settings";
+            this.resetSettingsToolStripMenuItem.Click += new System.EventHandler(this.ResetSettingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(143, 6);
+            // 
             // ToolStripMenuItem
             // 
             this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-            this.ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.ToolStripMenuItem.Text = "Quit";
             // 
             // toolsMenu
@@ -146,39 +162,60 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(160, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Script builder";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem2_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuItem1
             // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem,
+            this.replaceIncachegameToolStripMenuItem,
+            this.restoreIncachegameToolStripMenuItem,
+            this.checkToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem1.Text = "Custom textures";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
-            // resetSettingsToolStripMenuItem
+            // deleteToolStripMenuItem
             // 
-            this.resetSettingsToolStripMenuItem.Name = "resetSettingsToolStripMenuItem";
-            this.resetSettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.resetSettingsToolStripMenuItem.Text = "Reset settings";
-            this.resetSettingsToolStripMenuItem.Click += new System.EventHandler(this.ResetSettingsToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.deleteToolStripMenuItem.Text = "Delete from /game";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
-            // toolStripSeparator3
+            // replaceIncachegameToolStripMenuItem
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.replaceIncachegameToolStripMenuItem.Name = "replaceIncachegameToolStripMenuItem";
+            this.replaceIncachegameToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.replaceIncachegameToolStripMenuItem.Text = "Replace in /cache/game";
+            this.replaceIncachegameToolStripMenuItem.Click += new System.EventHandler(this.ReplaceIncachegameToolStripMenuItem_Click);
+            // 
+            // restoreIncachegameToolStripMenuItem
+            // 
+            this.restoreIncachegameToolStripMenuItem.Name = "restoreIncachegameToolStripMenuItem";
+            this.restoreIncachegameToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.restoreIncachegameToolStripMenuItem.Text = "Restore in /cache/game";
+            this.restoreIncachegameToolStripMenuItem.Click += new System.EventHandler(this.RestoreIncachegameToolStripMenuItem_Click);
+            // 
+            // checkToolStripMenuItem
+            // 
+            this.checkToolStripMenuItem.Name = "checkToolStripMenuItem";
+            this.checkToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.checkToolStripMenuItem.Text = "Check";
+            this.checkToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
             // 
             // NewMainForm
             // 
@@ -188,6 +225,8 @@
             this.Controls.Add(this.bottomToolStrip);
             this.Controls.Add(this.topMenuStrip);
             this.Controls.Add(this.propertyGrid);
+            this.MaximumSize = new System.Drawing.Size(350, 500);
+            this.MinimumSize = new System.Drawing.Size(350, 300);
             this.Name = "NewMainForm";
             this.Text = "TeslaX";
             this.bottomToolStrip.ResumeLayout(false);
@@ -216,5 +255,9 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetSettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem replaceIncachegameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreIncachegameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkToolStripMenuItem;
     }
 }

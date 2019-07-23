@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using TheLeftExit.TeslaX.Properties;
 using TheLeftExit.TeslaX.Static;
 using Message = TheLeftExit.TeslaX.Static.Message;
 
@@ -11,7 +12,7 @@ namespace TheLeftExit.TeslaX.Interface
     {
         // ToolStripDropDownButton doesn't share ancestors with Controls that have Enabled property.
         // Therefore we can't enable/disable all of them in a single foreach.
-        private void enableSettings(bool value)
+        private void EnableSettings(bool value)
         {
             propertyGrid.Enabled = value;
             topMenuStrip.Enabled = value;
@@ -21,6 +22,9 @@ namespace TheLeftExit.TeslaX.Interface
         public NewMainForm()
         {
             InitializeComponent();
+
+            // Setting icon.
+            Icon = Resources.pickaxe;
 
             // Loading Discord.
             Discord.Update(DiscordStatus.Idle);
@@ -75,17 +79,12 @@ namespace TheLeftExit.TeslaX.Interface
             new ScriptForm().ShowDialog();
         }
 
-        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            new TextureForm().ShowDialog();
-        }
-
         private void StartButton_Click(object sender, EventArgs e)
         {
             if (!Workflow.Active)
             {
                 startButton.Text = "Stop";
-                enableSettings(false);
+                EnableSettings(false);
                 new Thread(() =>
                 {
                     while (Workflow.Start()) ; // This'll loop workflow/script if Continue is set.
@@ -95,7 +94,7 @@ namespace TheLeftExit.TeslaX.Interface
                     {
                         startButton.Enabled = true;
                         startButton.Text = "Start";
-                        enableSettings(true);
+                        EnableSettings(true);
                     });
                 }).Start();
             }
@@ -114,6 +113,39 @@ namespace TheLeftExit.TeslaX.Interface
                 UserSettings.Current = new UserSettings();
                 blockSelector.Text = App.Sprites[0].Name;
             }
+        }
+
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Texture.Delete())
+                Message.TextureDeleted();
+            else
+                Message.TextureAlreadyDeleted();
+        }
+
+        private void ReplaceIncachegameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Texture.Replace();
+            Message.TextureSwapped();
+        }
+
+        private void RestoreIncachegameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Texture.Restore();
+            Message.TextureRestored();
+        }
+
+        private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Texture.Replaced())
+                Message.TexturesAreCustom();
+            else
+                Message.TexturesAreOriginal();
+        }
+
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new HelpForm().ShowDialog();
         }
     }
 }

@@ -117,20 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>TeslaX comes with a custom set of textures for Growtopia that are designed to make detecting entities on screen easier.
-
-Features:
- - Dust explosions are removed.
- - All dropped blocks are displayed as opaque green squares.
- - All seeds are displayed in an opaque shade of green.
-
-Here's what you need to do:
- - Press [Clear] to remove the textures from "game" folder and make the game load them from cache instead. The "game" folder is only updated once every reinstall, so you don't have to do this every time.
- - Make sure your character isn't in a world. To double-check, log in and close the game on World Select screen.
- - Restart the game and log in. If you've already swapped textures, this will reset some of them.
- - On World Select screen press [Replace] to swap textures in cache for custom ones. Once you enter a world, they will be loaded and will persist until you close the game.
- - When you're done with the game, press [Restore] to restore original textures and prevent possible detection.
-</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="chandelier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\chandelier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="crack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\crack.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="cracksprite_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\cracksprite_new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cracksprite_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\cracksprite_old.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="crack_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\crack_old.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dirt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\dirt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Ignorable\dust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fishtank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\fishtank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gems" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Ignorable\gems.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="head" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\head.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lasergrid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\lasergrid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="particles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\particles.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="particles_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\particles_old.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pepper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\pepper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pickaxe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\pickaxe.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pickup_box" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\pickup_box.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pickup_box_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\pickup_box_old.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pinball" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\pinball.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="puncharm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Ignorable\puncharm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="seed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\seed.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="seed_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Textures\seed_old.rttex;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sorcerer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Block\sorcerer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="articles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>articles.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
