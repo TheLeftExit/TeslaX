@@ -61,20 +61,6 @@ namespace TheLeftExit.TeslaX.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на [
-        ///{
-        ///&quot;Name&quot;: &quot;Page&quot;,
-        ///&quot;Text&quot;: &quot;Hello hello hello&quot;
-        ///}
-        ///].
-        /// </summary>
-        internal static string articles {
-            get {
-                return ResourceManager.GetString("articles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap chandelier {

@@ -59,12 +59,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\TimedManager.cs" />
-    <Compile Include="Interface\HelpForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Interface\HelpForm.Designer.cs">
-      <DependentUpon>HelpForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,7 +104,6 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\articles.txt" />
     <Content Include="Properties\Images\Block\chandelier.png" />
     <Content Include="Properties\Images\Block\dirt.png" />
     <Content Include="Properties\Images\Block\fishtank.png" />
@@ -165,9 +158,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Interface\HelpForm.resx">
-      <DependentUpon>HelpForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

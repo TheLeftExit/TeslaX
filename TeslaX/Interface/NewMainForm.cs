@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -145,7 +146,9 @@ namespace TheLeftExit.TeslaX.Interface
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new HelpForm().ShowDialog();
+            var res = MessageBox.Show("Would you like to visit project's wiki on GitHub?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (res == DialogResult.Yes)
+                Process.Start("https://github.com/TheLeftExit/TeslaX/wiki");
         }
     }
 }
