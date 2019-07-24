@@ -111,7 +111,8 @@ namespace TheLeftExit.TeslaX.Interface
             var res = MessageBox.Show("All settings will be set to defaults. Are you absolutely sure?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (res == DialogResult.Yes)
             {
-                UserSettings.Current = new UserSettings();
+                UserSettings.Erase();
+                propertyGrid.SelectedObject = UserSettings.Current;
                 blockSelector.Text = App.Sprites[0].Name;
             }
         }
@@ -149,6 +150,11 @@ namespace TheLeftExit.TeslaX.Interface
             var res = MessageBox.Show("Open GitHub wiki in your browser?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (res == DialogResult.Yes)
                 Process.Start("https://github.com/TheLeftExit/TeslaX/wiki");
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

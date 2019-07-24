@@ -69,13 +69,6 @@ namespace TheLeftExit.TeslaX.Static
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("Can we display a tuple here?.")]
-        [Category("Other")]
-        [DisplayName("Tuple")]
-        public (int, int) Tuple { set; get; } = (2, 3);
-
-        [Browsable(true)]
-        [ReadOnly(false)]
         [Description("Move forward until this distance to a block is reached when moving right. (pixels)")]
         [Category("Input")]
         [DisplayName("Target distance: right")]
