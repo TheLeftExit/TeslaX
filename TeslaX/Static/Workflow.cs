@@ -212,8 +212,16 @@ namespace TheLeftExit.TeslaX.Static
 
             // Preparing for working loop.
             /* Discord: to breaking. */
-            App.Status = "Breaking...";
-            Discord.Update(DiscordStatus.Breaking, rows);
+            if (UserSettings.Current.DebugMode)
+            {
+                App.Status = "Detecting...";
+                Discord.Update(DiscordStatus.Debugging);
+            }
+            else
+            {
+                App.Status = "Breaking...";
+                Discord.Update(DiscordStatus.Breaking, rows);
+            }
 
             DebugForm debugForm = null;
             if (UserSettings.Current.DebugForm)
@@ -312,6 +320,12 @@ namespace TheLeftExit.TeslaX.Static
 
             if (UserSettings.Current.DebugForm)
                 debugForm.Done();
+
+            if (UserSettings.Current.DebugMode)
+            {
+                App.Status = "Finished: manual request.";
+                return false;
+            }
 
             if (distance == -1)
             {

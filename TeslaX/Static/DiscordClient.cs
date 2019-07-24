@@ -7,7 +7,8 @@ namespace TheLeftExit.TeslaX.Static
         Disabled = 0,
         Idle = 1,
         Breaking = 2,
-        Advancing = 3
+        Advancing = 3,
+        Debugging = 4
     }
 
     internal static class Discord
@@ -58,6 +59,13 @@ namespace TheLeftExit.TeslaX.Static
                         {
                             LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
                         },
+                        Timestamps = Timestamps.Now
+                    });
+                    break;
+                case DiscordStatus.Debugging:
+                    client.SetPresence(new RichPresence()
+                    {
+                        State = "Testing detection.",
                         Timestamps = Timestamps.Now
                     });
                     break;

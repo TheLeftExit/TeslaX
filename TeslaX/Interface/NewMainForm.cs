@@ -146,7 +146,7 @@ namespace TheLeftExit.TeslaX.Interface
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var res = MessageBox.Show("Would you like to visit project's wiki on GitHub?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            var res = MessageBox.Show("Open GitHub wiki in your browser?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (res == DialogResult.Yes)
                 Process.Start("https://github.com/TheLeftExit/TeslaX/wiki");
         }
