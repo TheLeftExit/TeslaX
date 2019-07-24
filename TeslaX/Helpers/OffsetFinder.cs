@@ -16,7 +16,7 @@ namespace TheLeftExit.TeslaX.Helpers
                 ValidY = new List<int>();
                 int step = shot.Width / 4;
                 for (int i = 1; i <= 3; i++)
-                    for (int y = 32; y < shot.Height - 32; y++)
+                    for (int y = 0 + 8; y < shot.Height - 12; y++)
                         if (PlatformDark.IsColorAt(i * step, y, shot) && PlatformDark.IsColorAt(i * step, y - 8, shot) && !ValidY.Contains(y))
                             ValidY.Add(y - 8);
             }

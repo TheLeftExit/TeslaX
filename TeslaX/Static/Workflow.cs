@@ -24,7 +24,7 @@ namespace TheLeftExit.TeslaX.Static
             App.Status = "Initializing...";
 
             // Checking for custom textures.
-            UserSettings.Current.CustomTextures = Texture.Replaced();
+            UserSettings.Current.CustomTextures = false; //Texture.Replaced();
 
             // Initializing finders.
             OffsetFinder offsetFinder = new OffsetFinder();
@@ -89,7 +89,6 @@ namespace TheLeftExit.TeslaX.Static
                     64);
 
             // Find and set offset value.
-            // - shot: screenshot with vertical offset of 0.
             bool SetOffset(Screenshot shot)
             {
                 Point res = offsetFinder.GetOffset(shot);
@@ -100,7 +99,6 @@ namespace TheLeftExit.TeslaX.Static
             }
 
             // Find and set player position value.
-            // - shot: screenshot with vertical offset of 0.
             bool SetPlayer(Screenshot shot)
             {
                 foreach (var cmd in App.PlayerFindingOrder)
@@ -121,7 +119,6 @@ namespace TheLeftExit.TeslaX.Static
             }
 
             // Find and set distance value.
-            // - shot: screenshot with vertical offset of 0.
             bool SetDistance(Screenshot shot)
             {
                 List<int> ToCheck = App.EligibleBetween(shot.X - 31, shot.X + shot.Width - 1, offsetPosition.X);
@@ -153,7 +150,7 @@ namespace TheLeftExit.TeslaX.Static
                 for (int y = 0; y < shot.Height; y++)
                 {
                     Color c = shot.GetPixel(x, y);
-                    if (c.R + c.B < 5)
+                    if (c.R + c.G + c.B < 7)
                         return true;
                 }
                 return false;
@@ -263,6 +260,12 @@ namespace TheLeftExit.TeslaX.Static
                         distance.Value = -2;
                     }
 
+                    // If this persists, pause and attempt to find offset and player again.
+                    if(distance == -2)
+                    {
+                        break;
+                    }
+
                     // If we found any dropped blocks, stop immediately.
                     if (UserSettings.Current.StopOnFull && DropsBehind(shot))
                     {
@@ -271,7 +274,7 @@ namespace TheLeftExit.TeslaX.Static
                     }
 
                     // If no blocks are found, we're done. Unless we're debugging.
-                    if (distance < 0 && !UserSettings.Current.DebugMode)
+                    if (distance == -1 && !UserSettings.Current.DebugMode)
                         break;
 
                     // Determining movement based on time/distance.
@@ -336,6 +339,11 @@ namespace TheLeftExit.TeslaX.Static
                     Discord.Update(DiscordStatus.Advancing, rows);
                     Script.Execute(windowManager);
                     // Shortly status will be updated with either "Breaking..." or a "not found" message.
+                    if (!Active)
+                    {
+                        App.Status = "Finished: manual request.";
+                        return false;
+                    }
                 }
                 else
                     App.Status = "Finished: out of blocks.";

@@ -126,7 +126,7 @@ namespace TheLeftExit.TeslaX.Static
         [DisplayName("Enable")]
         public bool RichPresence { get; set; } = false;
 
-        [Browsable(true)]
+        [Browsable(false)]
         [ReadOnly(false)]
         [Description("Stop whenever there are items dropped behind you (custom textures only).")]
         [Category("Other")]
@@ -145,7 +145,6 @@ namespace TheLeftExit.TeslaX.Static
         [Description("Enable features that take advantage of custom textures.")]
         [Category("Other")]
         [DisplayName("Support custom textures")]
-        // Enabling this makes it mandatory to update it, which might be painful without injection automation.
         // For now we'll default this to false and exclude new crack.rttex from custom textures.
         public bool CustomTextures { get; set; } = false;
 
