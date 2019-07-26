@@ -93,7 +93,7 @@
     <Compile Include="Helpers\OffsetFinder.cs" />
     <Compile Include="Helpers\BlockFinder.cs" />
     <Compile Include="Static\UserSettings.cs" />
-    <Compile Include="Static\Workflow.cs" />
+    <Compile Include="Static\Workflow\Workflow.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
@@ -128,6 +128,7 @@
     <None Include="Properties\Textures\pickup_box_old.rttex" />
     <None Include="Properties\Textures\seed.rttex" />
     <None Include="Properties\Textures\seed_old.rttex" />
+    <Compile Include="Static\Workflow\Workflow.State.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.115.0, Culture=neutral, processorArchitecture=MSIL">
