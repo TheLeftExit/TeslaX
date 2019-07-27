@@ -17,7 +17,6 @@ namespace TheLeftExit.TeslaX.Interface
         {
             propertyGrid.Enabled = value;
             topMenuStrip.Enabled = value;
-            blockSelector.Enabled = value;
         }
 
         public NewMainForm()
@@ -33,46 +32,6 @@ namespace TheLeftExit.TeslaX.Interface
             // Linking form to app logic.
             propertyGrid.SelectedObject = UserSettings.Current;
             App.StatusLabel = statusLabel;
-
-            // Enabling block selector.
-            blockSelector.Text = App.Sprites[0].Name;
-            foreach (var item in App.Sprites)
-            {
-                if (item.Name != "Custom")
-                    blockSelector.DropDownItems.Add(item.Name, null, (EventHandler)delegate
-                    {
-                        UserSettings.Current.SelectedBlock = App.Sprites.FindIndex(x => x.Name == item.Name);
-                        blockSelector.Text = item.Name;
-                    });
-                else
-                    blockSelector.DropDownItems.Add(item.Name, null, (EventHandler)delegate
-                    {
-                        using (var dlg = new OpenFileDialog())
-                        {
-                            dlg.Filter = "PNG files|*.png";
-                            if (dlg.ShowDialog() == DialogResult.OK)
-                            {
-                                Bitmap newcustom = new Bitmap(dlg.FileName);
-                                if (newcustom.Height == 32 && newcustom.Width % 32 == 0)
-                                {
-                                    App.CustomSprite.Dispose();
-                                    App.CustomSprite = newcustom;
-                                    UserSettings.Current.SelectedBlock = App.Sprites.Count - 1;
-                                    blockSelector.Text = item.Name;
-                                    return;
-                                }
-                                else
-                                {
-                                    newcustom.Dispose();
-                                    Message.NoCustomSpritesheet();
-                                }
-                            }
-
-                            UserSettings.Current.SelectedBlock = 0;
-                            blockSelector.Text = App.Sprites[0].Name;
-                        }
-                    });
-            }
         }
 
         private void ToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -113,36 +72,7 @@ namespace TheLeftExit.TeslaX.Interface
             {
                 UserSettings.Erase();
                 propertyGrid.SelectedObject = UserSettings.Current;
-                blockSelector.Text = App.Sprites[0].Name;
             }
-        }
-
-        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Texture.Delete())
-                Message.TextureDeleted();
-            else
-                Message.TextureAlreadyDeleted();
-        }
-
-        private void ReplaceIncachegameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Texture.Replace();
-            Message.TextureSwapped();
-        }
-
-        private void RestoreIncachegameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Texture.Restore();
-            Message.TextureRestored();
-        }
-
-        private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Texture.Replaced())
-                Message.TexturesAreCustom();
-            else
-                Message.TexturesAreOriginal();
         }
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)

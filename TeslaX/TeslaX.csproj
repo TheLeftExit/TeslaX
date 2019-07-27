@@ -57,6 +57,26 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\TimedManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -66,7 +86,6 @@
     </Compile>
     <Compile Include="Entities\RandomNumber.cs" />
     <Compile Include="Helpers\PunchManager.cs" />
-    <Compile Include="Interface\DebugForm.cs" />
     <Compile Include="Interface\NewMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,20 +99,13 @@
       <DependentUpon>ScriptForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Static\DiscordClient.cs" />
-    <Compile Include="Static\Game.cs" />
-    <Compile Include="Static\Extensions.cs" />
     <Compile Include="Static\App.cs" />
+    <Compile Include="Static\Memory.cs" />
     <Compile Include="Static\Script.cs" />
-    <Compile Include="Static\Texture.cs" />
     <Compile Include="Static\Message.cs" />
-    <Compile Include="Helpers\PlayerFinder.cs" />
-    <Compile Include="Entities\Smooth.cs" />
     <Compile Include="Helpers\WindowManager.cs" />
-    <Compile Include="Entities\Screenshot.cs" />
-    <Compile Include="Helpers\OffsetFinder.cs" />
-    <Compile Include="Helpers\BlockFinder.cs" />
     <Compile Include="Static\UserSettings.cs" />
-    <Compile Include="Static\Workflow\Workflow.cs" />
+    <Compile Include="Static\Workflow.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
@@ -128,7 +140,6 @@
     <None Include="Properties\Textures\pickup_box_old.rttex" />
     <None Include="Properties\Textures\seed.rttex" />
     <None Include="Properties\Textures\seed_old.rttex" />
-    <Compile Include="Static\Workflow\Workflow.State.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.115.0, Culture=neutral, processorArchitecture=MSIL">

@@ -41,11 +41,11 @@ namespace TheLeftExit.TeslaX.Static
                 case DiscordStatus.Breaking:
                     client.SetPresence(new RichPresence()
                     {
-                        State = UserSettings.Current.DebugMode ? "Debugging" : "Breaking " + App.Sprites[UserSettings.Current.SelectedBlock].DiscordName,
+                        State = UserSettings.Current.DebugMode ? "Debugging." : "Breaking.",
                         Details = UserSettings.Current.DebugMode ? null : "Broke " + rows.ToString() + " rows so far.",
                         Assets = new Assets
                         {
-                            LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
+                            //LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
                         },
                         Timestamps = Timestamps.Now
                     });
@@ -57,7 +57,7 @@ namespace TheLeftExit.TeslaX.Static
                         Details = "Broke " + rows.ToString() + " rows so far.",
                         Assets = new Assets
                         {
-                            LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
+                            //LargeImageKey = App.Sprites[UserSettings.Current.SelectedBlock].AssetName
                         },
                         Timestamps = Timestamps.Now
                     });

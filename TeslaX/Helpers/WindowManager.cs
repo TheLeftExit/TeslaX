@@ -30,12 +30,6 @@ namespace TheLeftExit.TeslaX.Helpers
             Windowed = windowed;
         }
 
-        public Screenshot Shoot(int x, int y, int w, int h) =>
-            new Screenshot(x + X, y + Y, w, h) { Location = new Point(x, y) };
-
-        public Screenshot Shoot() =>
-            Shoot(0, 0, Width, Height);
-
         public void SendKey(Keys k, bool down) =>
             HwndObject.SendMessage(down ? WM.KEYDOWN : WM.KEYUP, (uint)k, 0);
 
