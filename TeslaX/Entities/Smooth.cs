@@ -38,7 +38,7 @@ namespace TheLeftExit.TeslaX.Entities
         private readonly Func<T, T, bool> scondition;
 
         // Last input through Value.
-        public T UnsafeValue;
+        public T UnsafeValue { get; private set; }
 
         // Whether there's a spike.
         private bool spike;
@@ -67,6 +67,13 @@ namespace TheLeftExit.TeslaX.Entities
                 initialized = true;
                 return;
             }
+
+            if(slength == 0)
+            {
+                svalue = nvalue;
+                return;
+            }
+
             if (spike)
             {
                 if (swatch.ElapsedMilliseconds >= slength || !scondition(svalue, nvalue))
