@@ -54,9 +54,7 @@
   <PropertyGroup>
     <ApplicationIcon>Properties\pickaxe.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -76,6 +74,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\TimedManager.cs" />
@@ -118,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\pickaxe.ico" />
+    <None Include="app.manifest" />
     <None Include="packages.config" />
     <Compile Include="Helpers\MovementManager.cs" />
   </ItemGroup>

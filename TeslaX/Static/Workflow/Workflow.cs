@@ -60,11 +60,15 @@ namespace TheLeftExit.TeslaX.Static
                 return false;
             }
 
+            /* var sw = Stopwatch.StartNew(); */
+
             // Breaking.
             Discord.Update(DiscordStatus.Breaking, rows);
             App.Status = "Breaking...";
             while (Active)
             {
+                /* App.Status = ((double)sw.ElapsedTicks * 1000 / Stopwatch.Frequency).ToString(); */
+                /* sw.Restart(); */
                 // Checking if we've been manually cancelled.
                 if (Keyboard.IsKeyDown(Key.S))
                 {
