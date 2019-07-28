@@ -89,36 +89,70 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("If the farmable is a foreground tile (like Dirt), its ID. Otherwise, 0.")]
-        [Category("Block")]
+        [Category("Tiles: block")]
         [DisplayName("Foreground")]
-        public short Foreground
+        public short BlockForeground
         {
-            get => foreground;
+            get => blockForeground;
             set
             {
                 if (value != 0)
-                    Background = 0;
-                foreground = value;
+                    BlockBackground = 0;
+                blockForeground = value;
             }
         }
-        private short foreground;
+        private short blockForeground;
 
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("If the farmable is a background tile (like Cave Background), its ID. Otherwise, 0.")]
-        [Category("Block")]
+        [Category("Tiles: block")]
         [DisplayName("Background")]
-        public short Background
+        public short BlockBackground
         {
-            get => background;
+            get => blockBackground;
             set
             {
                 if (value != 0)
-                    Foreground = 0;
-                background = value;
+                    BlockForeground = 0;
+                blockBackground = value;
             }
         }
-        private short background;
+        private short blockBackground;
+
+        [Browsable(true)]
+        [ReadOnly(false)]
+        [Description("If the next row condition is a foreground tile (like Dirt), its ID. Otherwise, 0.")]
+        [Category("Tiles: door")]
+        [DisplayName("Foreground")]
+        public short DoorForeground
+        {
+            get => doorForeground;
+            set
+            {
+                if (value != 0)
+                    DoorBackground = 0;
+                doorForeground = value;
+            }
+        }
+        private short doorForeground;
+
+        [Browsable(true)]
+        [ReadOnly(false)]
+        [Description("If the next row condition is a background tile (like Cave Background), its ID. Otherwise, 0.")]
+        [Category("Tiles: door")]
+        [DisplayName("Background")]
+        public short DoorBackground
+        {
+            get => doorBackground;
+            set
+            {
+                if (value != 0)
+                    DoorForeground = 0;
+                doorBackground = value;
+            }
+        }
+        private short doorBackground;
 
         [Browsable(true)]
         [ReadOnly(false)]

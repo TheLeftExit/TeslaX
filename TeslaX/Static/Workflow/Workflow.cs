@@ -48,7 +48,7 @@ namespace TheLeftExit.TeslaX.Static
                 return false;
             }
 
-            if (!UserSettings.Current.DebugMode && handle.GetNextBlockInfo() == null)
+            if (!UserSettings.Current.DebugMode && (!handle.GetNextBlockInfo()?.IsBlock() ?? true))
             {
                 App.Status = "No blocks found.";
                 return false;
@@ -59,6 +59,7 @@ namespace TheLeftExit.TeslaX.Static
             // Breaking.
             Discord.Update(DiscordStatus.Breaking, rows);
             App.Status = "Breaking...";
+            bool NextRowCondition = false;
             while (Active)
             {
                 /* App.Status = ((double)sw.ElapsedTicks * 1000 / Stopwatch.Frequency).ToString(); */
@@ -70,13 +71,21 @@ namespace TheLeftExit.TeslaX.Static
                     break;
                 }
 
-                // Getting distance; exiting if next block isn't target or doesn't exist.
-                int? rawdistance = handle.GetNextBlockInfo()?.Distance;
-                if (!UserSettings.Current.DebugMode && rawdistance == null)
+                // Getting distance.
+                var info = handle.GetNextBlockInfo();
+                int distance;
+                if (!UserSettings.Current.DebugMode)
                 {
-                    break;
+                    if (!info?.IsBlock() ?? true)
+                    {
+                        if (info?.IsDoor() ?? false)
+                            NextRowCondition = true;
+                        break;
+                    }
+                    distance = info.Distance;
                 }
-                int distance = rawdistance.Value;
+                else
+                    distance = info?.Distance ?? -128;
 
                 direction = handle.GetDirection();
 
@@ -105,7 +114,7 @@ namespace TheLeftExit.TeslaX.Static
             if (Active == true)
             {
                 rows++;
-                if (!UserSettings.Current.DebugMode && UserSettings.Current.Continue)
+                if (!UserSettings.Current.DebugMode && UserSettings.Current.Continue && NextRowCondition)
                 {
                     App.Status = "Executing custom script...";
                     Discord.Update(DiscordStatus.Advancing, rows);

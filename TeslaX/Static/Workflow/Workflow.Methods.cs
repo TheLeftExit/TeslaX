@@ -9,6 +9,12 @@ namespace TheLeftExit.TeslaX.Static
             public int Distance;
             public short Foreground;
             public short Background;
+
+            public bool IsBlock() =>
+                Foreground == UserSettings.Current.BlockForeground && Background == UserSettings.Current.BlockBackground;
+
+            public bool IsDoor() =>
+                Foreground == UserSettings.Current.DoorForeground && Background == UserSettings.Current.DoorBackground;
         }
 
         private static NextBlockInfo GetNextBlockInfo(this ProcessHandle handle)
@@ -17,7 +23,6 @@ namespace TheLeftExit.TeslaX.Static
             bool rawDirection = handle.GetDirection();
 
             Point player = new Point(rawPlayer.X / 32, (rawPlayer.Y - 2 + 31) / 32);
-            bool onTwoBlocks = rawPlayer.X % 32 > 12;
 
             int firstSearchedX = player.X + (rawDirection ? 1 : -1);
             int increment = rawDirection ? 1 : -1;
@@ -42,10 +47,6 @@ namespace TheLeftExit.TeslaX.Static
             }
 
             if (NextBlockX == -1)
-                return null;
-            if (res.Foreground != UserSettings.Current.Foreground)
-                return null;
-            if (res.Background != UserSettings.Current.Background)
                 return null;
 
             res.Distance = ((rawPlayer.X - 6) - (NextBlockX * 32)) * (rawDirection ? -1 : 1) - 32;
