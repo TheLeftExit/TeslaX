@@ -45,7 +45,7 @@ namespace TheLeftExit.TeslaX.Interface
             {
                 startButton.Text = "Stop";
                 EnableSettings(false);
-                new Thread(() =>
+                Thread thread = new Thread(() =>
                 {
                     Workflow.Active = true;
                     while (Workflow.Start()) ; // This'll loop workflow/script if Continue is set.
@@ -57,7 +57,9 @@ namespace TheLeftExit.TeslaX.Interface
                         startButton.Text = "Start";
                         EnableSettings(true);
                     });
-                }).Start();
+                });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
             }
             else
             {

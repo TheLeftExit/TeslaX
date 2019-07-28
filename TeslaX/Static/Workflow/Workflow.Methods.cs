@@ -61,5 +61,13 @@ namespace TheLeftExit.TeslaX.Static
             res.Distance = ((rawPlayer.X - 6) - (NextBlockX * 32)) * (rawDirection ? -1 : 1) - 32;
             return res;
         }
+
+        private static bool Move(int distance, bool direction)
+        {
+            if (distance == -1)
+                return false;
+            int target = direction ? UserSettings.Current.DistanceRight : UserSettings.Current.DistanceLeft;
+            return distance > target;
+        }
     }
 }

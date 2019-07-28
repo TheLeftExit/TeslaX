@@ -13,6 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -52,7 +52,7 @@
     <StartupObject>TheLeftExit.TeslaX.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Properties\Images\pickaxe.ico</ApplicationIcon>
+    <ApplicationIcon>Properties\pickaxe.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -79,11 +79,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Helpers\TimedManager.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Entities\RandomNumber.cs" />
     <Compile Include="Helpers\PunchManager.cs" />
     <Compile Include="Interface\NewMainForm.cs">
@@ -97,6 +92,11 @@
     </Compile>
     <Compile Include="Interface\ScriptForm.Designer.cs">
       <DependentUpon>ScriptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Static\DiscordClient.cs" />
     <Compile Include="Static\App.cs" />
@@ -117,30 +117,9 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\Images\Block\chandelier.png" />
-    <Content Include="Properties\Images\Block\dirt.png" />
-    <Content Include="Properties\Images\Block\fishtank.png" />
-    <Content Include="Properties\Images\Block\pepper.png" />
-    <Content Include="Properties\Images\Block\pinball.png" />
-    <Content Include="Properties\Images\Block\sorcerer.png" />
-    <Content Include="Properties\Images\cracksprite_new.png" />
-    <Content Include="Properties\Images\cracksprite_old.png" />
-    <Content Include="Properties\Images\Ignorable\dust.png" />
-    <Content Include="Properties\Images\Ignorable\gems.png" />
-    <Content Include="Properties\Images\head.png" />
-    <Content Include="Properties\Images\Ignorable\puncharm.png" />
-    <Content Include="Properties\Images\pickaxe.ico" />
+    <Content Include="Properties\pickaxe.ico" />
     <None Include="packages.config" />
-    <None Include="Properties\Images\Block\lasergrid.png" />
     <Compile Include="Helpers\MovementManager.cs" />
-    <None Include="Properties\Textures\crack.rttex" />
-    <None Include="Properties\Textures\crack_old.rttex" />
-    <None Include="Properties\Textures\particles.rttex" />
-    <None Include="Properties\Textures\particles_old.rttex" />
-    <None Include="Properties\Textures\pickup_box.rttex" />
-    <None Include="Properties\Textures\pickup_box_old.rttex" />
-    <None Include="Properties\Textures\seed.rttex" />
-    <None Include="Properties\Textures\seed_old.rttex" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscordRPC, Version=1.0.115.0, Culture=neutral, processorArchitecture=MSIL">
@@ -149,11 +128,13 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -173,8 +154,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface\NewMainForm.resx">
       <DependentUpon>NewMainForm.cs</DependentUpon>

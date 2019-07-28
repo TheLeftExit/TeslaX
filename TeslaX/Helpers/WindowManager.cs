@@ -12,22 +12,11 @@ namespace TheLeftExit.TeslaX.Helpers
     {
         public HwndObject HwndObject;
 
-        public bool Windowed;
-
-        public Point Location { get { return new Point(X, Y); } }
-        public int X { get { return HwndObject.Location.X + (Windowed ? 8 : 0); } }
-        public int Y { get { return HwndObject.Location.Y + (Windowed ? 31 : 0); } }
-        public Size Size { get { return HwndObject.Size; } }
-        public int Width { get { return Size.Width; } }
-        public int Height { get { return Size.Height; } }
-        public Rectangle Rectangle { get { return new Rectangle(Location, Size); } }
-
-        public WindowManager(bool windowed)
+        public WindowManager()
         {
             HwndObject = HwndObject.GetWindowByTitle("Growtopia");
             if (HwndObject.Hwnd == IntPtr.Zero)
                 return;
-            Windowed = windowed;
         }
 
         public void SendKey(Keys k, bool down) =>
