@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using TheLeftExit.TeslaX.Entities;
-using TheLeftExit.TeslaX.Helpers;
-using TheLeftExit.TeslaX.Interface;
 using System.Linq;
-using System.Threading;
-using System.Windows.Input;
 using System.Windows.Forms;
+using System.Windows.Input;
+using TheLeftExit.TeslaX.Helpers;
 
 namespace TheLeftExit.TeslaX.Static
 {
@@ -54,7 +48,7 @@ namespace TheLeftExit.TeslaX.Static
                 return false;
             }
 
-            if(!UserSettings.Current.DebugMode && handle.GetNextBlockInfo() == null)
+            if (!UserSettings.Current.DebugMode && handle.GetNextBlockInfo() == null)
             {
                 App.Status = "No blocks found.";
                 return false;
@@ -75,10 +69,10 @@ namespace TheLeftExit.TeslaX.Static
                     Active = false;
                     break;
                 }
-                
+
                 // Getting distance; exiting if next block isn't target or doesn't exist.
                 int? rawdistance = handle.GetNextBlockInfo()?.Distance;
-                if(!UserSettings.Current.DebugMode && rawdistance == null)
+                if (!UserSettings.Current.DebugMode && rawdistance == null)
                 {
                     break;
                 }
@@ -111,7 +105,7 @@ namespace TheLeftExit.TeslaX.Static
             if (Active == true)
             {
                 rows++;
-                if(!UserSettings.Current.DebugMode && UserSettings.Current.Continue)
+                if (!UserSettings.Current.DebugMode && UserSettings.Current.Continue)
                 {
                     App.Status = "Executing custom script...";
                     Discord.Update(DiscordStatus.Advancing, rows);

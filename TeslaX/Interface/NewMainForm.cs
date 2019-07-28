@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using TheLeftExit.TeslaX.Properties;
 using TheLeftExit.TeslaX.Static;
-using Message = TheLeftExit.TeslaX.Static.Message;
 
 namespace TheLeftExit.TeslaX.Interface
 {

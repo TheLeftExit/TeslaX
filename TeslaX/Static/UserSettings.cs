@@ -91,7 +91,8 @@ namespace TheLeftExit.TeslaX.Static
         [Description("If the farmable is a foreground tile (like Dirt), its ID. Otherwise, 0.")]
         [Category("Block")]
         [DisplayName("Foreground")]
-        public short Foreground {
+        public short Foreground
+        {
             get => foreground;
             set
             {

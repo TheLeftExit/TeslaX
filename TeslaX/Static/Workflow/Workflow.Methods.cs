@@ -1,14 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Diagnostics;
-using TheLeftExit.TeslaX.Entities;
-using TheLeftExit.TeslaX.Helpers;
-using TheLeftExit.TeslaX.Interface;
-using TheLeftExit.TeslaX.Properties;
-using System.Linq;
+﻿using System.Drawing;
 
 namespace TheLeftExit.TeslaX.Static
 {
@@ -35,7 +25,7 @@ namespace TheLeftExit.TeslaX.Static
             NextBlockInfo res = null;
             int NextBlockX = -1;
 
-            for(int i = firstSearchedX; i>=0 && i<100; i += increment)
+            for (int i = firstSearchedX; i >= 0 && i < 100; i += increment)
             {
                 short fore = handle.GetBlock(i, player.Y);
                 short back = handle.GetBackground(i, player.Y);

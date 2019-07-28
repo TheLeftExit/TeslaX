@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
-using TheLeftExit.TeslaX.Properties;
 
 namespace TheLeftExit.TeslaX.Static
 {

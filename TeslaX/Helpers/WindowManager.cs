@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using TheLeftExit.TeslaX.Entities;
 using HwndObject = WindowScrape.Types.HwndObject;
 using WM = WindowScrape.Constants.WM;
 
