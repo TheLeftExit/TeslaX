@@ -32,6 +32,7 @@
             this.bottomToolStrip = new System.Windows.Forms.StatusStrip();
             this.startButton = new System.Windows.Forms.ToolStripButton();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.topMenuStrip = new System.Windows.Forms.MenuStrip();
             this.applicationMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.resetSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,7 +41,6 @@
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.bottomToolStrip.SuspendLayout();
             this.topMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +83,12 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(60, 17);
             this.statusLabel.Text = "Welcome.";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 22);
             // 
             // topMenuStrip
             // 
@@ -136,7 +142,7 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem2.Text = "Script builder";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem2_Click);
             // 
@@ -146,12 +152,6 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 22);
             // 
             // NewMainForm
             // 

@@ -9,6 +9,7 @@ using TheLeftExit.TeslaX.Helpers;
 using TheLeftExit.TeslaX.Interface;
 using TheLeftExit.TeslaX.Properties;
 using System.Linq;
+using System.Threading;
 
 namespace TheLeftExit.TeslaX.Static
 {
@@ -21,6 +22,7 @@ namespace TheLeftExit.TeslaX.Static
         // Return value: whether to attempt breaking again.
         public static bool Start()
         {
+            // Retrieve ProcessHandle.
             var ps = Process.GetProcessesByName("Growtopia");
             if (ps.Length == 0)
             {
@@ -36,7 +38,14 @@ namespace TheLeftExit.TeslaX.Static
             Process process = ps.Single();
             ProcessHandle handle = process.GetHandle();
 
-            MessageBox.Show(handle.GetBlock(27,21).ToString());
+            while (Active)
+            {
+                var next = handle.GetNextBlockInfo();
+                App.Status = (next?.Distance.ToString() ?? "Unknown!");
+                Thread.Sleep(10);
+            }
+
+            App.Status = "Finished detecting!";
 
             return false;
         }

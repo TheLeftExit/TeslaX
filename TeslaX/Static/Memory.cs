@@ -49,17 +49,19 @@ namespace TheLeftExit.TeslaX.Static
             return res;
         }
 
+        // Values in the following functions have been pointer-sniped with Cheat Engine.
+        // I'm not sure yet if they change with EXE updates.
+        // Either way, feel free to use them in your app.
+
         public static Point GetPlayer(this ProcessHandle handle)
         {
             var res = new Point();
 
             byte[] rawx = handle.GetBytes(0x40A730, 4, 0xB10, 0x180, 0x8);
             res.X = Convert.ToInt32(BitConverter.ToSingle(rawx, 0));
-            res.X = (res.X - 6).Limit(0, 32 * 99);
 
             byte[] rawy = handle.GetBytes(0x40A730, 4, 0xB10, 0x180, 0xC);
             res.Y = Convert.ToInt32(BitConverter.ToSingle(rawy, 0));
-            res.Y = (res.Y - 2).Limit(0, 32 * 100); // 100 - arbitrary high block amount
 
             return res;
         }
@@ -76,6 +78,12 @@ namespace TheLeftExit.TeslaX.Static
             int lastoffset = 0x06 + x * 0x80 + y * 0x3200;
             byte[] rawx = handle.GetBytes(0x40A730, 2, 0xB10, 0x130, 0x8, 0x28, lastoffset);
             return BitConverter.ToInt16(rawx, 0);
+        }
+
+        public static bool GetDirection(this ProcessHandle handle)
+        {
+            byte[] raw = handle.GetBytes(0x40A730, 1, 0xB10, 0x180, 0x131);
+            return raw[0] == 0;
         }
     }
 }

@@ -81,25 +81,6 @@ namespace TheLeftExit.TeslaX.Static
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("Player's skin color, in order as it's displayed in game settings (from 0 to 13).")]
-        [Category("Player")]
-        [DisplayName()]
-        public int SkinColor
-        {
-            get => skinColor;
-            set => skinColor = value.Limit(0, 13);
-        }
-        private int skinColor = 0;
-
-        [Browsable(true)]
-        [ReadOnly(false)]
-        [Description("Whether the game is windowed.")]
-        [Category("Game")]
-        [DisplayName()]
-        public bool Windowed { get; set; } = true;
-
-        [Browsable(true)]
-        [ReadOnly(false)]
         [Description("Whether punch button should be pressed automatically.")]
         [Category("Input")]
         [DisplayName("Automatic punch")]
@@ -107,10 +88,36 @@ namespace TheLeftExit.TeslaX.Static
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("Display a debug form.")]
-        [Category("Debug")]
-        [DisplayName("Display debug form")]
-        public bool DebugForm { get; set; } = true;
+        [Description("If the farmable is a foreground tile (like Dirt), its ID. Otherwise, 0.")]
+        [Category("Block")]
+        [DisplayName("Foreground")]
+        public short Foreground {
+            get => foreground;
+            set
+            {
+                if (value != 0)
+                    Background = 0;
+                foreground = value;
+            }
+        }
+        private short foreground;
+
+        [Browsable(true)]
+        [ReadOnly(false)]
+        [Description("If the farmable is a background tile (like Cave Background), its ID. Otherwise, 0.")]
+        [Category("Block")]
+        [DisplayName("Background")]
+        public short Background
+        {
+            get => background;
+            set
+            {
+                if (value != 0)
+                    Foreground = 0;
+                background = value;
+            }
+        }
+        private short background;
 
         [Browsable(true)]
         [ReadOnly(false)]
@@ -128,7 +135,7 @@ namespace TheLeftExit.TeslaX.Static
 
         [Browsable(false)]
         [ReadOnly(false)]
-        [Description("Stop whenever there are items dropped behind you (custom textures only).")]
+        [Description("Stop whenever there are items dropped behind you.")]
         [Category("Other")]
         [DisplayName("Stop on full inventory")]
         public bool StopOnFull { get; set; } = false;
@@ -141,30 +148,11 @@ namespace TheLeftExit.TeslaX.Static
         public bool Continue { get; set; } = false;
 
         [Browsable(false)]
-        [ReadOnly(false)]
-        [Description("Enable features that take advantage of custom textures.")]
-        [Category("Other")]
-        [DisplayName("Support custom textures")]
-        // For now we'll default this to false and exclude new crack.rttex from custom textures.
-        public bool CustomTextures { get; set; } = false;
-
-        [Browsable(false)]
-        // How to treat BlockState.Uncertain.
-        public bool UncertainIsBlock { get; set; } = true;
-
-        [Browsable(false)]
-        // Blocks behind the player to include in a screenshot.
-        public int BlocksBehind { get; set; } = 1;
-
-        [Browsable(false)]
         // Blocks in front of the player to include in a screenshot.
         public int BlocksAhead { get; set; } = 3;
 
         [Browsable(false)]
         // Stript executed after successful workflows if Continue is checked.
         public StringCollection ContinueScript { get; set; }
-
-        [Browsable(false)]
-        public int SelectedBlock { get; set; } = 0;
     }
 }

@@ -47,6 +47,7 @@ namespace TheLeftExit.TeslaX.Interface
                 EnableSettings(false);
                 new Thread(() =>
                 {
+                    Workflow.Active = true;
                     while (Workflow.Start()) ; // This'll loop workflow/script if Continue is set.
                     Workflow.Active = false;
                     Discord.Update(DiscordStatus.Idle);

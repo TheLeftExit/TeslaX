@@ -105,7 +105,8 @@
     <Compile Include="Static\Message.cs" />
     <Compile Include="Helpers\WindowManager.cs" />
     <Compile Include="Static\UserSettings.cs" />
-    <Compile Include="Static\Workflow.cs" />
+    <Compile Include="Static\Workflow\Workflow.cs" />
+    <Compile Include="Static\Workflow\Workflow.Methods.cs" />
     <Compile Include="WindowScrape\Constants\PositioningFlags.cs" />
     <Compile Include="WindowScrape\Constants\WM.cs" />
     <Compile Include="WindowScrape\Static\HwndInterface.cs" />
