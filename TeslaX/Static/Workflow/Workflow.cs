@@ -36,17 +36,8 @@ namespace TheLeftExit.TeslaX.Static
             // Prepare local variables.
             MovementManager movementManager = new MovementManager();
             PunchManager punchManager = new PunchManager();
-            WindowManager windowManager;
 
             bool direction = false;
-
-            // Initializing.
-            windowManager = new WindowManager();
-            if (windowManager.HwndObject.Hwnd == IntPtr.Zero)
-            {
-                App.Status = "Window not found.";
-                return false;
-            }
 
             if (!UserSettings.Current.DebugMode && (!handle.GetNextBlockInfo()?.IsBlock() ?? true))
             {
@@ -94,7 +85,7 @@ namespace TheLeftExit.TeslaX.Static
                 {
                     bool? punch = punchManager.Update();
                     if (punch != null)
-                        windowManager.SendKey(Keys.Space, punch.Value);
+                        handle.SendKey(Keys.Space, punch.Value);
                 }
 
                 // Simulating movement.
@@ -103,13 +94,13 @@ namespace TheLeftExit.TeslaX.Static
                 {
                     bool? down = movementManager.Update(Move(distance, direction));
                     if (down != null)
-                        windowManager.SendKey(direction ? Keys.D : Keys.A, down.Value);
+                        handle.SendKey(direction ? Keys.D : Keys.A, down.Value);
                 }
             }
 
             // Cancelling input if there's any.
-            windowManager.SendKey(direction ? Keys.D : Keys.A, false);
-            windowManager.SendKey(Keys.Space, false);
+            handle.SendKey(direction ? Keys.D : Keys.A, false);
+            handle.SendKey(Keys.Space, false);
 
             if (Active == true)
             {
@@ -118,7 +109,7 @@ namespace TheLeftExit.TeslaX.Static
                 {
                     App.Status = "Executing custom script...";
                     Discord.Update(DiscordStatus.Advancing, rows);
-                    Script.Execute(windowManager);
+                    Script.Execute(handle);
                     if (!Active)
                     {
                         App.Status = "Finished: manual request.";

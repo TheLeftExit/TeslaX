@@ -2,17 +2,21 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace TheLeftExit.TeslaX.Static
 {
-    internal struct ProcessHandle
+    internal class ProcessHandle
     {
         public long BaseAddress;
-        public IntPtr OpenHandle;
+        public IntPtr MemoryHandle;
+        public IntPtr WindowHandle;
     }
 
-    internal static class Memory
+    internal static class ProcessManipulations
     {
+        // Memory manipulations.
         private const int PROCESS_WM_READ = 0x0010;
 
         [DllImport("kernel32.dll")]
@@ -20,12 +24,6 @@ namespace TheLeftExit.TeslaX.Static
 
         [DllImport("kernel32.dll")]
         private static extern bool ReadProcessMemory(int hProcess, long lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
-
-        public static ProcessHandle GetHandle(this Process process) => new ProcessHandle
-        {
-            BaseAddress = (long)process.MainModule.BaseAddress,
-            OpenHandle = OpenProcess(PROCESS_WM_READ, false, process.Id)
-        };
 
         private static byte[] GetBytes(this ProcessHandle handle, long entryPoint, int byteCount, params int[] offsets)
         {
@@ -36,14 +34,39 @@ namespace TheLeftExit.TeslaX.Static
 
             for (int i = 0; i < offsets.Length; i++)
             {
-                ReadProcessMemory((int)handle.OpenHandle, target, addressContainer, 8, ref dummynum);
+                ReadProcessMemory((int)handle.MemoryHandle, target, addressContainer, 8, ref dummynum);
                 target = BitConverter.ToInt64(addressContainer, 0) + offsets[i];
             }
 
             byte[] res = new byte[byteCount];
-            ReadProcessMemory((int)handle.OpenHandle, target, res, byteCount, ref dummynum);
+            ReadProcessMemory((int)handle.MemoryHandle, target, res, byteCount, ref dummynum);
             return res;
         }
+
+        // Window manipulations.
+        private const uint WM_KEYDOWN = 0x0100;
+        private const uint WM_KEYUP = 0x0101;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, uint wParam, uint lParam);
+
+        public static void SendKey(this ProcessHandle handle, Keys key, bool down) =>
+            SendMessage(handle.WindowHandle, down ? WM_KEYDOWN : WM_KEYUP, (uint)key, 0);
+
+        public static void HoldKey(this ProcessHandle handle, Keys key, int duration)
+        {
+            handle.SendKey(key, true);
+            Thread.Sleep(duration);
+            handle.SendKey(key, false);
+        }
+
+        // Constructor.
+        public static ProcessHandle GetHandle(this Process process) => new ProcessHandle
+        {
+            BaseAddress = (long)process.MainModule.BaseAddress,
+            MemoryHandle = OpenProcess(PROCESS_WM_READ, false, process.Id),
+            WindowHandle = process.MainWindowHandle
+        };
 
         // Values in the following functions have been pointer-sniped with Cheat Engine.
         // I'm not sure yet if they change with EXE updates.

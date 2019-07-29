@@ -61,7 +61,7 @@ namespace TheLeftExit.TeslaX.Static
             }
         }
 
-        public static void Execute(WindowManager window)
+        public static void Execute(ProcessHandle window)
         {
             if (UserSettings.Current.ContinueScript == null)
                 return;
@@ -86,9 +86,7 @@ namespace TheLeftExit.TeslaX.Static
                         window.HoldKey(Keys.Space, cmd[0]);
                         break;
                 }
-                ;
             }
-            ;
         }
     }
 }
