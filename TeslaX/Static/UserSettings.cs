@@ -34,7 +34,7 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("Minimum time to stay still whenever \"stay\" is issued (milliseconds).")]
-        [Category("Input")]
+        [Category("Movement")]
         [DisplayName("Minimum pause time")]
         public int MinStop
         {
@@ -46,7 +46,7 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("Maximum time to move at once. Afterward, \"stay\" is issued (milliseconds).")]
-        [Category("Input")]
+        [Category("Movement")]
         [DisplayName("Maximum move time")]
         public int MaxMove
         {
@@ -58,7 +58,7 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("Move forward until this distance to a block is reached when moving left (pixels).")]
-        [Category("Input")]
+        [Category("Movement")]
         [DisplayName("Target distance: left")]
         public int DistanceLeft
         {
@@ -70,7 +70,7 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("Move forward until this distance to a block is reached when moving right. (pixels)")]
-        [Category("Input")]
+        [Category("Movement")]
         [DisplayName("Target distance: right")]
         public int DistanceRight
         {
@@ -82,77 +82,34 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("Whether punch button should be pressed automatically.")]
-        [Category("Input")]
+        [Category("General")]
         [DisplayName("Automatic punch")]
         public bool Punch { get; set; } = true;
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("If the farmable is a foreground tile (like Dirt), its ID. Otherwise, 0.")]
-        [Category("Tiles: block")]
-        [DisplayName("Foreground")]
-        public short BlockForeground
-        {
-            get => blockForeground;
-            set
-            {
-                if (value != 0)
-                    BlockBackground = 0;
-                blockForeground = value;
-            }
-        }
-        private short blockForeground;
+        [Description("Tile ID of the broken block.")]
+        [Category("General")]
+        [DisplayName("Block ID")]
+        public short BlockID { get; set; }
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("If the farmable is a background tile (like Cave Background), its ID. Otherwise, 0.")]
-        [Category("Tiles: block")]
-        [DisplayName("Background")]
-        public short BlockBackground
-        {
-            get => blockBackground;
-            set
-            {
-                if (value != 0)
-                    BlockForeground = 0;
-                blockBackground = value;
-            }
-        }
-        private short blockBackground;
+        [Description("Tile ID of the door (when multiple row support is enabled; set to 0 for any tile).")]
+        [Category("Multiple row support")]
+        [DisplayName("Door ID")]
+        public short DoorID { get; set; }
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("If the next row condition is a foreground tile (like Dirt), its ID. Otherwise, 0.")]
-        [Category("Tiles: door")]
-        [DisplayName("Foreground")]
-        public short DoorForeground
-        {
-            get => doorForeground;
-            set
-            {
-                if (value != 0)
-                    DoorBackground = 0;
-                doorForeground = value;
-            }
+        [Description("Range, in pixels from player, to detect blocks in (set to 0 for unlimited).")]
+        [Category("General")]
+        [DisplayName("Range")]
+        public int Range {
+            get => range;
+            set => range = value.Limit(0, 32000);
         }
-        private short doorForeground;
-
-        [Browsable(true)]
-        [ReadOnly(false)]
-        [Description("If the next row condition is a background tile (like Cave Background), its ID. Otherwise, 0.")]
-        [Category("Tiles: door")]
-        [DisplayName("Background")]
-        public short DoorBackground
-        {
-            get => doorBackground;
-            set
-            {
-                if (value != 0)
-                    DoorForeground = 0;
-                doorBackground = value;
-            }
-        }
-        private short doorBackground;
+        private int range;
 
         [Browsable(true)]
         [ReadOnly(false)]
@@ -168,7 +125,7 @@ namespace TheLeftExit.TeslaX.Static
         [DisplayName("Enable")]
         public bool RichPresence { get; set; } = false;
 
-        [Browsable(false)]
+        [Browsable(false)] // Not implemented
         [ReadOnly(false)]
         [Description("Stop whenever there are items dropped behind you.")]
         [Category("Other")]
@@ -178,13 +135,9 @@ namespace TheLeftExit.TeslaX.Static
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("At the end of the row, execute custom script (see Tools), then immediately attempt to start breaking.")]
-        [Category("Other")]
-        [DisplayName("Multiple row support")]
+        [Category("Multiple row support")]
+        [DisplayName("Enable")]
         public bool Continue { get; set; } = false;
-
-        [Browsable(false)]
-        // Blocks in front of the player to include in a screenshot.
-        public int BlocksAhead { get; set; } = 3;
 
         [Browsable(false)]
         // Stript executed after successful workflows if Continue is checked.

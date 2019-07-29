@@ -135,5 +135,31 @@ namespace TheLeftExit.TeslaX.Static
                 return false;
             }
         }
+
+        public static void BlockAheadToStatus()
+        {
+            App.Status = "Initializing...";
+
+            // Retrieve ProcessHandle.
+            var ps = Process.GetProcessesByName("Growtopia");
+            if (ps.Length == 0)
+            {
+                App.Status = "Growtopia isn't open.";
+                return;
+            }
+            else if (ps.Length > 1)
+            {
+                App.Status = "More than one Growtopia detected.";
+                return;
+            }
+            Process process = ps.Single();
+            ProcessHandle handle = process.GetHandle();
+
+            var info = handle.GetNextBlockInfo();
+            if (info == null)
+                App.Status = "No blocks found.";
+            else
+                App.Status = "FG: " + info.Foreground + ", BG: " + info.Background + ", distance: " + info.Distance + ".";
+        }
     }
 }

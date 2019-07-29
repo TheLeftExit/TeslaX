@@ -87,5 +87,10 @@ namespace TheLeftExit.TeslaX.Interface
         {
             Close();
         }
+
+        private void ToolStripButton1_Click(object sender, EventArgs e)
+        {
+            Workflow.BlockAheadToStatus();
+        }
     }
 }

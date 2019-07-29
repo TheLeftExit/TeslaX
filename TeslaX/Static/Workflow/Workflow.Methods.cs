@@ -10,11 +10,14 @@ namespace TheLeftExit.TeslaX.Static
             public short Foreground;
             public short Background;
 
+            private bool InRange() =>
+                Distance == 0 || Distance <= UserSettings.Current.Range;
+
             public bool IsBlock() =>
-                Foreground == UserSettings.Current.BlockForeground && Background == UserSettings.Current.BlockBackground;
+                InRange() && (UserSettings.Current.BlockID == 0 || Foreground == UserSettings.Current.BlockID || Background == UserSettings.Current.BlockID);
 
             public bool IsDoor() =>
-                Foreground == UserSettings.Current.DoorForeground && Background == UserSettings.Current.DoorBackground;
+                InRange() && (UserSettings.Current.BlockID == 0 || Foreground == UserSettings.Current.DoorID || Background == UserSettings.Current.DoorID);
         }
 
         private static NextBlockInfo GetNextBlockInfo(this ProcessHandle handle)
