@@ -55,12 +55,6 @@ namespace TheLeftExit.TeslaX.Static
             {
                 /* App.Status = ((double)sw.ElapsedTicks * 1000 / Stopwatch.Frequency).ToString(); */
                 /* sw.Restart(); */
-                // Checking if we've been manually cancelled.
-                if (Keyboard.IsKeyDown(Key.S))
-                {
-                    Active = false;
-                    break;
-                }
 
                 // Getting distance.
                 var info = handle.GetNextBlockInfo();

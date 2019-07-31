@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Input;
 using TheLeftExit.TeslaX.Properties;
 using TheLeftExit.TeslaX.Static;
 
@@ -17,6 +18,17 @@ namespace TheLeftExit.TeslaX.Interface
             topMenuStrip.Enabled = value;
         }
 
+        // Disabling ALT in our application (since we're using it as a shortcut for other things).
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if ((keyData & Keys.Alt) == Keys.Alt)
+                return true;
+            else
+                return base.ProcessDialogKey(keyData);
+        }
+
+        bool ToStop = false;
+
         public NewMainForm()
         {
             InitializeComponent();
@@ -30,6 +42,39 @@ namespace TheLeftExit.TeslaX.Interface
             // Linking form to app logic.
             propertyGrid.SelectedObject = UserSettings.Current;
             App.StatusLabel = statusLabel;
+
+            // Starting listener.
+            Thread thread = new Thread(() =>
+            {
+                while (!ToStop)
+                {
+                    if (Keyboard.IsKeyDown(Key.S))
+                    {
+                        if (Keyboard.IsKeyDown(Key.LeftAlt))
+                        {
+                            if (!Workflow.Active)
+                            {
+                                startButton.GetCurrentParent().Invoke((MethodInvoker)startButton.PerformClick);
+                                while (Keyboard.IsKeyDown(Key.S))
+                                    Thread.Sleep(50);
+                            }
+                        }
+                        else
+                        {
+                            if (Workflow.Active)
+                                startButton.GetCurrentParent().Invoke((MethodInvoker)startButton.PerformClick);
+                        }
+                    }
+                    Thread.Sleep(50);
+                }
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+        }
+
+        private void NewMainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ToStop = true;
         }
 
         private void ToolStripMenuItem2_Click(object sender, EventArgs e)
