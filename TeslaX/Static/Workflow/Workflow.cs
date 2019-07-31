@@ -103,7 +103,7 @@ namespace TheLeftExit.TeslaX.Static
                 {
                     App.Status = "Executing custom script...";
                     Discord.Update(DiscordStatus.Advancing, rows);
-                    Script.Execute(handle);
+                    handle.ExecuteScript(direction);
                     if (!Active)
                     {
                         App.Status = "Finished: manual request.";

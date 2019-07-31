@@ -22,8 +22,8 @@ namespace TheLeftExit.TeslaX.Static
         public static CommandInfo[] Commands = new CommandInfo[]
         {
             new CommandInfo("Wait", "wait", "Duration"),
-            new CommandInfo("Move left", "left", "Duration"),
-            new CommandInfo("Move right", "right", "Duration"),
+            new CommandInfo("Move forward", "forward", "Duration"),
+            new CommandInfo("Move backward", "backward", "Duration"),
             new CommandInfo("Jump", "jump", "Duration"),
             new CommandInfo("Punch", "punch", "Duration")
         };
@@ -61,7 +61,7 @@ namespace TheLeftExit.TeslaX.Static
             }
         }
 
-        public static void Execute(ProcessHandle window)
+        public static void ExecuteScript(this ProcessHandle window, bool right)
         {
             if (UserSettings.Current.ContinueScript == null)
                 return;
@@ -73,11 +73,11 @@ namespace TheLeftExit.TeslaX.Static
                     case "wait":
                         window.HoldKey(Keys.None, cmd[0]);
                         break;
-                    case "left":
-                        window.HoldKey(Keys.A, cmd[0]);
+                    case "forward":
+                        window.HoldKey(right ? Keys.D : Keys.A, cmd[0]);
                         break;
-                    case "right":
-                        window.HoldKey(Keys.D, cmd[0]);
+                    case "backward":
+                        window.HoldKey(right ? Keys.A : Keys.D, cmd[0]);
                         break;
                     case "jump":
                         window.HoldKey(Keys.W, cmd[0]);

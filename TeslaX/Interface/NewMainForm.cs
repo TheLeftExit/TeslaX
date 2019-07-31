@@ -43,6 +43,24 @@ namespace TheLeftExit.TeslaX.Interface
             propertyGrid.SelectedObject = UserSettings.Current;
             App.StatusLabel = statusLabel;
 
+            // Checking ContinueScript for version derivation.
+            // Checking if there are unsupported commands.
+            foreach (var s in UserSettings.Current.ContinueScript)
+            {
+                bool supported = false;
+                foreach (var c in Script.Commands)
+                    if (s.Split(' ')[0] == c.Code)
+                    {
+                        supported = true;
+                        break;
+                    }
+                if (!supported)
+                {
+                    MessageBox.Show("Your script contains unsupported instructions. It will be replaced with an empty one.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    UserSettings.Current.ContinueScript = null;
+                }
+            }
+
             // Starting listener.
             Thread thread = new Thread(() =>
             {
