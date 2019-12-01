@@ -90,6 +90,11 @@ namespace TheLeftExit.TeslaX.Static
                     if (down != null)
                         handle.SendKey(direction ? Keys.D : Keys.A, down.Value);
                 }
+
+                if (info == null)
+                    App.Status = "No blocks found.";
+                else
+                    App.Status = "FG: " + info.Foreground + ", BG: " + info.Background + ", distance: " + info.Distance + ".";
             }
 
             // Cancelling input if there's any.
