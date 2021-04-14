@@ -1,7 +1,7 @@
 # TeslaX
 Farming bot for Growtopia.  
 I'm not always maintaining the Releases tab, so if the last compiled version isn't up to date, please clone and build the project yourself. .NET Framework 4.7.2 is required.  
-For any questions contact me by creating an issue.
+For any questions contact me at theleftexit@protonmail.com.
 
 What this tool CAN do:
  - Simulate human-like keyboard input to move forward and punch, breaking lines of blocks.
