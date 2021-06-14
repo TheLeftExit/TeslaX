@@ -32,10 +32,6 @@
             this.ScriptDraft = new System.Windows.Forms.ListBox();
             this.Info1 = new System.Windows.Forms.Label();
             this.Argument1 = new System.Windows.Forms.NumericUpDown();
-            this.Info2 = new System.Windows.Forms.Label();
-            this.Argument2 = new System.Windows.Forms.NumericUpDown();
-            this.Info3 = new System.Windows.Forms.Label();
-            this.Argument3 = new System.Windows.Forms.NumericUpDown();
             this.AddButton = new System.Windows.Forms.Button();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
@@ -43,9 +39,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Argument1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Argument2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Argument3)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +53,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(101, 21);
             this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // ScriptDraft
             // 
@@ -67,16 +61,15 @@
             this.ScriptDraft.Name = "ScriptDraft";
             this.ScriptDraft.Size = new System.Drawing.Size(156, 95);
             this.ScriptDraft.TabIndex = 1;
-            this.ScriptDraft.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ListBox1_KeyPress);
             // 
             // Info1
             // 
             this.Info1.AutoSize = true;
             this.Info1.Location = new System.Drawing.Point(6, 56);
             this.Info1.Name = "Info1";
-            this.Info1.Size = new System.Drawing.Size(64, 13);
+            this.Info1.Size = new System.Drawing.Size(50, 13);
             this.Info1.TabIndex = 3;
-            this.Info1.Text = "Argument 1:";
+            this.Info1.Text = "Duration:";
             // 
             // Argument1
             // 
@@ -90,50 +83,6 @@
             this.Argument1.Size = new System.Drawing.Size(101, 20);
             this.Argument1.TabIndex = 4;
             this.Argument1.ThousandsSeparator = true;
-            // 
-            // Info2
-            // 
-            this.Info2.AutoSize = true;
-            this.Info2.Location = new System.Drawing.Point(6, 95);
-            this.Info2.Name = "Info2";
-            this.Info2.Size = new System.Drawing.Size(64, 13);
-            this.Info2.TabIndex = 3;
-            this.Info2.Text = "Argument 2:";
-            // 
-            // Argument2
-            // 
-            this.Argument2.Location = new System.Drawing.Point(6, 111);
-            this.Argument2.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.Argument2.Name = "Argument2";
-            this.Argument2.Size = new System.Drawing.Size(101, 20);
-            this.Argument2.TabIndex = 4;
-            this.Argument2.ThousandsSeparator = true;
-            // 
-            // Info3
-            // 
-            this.Info3.AutoSize = true;
-            this.Info3.Location = new System.Drawing.Point(6, 134);
-            this.Info3.Name = "Info3";
-            this.Info3.Size = new System.Drawing.Size(64, 13);
-            this.Info3.TabIndex = 3;
-            this.Info3.Text = "Argument 3:";
-            // 
-            // Argument3
-            // 
-            this.Argument3.Location = new System.Drawing.Point(6, 150);
-            this.Argument3.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.Argument3.Name = "Argument3";
-            this.Argument3.Size = new System.Drawing.Size(101, 20);
-            this.Argument3.TabIndex = 4;
-            this.Argument3.ThousandsSeparator = true;
             // 
             // AddButton
             // 
@@ -165,10 +114,10 @@
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.Button3_Click);
             // 
-            // CancelButton
+            // QuitButton
             // 
             this.QuitButton.Location = new System.Drawing.Point(6, 149);
-            this.QuitButton.Name = "CancelButton";
+            this.QuitButton.Name = "QuitButton";
             this.QuitButton.Size = new System.Drawing.Size(75, 23);
             this.QuitButton.TabIndex = 8;
             this.QuitButton.Text = "Cancel";
@@ -177,20 +126,16 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.Argument3);
-            this.groupBox1.Controls.Add(this.Argument2);
             this.groupBox1.Controls.Add(this.Argument1);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.Info1);
-            this.groupBox1.Controls.Add(this.Info2);
-            this.groupBox1.Controls.Add(this.Info3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(123, 182);
+            this.groupBox1.Size = new System.Drawing.Size(123, 98);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Commands";
+            this.groupBox1.Text = "Command builder";
             // 
             // label1
             // 
@@ -215,11 +160,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Script";
             // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(12, 113);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(123, 79);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "This script will be executed once you run out of blocks. You can use it to move b" +
+    "etween rows of blocks.";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ScriptForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(316, 201);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -227,8 +183,6 @@
             this.Text = "Script builder";
             this.Load += new System.EventHandler(this.ScriptForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Argument1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Argument2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Argument3)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -242,10 +196,6 @@
         private System.Windows.Forms.ListBox ScriptDraft;
         private System.Windows.Forms.Label Info1;
         private System.Windows.Forms.NumericUpDown Argument1;
-        private System.Windows.Forms.Label Info2;
-        private System.Windows.Forms.NumericUpDown Argument2;
-        private System.Windows.Forms.Label Info3;
-        private System.Windows.Forms.NumericUpDown Argument3;
         private System.Windows.Forms.Button AddButton;
         private System.Windows.Forms.Button RemoveButton;
         private System.Windows.Forms.Button SaveButton;
@@ -253,5 +203,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label2;
     }
 }

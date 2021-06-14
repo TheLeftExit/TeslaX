@@ -31,6 +31,11 @@ namespace TheLeftExit.TeslaX.Static
             Current = new UserSettings();
         }
 
+        public static int Limit(int value, int min, int max)
+        {
+            return Math.Max(min, Math.Min(max, value));
+        }
+
         [Browsable(true)]
         [ReadOnly(false)]
         [Description("Minimum time to stay still whenever \"stay\" is issued (milliseconds).")]
@@ -39,7 +44,7 @@ namespace TheLeftExit.TeslaX.Static
         public int MinStop
         {
             get => minStop;
-            set => minStop = value.Limit(0, 999);
+            set => minStop = Limit(value, 0, 999);
         }
         private int minStop = 250;
 
@@ -51,7 +56,7 @@ namespace TheLeftExit.TeslaX.Static
         public int MaxMove
         {
             get => maxMove;
-            set => maxMove = value.Limit(0, 999);
+            set => maxMove = Limit(value, 0, 999);
         }
         private int maxMove = 150;
 
@@ -63,7 +68,7 @@ namespace TheLeftExit.TeslaX.Static
         public int DistanceLeft
         {
             get => distanceLeft;
-            set => distanceLeft = value.Limit(1, 58);
+            set => distanceLeft = Limit(value, 1, 58);
         }
         private int distanceLeft = 58;
 
@@ -75,7 +80,7 @@ namespace TheLeftExit.TeslaX.Static
         public int DistanceRight
         {
             get => distanceRight;
-            set => distanceRight = value.Limit(1, 38);
+            set => distanceRight = Limit(value, 1, 38);
         }
         private int distanceRight = 38;
 
@@ -95,7 +100,7 @@ namespace TheLeftExit.TeslaX.Static
 
         [Browsable(true)]
         [ReadOnly(false)]
-        [Description("Tile ID of the door (when multiple row support is enabled; set to 0 for any tile).")]
+        [Description("End-of-row script is executed whenever this block ID is detected. Select 0 to always execute the script.")]
         [Category("Multiple row support")]
         [DisplayName("Door ID")]
         public short DoorID { get; set; }
@@ -107,7 +112,7 @@ namespace TheLeftExit.TeslaX.Static
         [DisplayName("Range")]
         public int Range {
             get => range;
-            set => range = value.Limit(0, 32000);
+            set => range = Limit(value, 0, 32000);
         }
         private int range;
 
@@ -118,13 +123,6 @@ namespace TheLeftExit.TeslaX.Static
         [DisplayName("Enable debug mode")]
         public bool DebugMode { get; set; } = false;
 
-        [Browsable(true)]
-        [ReadOnly(false)]
-        [Description("Display your status on Discord.")]
-        [Category("Discord Rich Presence")]
-        [DisplayName("Enable")]
-        public bool RichPresence { get; set; } = false;
-
         [Browsable(false)] // Not implemented
         [ReadOnly(false)]
         [Description("Stop whenever there are items dropped behind you.")]
@@ -133,10 +131,6 @@ namespace TheLeftExit.TeslaX.Static
         public bool StopOnFull { get; set; } = false;
 
         [Browsable(true)]
-        [ReadOnly(false)]
-        [Description("At the end of the row, execute custom script (see Tools), then immediately attempt to start breaking.")]
-        [Category("Multiple row support")]
-        [DisplayName("Enable")]
         public bool Continue { get; set; } = false;
 
         [Browsable(false)]

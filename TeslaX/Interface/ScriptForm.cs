@@ -9,16 +9,11 @@ namespace TheLeftExit.TeslaX.Interface
 {
     public partial class ScriptForm : Form
     {
-        private Label[] labels;
-        private NumericUpDown[] arguments;
-        private int parameters;
         private bool saved;
 
         public ScriptForm()
         {
             InitializeComponent();
-            labels = new Label[] { Info1, Info2, Info3 };
-            arguments = new NumericUpDown[] { Argument1, Argument2, Argument3 };
         }
 
         private void ScriptForm_Load(object sender, EventArgs e)
@@ -34,38 +29,11 @@ namespace TheLeftExit.TeslaX.Interface
             saved = true;
         }
 
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            parameters = Script.Commands[comboBox1.SelectedIndex].Parameters.Length;
-
-            for (int i = 0; i < 3; i++)
-            {
-                if (parameters > i)
-                {
-                    labels[i].Visible = true;
-                    labels[i].Text = Script.Commands[comboBox1.SelectedIndex].Parameters[i];
-                    arguments[i].Visible = true;
-                    arguments[i].Value = 0;
-                }
-                else
-                {
-                    labels[i].Visible = false;
-                    arguments[i].Visible = false;
-                }
-            }
-        }
-
-        private void ListBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder(Script.Commands[comboBox1.SelectedIndex].Code);
 
-            for (int i = 0; i < parameters; i++)
-                sb.Append(" " + arguments[i].Value.ToString());
+            sb.Append(" " + Argument1.Value.ToString());
 
             if (ScriptDraft.SelectedIndex != -1)
                 ScriptDraft.Items.Insert(ScriptDraft.SelectedIndex + 1, sb.ToString());
@@ -92,6 +60,7 @@ namespace TheLeftExit.TeslaX.Interface
                 sc.Add(s);
             }
             UserSettings.Current.ContinueScript = sc;
+            MessageBox.Show("Script saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             saved = true;
         }
 

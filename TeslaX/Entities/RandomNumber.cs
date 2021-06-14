@@ -4,7 +4,7 @@ namespace TheLeftExit.TeslaX.Entities
 {
     internal class RandomNumber
     {
-        // Pure random number generator for all instances.
+        // "Pure" random number generator for all instances.
         private static Random random = new Random();
 
         // Min/max values to be passed in the generator, with evenly distributed probability.

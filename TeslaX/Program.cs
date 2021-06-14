@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Diagnostics;
 using TheLeftExit.TeslaX.Interface;
 using TheLeftExit.TeslaX.Static;
 
 namespace TheLeftExit.TeslaX
 {
-    public class Program
+    public static class Program
     {
+        public static string GameDirectory = Environment.GetEnvironmentVariable("LOCALAPPDATA") + @"\Growtopia";
+        public static Process Growtopia;
+        
         [STAThread]
         public static void Main()
         {

@@ -79,9 +79,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Helpers\TimedManager.cs" />
+    <Compile Include="Entities\TimedManager.cs" />
     <Compile Include="Entities\RandomNumber.cs" />
-    <Compile Include="Helpers\PunchManager.cs" />
+    <Compile Include="Entities\PunchManager.cs" />
     <Compile Include="Interface\NewMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,11 +99,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Static\DiscordClient.cs" />
     <Compile Include="Static\App.cs" />
     <Compile Include="Static\Process.cs" />
     <Compile Include="Static\Script.cs" />
-    <Compile Include="Static\Message.cs" />
     <Compile Include="Static\UserSettings.cs" />
     <Compile Include="Static\Workflow\Workflow.cs" />
     <Compile Include="Static\Workflow\Workflow.Methods.cs" />
@@ -115,12 +113,9 @@
     <Content Include="Properties\pickaxe.ico" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
-    <Compile Include="Helpers\MovementManager.cs" />
+    <Compile Include="Entities\MovementManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DiscordRPC, Version=1.0.115.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\DiscordRichPresence.1.0.115\lib\net35\DiscordRPC.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>

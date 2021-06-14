@@ -3,15 +3,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Input;
-using TheLeftExit.TeslaX.Helpers;
+using TheLeftExit.TeslaX.Entities;
 
 namespace TheLeftExit.TeslaX.Static
 {
     internal static partial class Workflow
     {
         public static bool Active = false;
-
-        private static int rows = 0;
 
         // Return value: whether to attempt breaking again.
         public static bool Start()
@@ -48,7 +46,6 @@ namespace TheLeftExit.TeslaX.Static
             /* var sw = Stopwatch.StartNew(); */
 
             // Breaking.
-            Discord.Update(DiscordStatus.Breaking, rows);
             App.Status = "Breaking...";
             bool NextRowCondition = false;
             while (Active)
@@ -103,11 +100,9 @@ namespace TheLeftExit.TeslaX.Static
 
             if (Active == true)
             {
-                rows++;
                 if (!UserSettings.Current.DebugMode && UserSettings.Current.Continue && NextRowCondition)
                 {
                     App.Status = "Executing custom script...";
-                    Discord.Update(DiscordStatus.Advancing, rows);
                     handle.ExecuteScript(direction);
                     if (!Active)
                     {

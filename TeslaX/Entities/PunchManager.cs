@@ -1,6 +1,4 @@
-﻿using TheLeftExit.TeslaX.Entities;
-
-namespace TheLeftExit.TeslaX.Helpers
+﻿namespace TheLeftExit.TeslaX.Entities
 {
     internal class PunchManager : TimedManager
     {

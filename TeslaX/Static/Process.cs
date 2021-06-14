@@ -75,10 +75,10 @@ namespace TheLeftExit.TeslaX.Static
         {
             var res = new Point();
 
-            byte[] rawx = handle.GetBytes(0x4EEEF8, 4, 0xCC8, 0x188, 0x8);
+            byte[] rawx = handle.GetBytes(0x7667F8, 4, 0xAB0, 0x198, 0x8);
             res.X = Convert.ToInt32(BitConverter.ToSingle(rawx, 0));
 
-            byte[] rawy = handle.GetBytes(0x4EEEF8, 4, 0xCC8, 0x188, 0xC);
+            byte[] rawy = handle.GetBytes(0x7667F8, 4, 0xAB0, 0x198, 0xC);
             res.Y = Convert.ToInt32(BitConverter.ToSingle(rawy, 0));
 
             return res;
@@ -86,21 +86,21 @@ namespace TheLeftExit.TeslaX.Static
 
         public static short GetBlock(this ProcessHandle handle, int x, int y)
         {
-            int lastoffset = 0x04 + x * 0x80 + y * 0x3200;
-            byte[] rawx = handle.GetBytes(0x4EEEF8, 2, 0xCC8, 0x130, 0x28, lastoffset);
+            int lastoffset = 0x04 + x * 0x90 + y * 0x3840;
+            byte[] rawx = handle.GetBytes(0x7667F8, 2, 0xAB0, 0x108, 0x28, lastoffset);
             return BitConverter.ToInt16(rawx, 0);
         }
 
         public static short GetBackground(this ProcessHandle handle, int x, int y)
         {
-            int lastoffset = 0x06 + x * 0x80 + y * 0x3200;
-            byte[] rawx = handle.GetBytes(0x4EEEF8, 2, 0xCC8, 0x130, 0x28, lastoffset);
+            int lastoffset = 0x06 + x * 0x90 + y * 0x3840;
+            byte[] rawx = handle.GetBytes(0x7667F8, 2, 0xAB0, 0x108, 0x28, lastoffset);
             return BitConverter.ToInt16(rawx, 0);
         }
 
         public static bool GetDirection(this ProcessHandle handle)
         {
-            byte[] raw = handle.GetBytes(0x4EEEF8, 1, 0xCC8, 0x188, 0x131);
+            byte[] raw = handle.GetBytes(0x7667F8, 1, 0xAB0, 0x198, 0x61);
             return raw[0] == 0;
         }
     }

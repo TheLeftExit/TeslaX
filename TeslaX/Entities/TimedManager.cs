@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace TheLeftExit.TeslaX.Helpers
+namespace TheLeftExit.TeslaX.Entities
 {
     public abstract class TimedManager
     {

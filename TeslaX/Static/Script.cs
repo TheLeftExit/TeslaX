@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using TheLeftExit.TeslaX.Helpers;
 
 namespace TheLeftExit.TeslaX.Static
 {
@@ -10,54 +9,39 @@ namespace TheLeftExit.TeslaX.Static
         {
             public string Name;
             public string Code;
-            public string[] Parameters;
-            public CommandInfo(string name, string code, params string[] parameters)
+            public CommandInfo(string name, string code)
             {
                 Name = name;
                 Code = code;
-                Parameters = parameters;
             }
         }
 
         public static CommandInfo[] Commands = new CommandInfo[]
         {
-            new CommandInfo("Wait", "wait", "Duration"),
-            new CommandInfo("Move forward", "forward", "Duration"),
-            new CommandInfo("Move backward", "backward", "Duration"),
-            new CommandInfo("Jump", "jump", "Duration"),
-            new CommandInfo("Punch", "punch", "Duration")
+            new CommandInfo("Wait", "wait"),
+            new CommandInfo("Move forward", "forward"),
+            new CommandInfo("Move backward", "backward"),
+            new CommandInfo("Jump", "jump"),
+            new CommandInfo("Punch", "punch")
         };
 
         private struct Command
         {
             public string Name;
-            private ushort[] arguments;
-            public ushort this[int i] { get { return arguments[i]; } }
+            public ushort Duration;
 
             public static readonly Command Empty = new Command()
             {
-                arguments = new ushort[0],
                 Name = ""
             };
 
-            // Examples: "punch" "move 1" "var 0 100 200"
             public Command(string s)
             {
                 string[] words = s.Split(' ');
                 List<ushort> args = new List<ushort>();
                 Name = words[0];
-                for (int i = 1; i < words.Length; i++)
-                {
-                    ushort o;
-                    if (ushort.TryParse(words[i], out o))
-                        args.Add(o);
-                    else
-                    {
-                        this = Empty;
-                        return;
-                    }
-                }
-                arguments = args.ToArray();
+                if (!ushort.TryParse(words[1], out Duration))
+                    this = Empty;
             }
         }
 
@@ -71,19 +55,19 @@ namespace TheLeftExit.TeslaX.Static
                 switch (cmd.Name)
                 {
                     case "wait":
-                        window.HoldKey(Keys.None, cmd[0]);
+                        window.HoldKey(Keys.None, cmd.Duration);
                         break;
                     case "forward":
-                        window.HoldKey(right ? Keys.D : Keys.A, cmd[0]);
+                        window.HoldKey(right ? Keys.D : Keys.A, cmd.Duration);
                         break;
                     case "backward":
-                        window.HoldKey(right ? Keys.A : Keys.D, cmd[0]);
+                        window.HoldKey(right ? Keys.A : Keys.D, cmd.Duration);
                         break;
                     case "jump":
-                        window.HoldKey(Keys.W, cmd[0]);
+                        window.HoldKey(Keys.W, cmd.Duration);
                         break;
                     case "punch":
-                        window.HoldKey(Keys.Space, cmd[0]);
+                        window.HoldKey(Keys.Space, cmd.Duration);
                         break;
                 }
             }

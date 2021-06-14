@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Collections.Specialized;
 using TheLeftExit.TeslaX.Properties;
 using TheLeftExit.TeslaX.Static;
 
@@ -36,16 +37,13 @@ namespace TheLeftExit.TeslaX.Interface
             // Setting icon.
             Icon = Resources.pickaxe;
 
-            // Loading Discord.
-            Discord.Update(DiscordStatus.Idle);
-
             // Linking form to app logic.
             propertyGrid.SelectedObject = UserSettings.Current;
             App.StatusLabel = statusLabel;
 
             // Checking ContinueScript for version derivation.
             // Checking if there are unsupported commands.
-            foreach (var s in UserSettings.Current.ContinueScript)
+            foreach (var s in UserSettings.Current.ContinueScript ?? new StringCollection())
             {
                 bool supported = false;
                 foreach (var c in Script.Commands)
@@ -111,7 +109,6 @@ namespace TheLeftExit.TeslaX.Interface
                     Workflow.Active = true;
                     while (Workflow.Start()) ; // This'll loop workflow/script if Continue is set.
                     Workflow.Active = false;
-                    Discord.Update(DiscordStatus.Idle);
                     Invoke((MethodInvoker)delegate
                     {
                         startButton.Enabled = true;
@@ -137,13 +134,6 @@ namespace TheLeftExit.TeslaX.Interface
                 UserSettings.Erase();
                 propertyGrid.SelectedObject = UserSettings.Current;
             }
-        }
-
-        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var res = MessageBox.Show("Open GitHub wiki in your browser?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (res == DialogResult.Yes)
-                Process.Start("https://github.com/TheLeftExit/TeslaX/wiki");
         }
 
         private void ToolStripMenuItem_Click(object sender, EventArgs e)

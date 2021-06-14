@@ -1,6 +1,6 @@
 ﻿using TheLeftExit.TeslaX.Static;
 
-namespace TheLeftExit.TeslaX.Helpers
+namespace TheLeftExit.TeslaX.Entities
 {
     public class MovementManager : TimedManager
     {
