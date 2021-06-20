@@ -1,13 +1,22 @@
-﻿using TheLeftExit.TeslaX.Static;
+﻿using TheLeftExit.TeslaX;
 
-namespace TheLeftExit.TeslaX.Entities
+namespace TheLeftExit.TeslaX
 {
     public class MovementManager : TimedManager
     {
+        private int minStop;
+        private int maxMove;
+
+        public MovementManager(int tMinStop, int tMaxMove)
+        {
+            minStop = tMinStop;
+            maxMove = tMaxMove;
+        }
+
         private void newdist(bool newdown)
         {
             // If we're idle, and for less than X ms, don't move yet.
-            if (!down && elapsed < UserSettings.Current.MinStop)
+            if (!down && elapsed < minStop)
                 return;
             // If it's time to stop, ignore everything else and stop.
             if (!newdown)
@@ -17,7 +26,7 @@ namespace TheLeftExit.TeslaX.Entities
                 return;
             }
             // If we're moving for more than X ms, take a break.
-            if (down && elapsed > UserSettings.Current.MaxMove)
+            if (down && elapsed > maxMove)
             {
                 toggle();
                 return;

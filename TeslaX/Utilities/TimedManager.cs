@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics;
 
-namespace TheLeftExit.TeslaX.Entities
+namespace TheLeftExit.TeslaX
 {
     public abstract class TimedManager
     {
         protected Stopwatch sw;
         protected bool down;
         protected int last;
+
+        public bool IsDown => down;
 
         protected void toggle()
         {

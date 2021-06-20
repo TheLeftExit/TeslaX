@@ -1,8 +1,8 @@
-﻿namespace TheLeftExit.TeslaX.Entities
+﻿namespace TheLeftExit.TeslaX
 {
     internal class PunchManager : TimedManager
     {
-        // Experimental: quadratic distribution. Adds delay but greatly improves stealth.
+        // Randomizing punching duration.
         private RandomNumber punchUp = new RandomNumber(0.4, 0.9, x => x * x * 1000);
         private RandomNumber punchDown = new RandomNumber(0.9, 3.2, x => x * x * 1000);
 

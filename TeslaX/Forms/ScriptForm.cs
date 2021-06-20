@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
-using TheLeftExit.TeslaX.Static;
+using TheLeftExit.TeslaX;
 
 namespace TheLeftExit.TeslaX.Interface
 {
@@ -11,34 +11,22 @@ namespace TheLeftExit.TeslaX.Interface
     {
         private bool saved;
 
-        public ScriptForm()
+        public StringCollection Script;
+
+        public ScriptForm(StringCollection s = null)
         {
             InitializeComponent();
-        }
-
-        private void ScriptForm_Load(object sender, EventArgs e)
-        {
-            foreach (var s in Script.Commands)
-                comboBox1.Items.Add(s.Name);
-            comboBox1.SelectedIndex = 0;
-
-            if (UserSettings.Current.ContinueScript != null)
-                foreach (var s in UserSettings.Current.ContinueScript)
-                    ScriptDraft.Items.Add(s);
-
+            Script = s;
             saved = true;
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder(Script.Commands[comboBox1.SelectedIndex].Code);
-
-            sb.Append(" " + Argument1.Value.ToString());
-
+            string cmd = comboBox1.SelectedText + " " + Argument1.Value;
             if (ScriptDraft.SelectedIndex != -1)
-                ScriptDraft.Items.Insert(ScriptDraft.SelectedIndex + 1, sb.ToString());
+                ScriptDraft.Items.Insert(ScriptDraft.SelectedIndex + 1, cmd);
             else
-                ScriptDraft.Items.Add(sb.ToString());
+                ScriptDraft.Items.Add(cmd);
             saved = false;
         }
 
@@ -59,7 +47,7 @@ namespace TheLeftExit.TeslaX.Interface
             {
                 sc.Add(s);
             }
-            UserSettings.Current.ContinueScript = sc;
+            Script = sc;
             MessageBox.Show("Script saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             saved = true;
         }

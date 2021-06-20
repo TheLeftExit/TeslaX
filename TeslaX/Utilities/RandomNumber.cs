@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace TheLeftExit.TeslaX.Entities
+namespace TheLeftExit.TeslaX
+
 {
     internal class RandomNumber
     {
